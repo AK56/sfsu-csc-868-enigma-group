@@ -6,42 +6,54 @@
  */
 package Property;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
- * @author Derek Ma
+ * @author Kenneth Robertson and Derek Ma
  */
 public class RealEstate extends Property {
 
     private String color;
     private int numberOfHouses;
     private boolean hasColorSetMonopoly;
+    private int numberOfColorNeededForMonopoly; //This might not be the best place to store this variable
+    private ArrayList<Integer> rents;
 
-    /* Constructors - 10 parameters */
-    public RealEstate(int owner, int location, int property, int base, String name, int pp, String color, int numberOfHouses) {
-        super(owner, location, property, base, name, pp); // 7 parameters
+    /* Constructors - 11 parameters */
+    public RealEstate(int owner, int location, int property, /*int base,*/ String name, int pp, String color, int numberOfHouses, int neededForMonopoly, ArrayList<Integer> rents) 
+    {
+        super(owner, location, property, /*base,*/ name, pp); // 7 parameters
         this.color = color;
         this.numberOfHouses = numberOfHouses;
         this.hasColorSetMonopoly = false;
+        this.numberOfColorNeededForMonopoly = neededForMonopoly;
+        this.rents = rents;
     }
     public RealEstate() {
         super(); // 7 parameters
         this.color = "";
         this.numberOfHouses = 0;
         this.hasColorSetMonopoly = false;
+        this.rents = new ArrayList<Integer>();
     }
 
     /* Initialize method */
-    public void initialize(int owner, int location, int property, int base, String name, int pp, String color, int numberOfHouses, boolean colorSet, boolean mortgage) {
+    public void initialize(int owner, int location, int property, /*int base,*/ String name, int pp, String color, int numberOfHouses, boolean colorSet, boolean mortgage, int needForMonopoly, ArrayList<Integer> rents) 
+    {
         this.setOwnerID(owner);
         this.setSpaceID(location);
         this.setPropertyID(property);
-        this.setBaseRent(base);
+        //this.setBaseRent(base);
         this.setName(name);
         this.setPurchasePrice(pp);
         this.setColor(color);
         this.setNumberOfHouses(numberOfHouses);
         this.setHasColorSetMonopoly(colorSet);
         this.setIsMortgaged(mortgage);
+        this.setNumberOfColorNeededForMonopoly(neededForMonopoly);
+        this.setRents(rents);
     }
 
     /* Getters */
@@ -54,6 +66,14 @@ public class RealEstate extends Property {
     public boolean getHasColorSetMonopoly() {
         return hasColorSetMonopoly;
     }
+    public int getNumberOfColorNeededForMonopoly() {
+        return numberOfColorNeededForMonopoly;
+    }
+    public ArrayList<Integer> getRents() {
+        return rents;
+    }
+    
+    
 
     /* Setters */
     public void setColor(String color) {
@@ -65,6 +85,13 @@ public class RealEstate extends Property {
     public void setHasColorSetMonopoly(boolean hasColorSetMonopoly) {
         this.hasColorSetMonopoly = hasColorSetMonopoly;
     }
+    public void setNumberOfColorNeededForMonopoly(int numberOfColorNeededForMonopoly) {
+        this.numberOfColorNeededForMonopoly = numberOfColorNeededForMonopoly;
+    }
+    public void setRents(ArrayList<Integer> rents) {
+        this.rents = rents;
+    }
+    
 
    
 
@@ -73,17 +100,19 @@ public class RealEstate extends Property {
      * If the player has a colored set monopoly for the color
      * of this set, the rent will be doubled.  With each additional
      * house on the property, the total rent will be the following:
-     *      (base rent + (the number of houses * base rent) * 2
-     *
-     * If the player has no colored set monopoly for the color, the base rent
-     * is returned.
+     * 
+     * rent for monopolys is either the rent value based on houses on property
+     * or two times the normal rent without a monopoly.
+     * 
      */
     public int calculateRent(/*Player Owner*/) {
         /* Game class determines if a colored monopoly exists */
         if (hasColorSetMonopoly) {
-            return (2* (baseRent +  (numberOfHouses * baseRent)));
+            if(this.numberOfHouses == 0)
+                return 2*rents[0];
+            return rents[this.numberOfHouses];
         }
-        return baseRent;
+        return rents[0];
     }
    /* 
     public static void main(String[] args) {

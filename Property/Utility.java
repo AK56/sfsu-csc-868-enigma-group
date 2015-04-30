@@ -9,14 +9,14 @@ import Game.Dice;
 
 /**
  *
- * @author NeatoTest
+ * @author Kenneth Robertson and NeatoTest
  */
 public class Utility extends Property{
     private boolean ownBothUtilities;
     
-    /* Constructors - 8 parameters */
-    public Utility(int owner, int location, int property, int base, String name, int pp) {
-        super(owner, location, property, base, name, pp); //7 parameters
+    /* Constructors - 5 parameters */
+    public Utility(int owner, int location, int property, /*int base,*/ String name, int pp) {
+        super(owner, location, property, /*base,*/ name, pp); //5 parameters
         this.ownBothUtilities = false;
     }
     public Utility() {
@@ -24,12 +24,12 @@ public class Utility extends Property{
         this.ownBothUtilities = false;
     }
     
-    /* Initialize method - 8 parameters */
-    public void initialize (int owner, int location, int property, int base, String name, int pp, boolean utility, boolean mortgage) {
+    /* Initialize method - 7 parameters */
+    public void initialize (int owner, int location, int property, /*int base,*/ String name, int pp, boolean utility, boolean mortgage) {
         this.setOwnerID(owner);
         this.setSpaceID(location);
         this.setPropertyID(property);
-        this.setBaseRent(base);
+        //this.setBaseRent(base);
         this.setName(name);
         this.setPurchasePrice(pp);
         this.setOwnBothUtilities(utility);

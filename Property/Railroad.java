@@ -6,15 +6,16 @@ package Property;
 
 /**
  *
- * @author Derek Ma
+ * @author Kenneth Robertson and Derek Ma
  */
 public class Railroad extends Property {
 
     private int numOwned; // Number of Railroads Properties owned by a player
-
-    /* Constructors - 8 parameters */
-    public Railroad(int owner, int location, int property, int base, String name, int pp) {
-        super(owner, location, property, base, name, pp); // 7 parameters
+    private static int baseRent = 25;
+    
+    /* Constructors - 5 parameters */
+    public Railroad(int owner, int location, int property, String name, int pp) {
+        super(owner, location, property, /*base,*/ name, pp); // 5 parameters
         this.numOwned = 0;
     }
 
@@ -40,10 +41,20 @@ public class Railroad extends Property {
         return numOwned;
     }
 
+    public static int getBaseRent() {
+        return baseRent;
+    }
+    
+
     /* Setters */
     public void setNumOwned(int numOwned) {
         this.numOwned = numOwned;
     }
+
+    public static void setBaseRent(int baseRent) {
+        Railroad.baseRent = baseRent;
+    }
+    
 
     @Override
     /* calculateRent

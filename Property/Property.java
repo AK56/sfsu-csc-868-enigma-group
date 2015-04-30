@@ -10,23 +10,23 @@ import Game.Space;
 
 /**
  *
- * @author Derek Ma
+ * @author Kenneth Robertson and Derek Ma
  */
 public abstract class Property extends Space {
 
     protected int ownerID;
     protected int propertyID;
-    protected int baseRent;
+    //protected int baseRent;
     protected String name;
     protected int purchasePrice;
     protected boolean isMortgaged;
 
-    /* Constructors - 7 parameters */
-    public Property(int owner, int location, int property, int base, String name, int pp) {
+    /* Constructors - 6 parameters */
+    public Property(int owner, int location, int property, /*int base,*/ String name, int pp) {
         super(location); // 1 parameter
         this.ownerID = owner;
         this.propertyID = property;
-        this.baseRent = base;
+        //this.baseRent = base;
         this.name = name;
         this.purchasePrice = pp;
         this.isMortgaged = false;
@@ -36,18 +36,18 @@ public abstract class Property extends Space {
         super(); // 1 parameter
         this.ownerID = 0;
         this.propertyID = 0;
-        this.baseRent = 0;
+        //this.baseRent = 0;
         this.name = "";
         this.purchasePrice = 0;
         this.isMortgaged = false;
     }
 
     /* Initialize method */
-    public void initialize(int owner, int location, int property, int base, String name, int pp, boolean mortgage) {
+    public void initialize(int owner, int location, int property, /*int base,*/ String name, int pp, boolean mortgage) {
         this.setOwnerID(owner);
         this.setSpaceID(location);
         this.setPropertyID(property);
-        this.setBaseRent(base);
+        //this.setBaseRent(base);
         this.setName(name);
         this.setPurchasePrice(pp);
         this.setIsMortgaged(mortgage);
@@ -62,9 +62,11 @@ public abstract class Property extends Space {
         return propertyID;
     }
 
+    /*
     public int getBaseRent() {
         return baseRent;
     }
+    */
 
     public String getName() {
         return name;
@@ -87,9 +89,11 @@ public abstract class Property extends Space {
         this.propertyID = propertyID;
     }
 
+    /*
     public void setBaseRent(int baseRent) {
         this.baseRent = baseRent;
     }
+    */
 
     public void setName(String name) {
         this.name = name;
