@@ -60,7 +60,7 @@ public class Railroad extends Property {
     /* calculateRent
      * For every railroad a particular player owns, the base rent doubles
      */
-    public int calculateRent(/*Player Owner*/) {
+    public int calculateRent(/*Player renter*/) {
         int rent = baseRent;
         /* Presumably the Game class will set the concurrent number of railroads
          owned by a player.
@@ -69,6 +69,16 @@ public class Railroad extends Property {
             rent *= 2;
         }
         return rent;
+    }
+    
+    /*  Note: This is not ideal,
+        it would be better if the utility object could get a boolean
+        indicating that the calculateRent method use the 10 * coefficent.
+        Since the player class isn't implemented yet I'm not sure how to implement this.
+    */
+    public int calculateRentWhenEffectedByCard(/*Player renter*/) 
+    {
+        return 2*calculateRent();
     }
     
 /*

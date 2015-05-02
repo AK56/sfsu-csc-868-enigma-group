@@ -52,7 +52,7 @@ public class Utility extends Property{
      * the roll of the first dice.
      * Else the calculated rent is 4 times the roll of the first die.
      */
-    public int calculateRent(/*Player owner*/) {
+    public int calculateRent(/*Player renter*/) {
         Dice dice = new Dice();
         dice.rollDice();
        
@@ -60,10 +60,26 @@ public class Utility extends Property{
         Possible more code to display the dice roll on the screen
         USE DICE ONE TO DISPLAY
         */
-        if(ownBothUtilities) {
+        if(ownBothUtilities) //This is where the check of the renter should be used instead of calculateRentWhenEffectedByCard()
+        {
             return 10 * dice.getDieOne();
         }
         return 4 * dice.getDieOne();
+    }
+    
+    /*  Note: This is not ideal,
+        it would be better if the utility object could get a boolean
+        indicating that the calculateRent method use the 10 * coefficent.
+        Since the player class isn't implemented yet I'm not sure how to implement this.
+    */
+    public int calculateRentWhenEffectedByCard(/*Player renter*/) {
+        Dice dice = new Dice();
+        dice.rollDice();
+        /*
+        Possible more code to display the dice roll on the screen
+        USE DICE ONE TO DISPLAY
+        */
+        return 10 * dice.getDiceValue();
     }
 /*    
    public static void main(String[] args) {

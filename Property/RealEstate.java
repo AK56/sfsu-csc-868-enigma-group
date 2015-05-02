@@ -52,7 +52,7 @@ public class RealEstate extends Property {
         this.setNumberOfHouses(numberOfHouses);
         this.setHasColorSetMonopoly(colorSet);
         this.setIsMortgaged(mortgage);
-        this.setNumberOfColorNeededForMonopoly(neededForMonopoly);
+        this.setNumberOfColorNeededForMonopoly(numberOfColorNeededForMonopoly);
         this.setRents(rents);
     }
 
@@ -109,10 +109,10 @@ public class RealEstate extends Property {
         /* Game class determines if a colored monopoly exists */
         if (hasColorSetMonopoly) {
             if(this.numberOfHouses == 0)
-                return 2*rents[0];
-            return rents[this.numberOfHouses];
+                return 2*rents.get(0);
+            return rents.get(this.numberOfHouses);
         }
-        return rents[0];
+        return rents.get(0);
     }
    /* 
     public static void main(String[] args) {
@@ -169,3 +169,4 @@ public class RealEstate extends Property {
     }
    */
 }
+
