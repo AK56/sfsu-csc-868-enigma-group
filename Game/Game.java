@@ -60,8 +60,7 @@ public class Game
         //Player performs actions based on space landed on.
         //Player may perform additional actions like morgage/unmorage, buy/sell houses
         //If player rolled doubles he goes again unless its his third double then he goes to jail
-        //Next player takes turn
-        
+        //Next player takes turn    
     }
     
     void initializeGameBoard()
