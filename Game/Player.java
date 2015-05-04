@@ -49,6 +49,11 @@ public class Player
         this.setGame(game);
         this.setPropertyList(propertyList);
     }
+    
+    public int getNetWorth()
+    {
+        game.getBank().getPlayerBankAccount(this).getNetWorth();
+    }
 
     public void printPropertyList(){
         
