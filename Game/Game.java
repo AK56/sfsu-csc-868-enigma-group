@@ -40,8 +40,6 @@ public class Game
         this.activePlayer = activePlayer;
         this.hasTimeLimit = hasTimeLimit;
     }
-
-    
     
     public void initialize(int gameID, ArrayList<Player> players, ArrayList<Property> properties, Bank bank, GameBoard gameBoard, Database database, int activePlayer, boolean hasTimeLimit)
     {
@@ -56,6 +54,10 @@ public class Game
     }
     
     void startNextTurn()
+    {
+    }
+    
+    void initializeGameBoard()
     {
     }
     
