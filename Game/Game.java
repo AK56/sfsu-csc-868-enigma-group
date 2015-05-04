@@ -55,6 +55,13 @@ public class Game
     
     void startNextTurn()
     {
+        //Player rolls Dice
+        //Player moves to the space = Players current space + dice value
+        //Player performs actions based on space landed on.
+        //Player may perform additional actions like morgage/unmorage, buy/sell houses
+        //If player rolled doubles he goes again unless its his third double then he goes to jail
+        //Next player takes turn
+        
     }
     
     void initializeGameBoard()
