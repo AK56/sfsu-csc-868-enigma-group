@@ -112,7 +112,4 @@ public class MoveToLocationCard extends Card
     public void setDoNotPassGo(boolean doNotPassGo) {
         this.doNotPassGo = doNotPassGo;
     }
-    
-    
-    
 }
