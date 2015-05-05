@@ -21,14 +21,14 @@ public class Player
     private int bankAccountID; // a player has one bank account
     private String actOfPlayer; // waiting, name of move
     private int numHouses;
-    private ArrayList<Integer> propertyList;
+    //private ArrayList<Integer> propertyList;
     private Game game;
     
     public Player(){
         
     }
 
-    public Player(int playerID, int userID, int tokenID, int bankAccountID, String actOfPlayer, Game game, ArrayList<Integer> propertyList) 
+    public Player(int playerID, int userID, int tokenID, int bankAccountID, String actOfPlayer, Game game) 
     {
         this.playerID = playerID;
         this.userID = userID;
@@ -36,10 +36,9 @@ public class Player
         this.bankAccountID = bankAccountID;
         this.actOfPlayer = actOfPlayer;
         this.game = game;
-        this.propertyList = propertyList;
     }
     
-    public void initialize(int playerID, int userID, int tokenID, int bankAccountID, String actOfPlayer, Game game, ArrayList<Integer> propertyList)
+    public void initialize(int playerID, int userID, int tokenID, int bankAccountID, String actOfPlayer, Game game)
     {
         this.setPlayerID(playerID);
         this.setUserID(userID);
@@ -47,29 +46,11 @@ public class Player
         this.setBankAccountID(bankAccountID);
         this.setActOfPlayer(actOfPlayer);
         this.setGame(game);
-        this.setPropertyList(propertyList);
     }
     
     public int getNetWorth()
     {
         game.getBank().getPlayerBankAccount(this).getNetWorth();
-    }
-
-    public void printPropertyList(){
-        
-    }
-
-    public void addProperty(Property property){
-        
-        propertyList.add(property.getPropertyID());
-    }
-
-    public void removeProperty(Property property){
-        propertyList.remove(property.getPropertyID());
-    }
-
-    public boolean hasProperty(Property property){
-        return propertyList.contains(property.getPropertyID());
     }
 
     public int getPlayerID() {
@@ -126,14 +107,6 @@ public class Player
 
     public void setGame(Game game) {
         this.game = game;
-    }
-
-    public ArrayList<Integer> getPropertyList() {
-        return propertyList;
-    }
-
-    public void setPropertyList(ArrayList<Integer> propertyList) {
-        this.propertyList = propertyList;
     }
 }
     
