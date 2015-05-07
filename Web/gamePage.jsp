@@ -19,7 +19,6 @@
 
 
     <body>
-        <%! Dice myDice = new Dice();%>
         <table width="90%" border="1">
           <tr>
             <td width="22%" class="header"><img src="images/enigma.jpg" width="101" height="102" alt="Logo" /></td>
@@ -27,38 +26,46 @@
             <td width="24%" class="blue"><button class="header"><a href="lobby.jsp">Leave Game</a></button></td>
           </tr>
         </table>
-    <!--Left Side starts here-->
-    <table align ="left" width="150" border="1">
-            <tr>
-              <td bgcolor="#1EB25A">&nbsp;</td>
-            </tr>
-            <tr>
-              <td><p class="h4">List of Players</p>
-                <p>Player 1</p>
-                <p>Player 2</p>
-                <p>Player 3</p>
-                <p>Player 4</p>
-                <p>&nbsp;</p></td>
-            </tr>
-            <tr>
-              <td><p class="h4">Game Actions</p>
-                  
+      
+      <table width="90%" border="1">
+          <tr>
+            <td> 
+              <!--Left Side starts here-->
+                <table align ="left" width="150" border="1">
+                        <tr>
+                          <td bgcolor="#1EB25A">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td><p class="h4">List of Players</p>
+                            <p>Player 1</p>
+                            <p>Player 2</p>
+                            <p>Player 3</p>
+                            <p>Player 4</p>
+                            <p>&nbsp;</p></td>
+                        </tr>
+                        <tr>
+                          <td><p class="h4">Game Actions</p>
 
-                <button onclick = <% myDice.rollDice();%> "movePlayer()">Roll Dice</button>
-                    
-                <p id ="h"></p>
 
-                <p>Buy house / hotel</p>
-                <p>Sell house / hotel</p>
-                <p>Sell property</p>
-                <p>Sell / trade </p>
-                <p>Get out of Jail</p></td>
-            </tr>
-            <tr>
-              <td bgcolor="#CDE5CF">&nbsp;</td>
-            </tr>
-        </table>
-    <!--would like to have the canvas at center-->
+                            <button onclick = "movePlayer()">Roll Dice</button>
+                                <%! Dice myDice = new Dice();%>
+                            <p id ="h"></p>
+
+                            <p>Buy house / hotel</p>
+                            <p>Sell house / hotel</p>
+                            <p>Sell property</p>
+                            <p>Sell / trade </p>
+                            <p>Get out of Jail</p></td>
+                        </tr>
+                        <tr>
+                          <td bgcolor="#CDE5CF">&nbsp;</td>
+                        </tr>
+                </table>
+            
+            </td>
+          
+          <td>
+                <!--would like to have the canvas at center-->
         <p align ="center"><canvas id = "monopolyCanvas" align = "center" width="700" height="700">My Canvas</canvas></p>
             <script>
             
@@ -83,7 +90,7 @@
                  
                 function movePlayer(){
                     
-                   <% //myDice.rollDice();%>
+                    <% myDice.rollDice();%>
                         var diceTotal = <%= myDice.getDiceTotal()%>;
                     //var diceTotal = rollDice();
                     var i = 0;
@@ -197,52 +204,55 @@
                     return centerY + 74;
                 }
               
-          </script>
-      <!--right side starts here-->
-    <table width="200" border="1" align = "right">
-                <tr>
-                    <p>
-                        <input name="Leavegame" type="submit" class="button" id="Leavegame" value="Leave Game" onclick="myFunction()" />
-                    </p>
-                </tr>
-                <tr>
-                  <td bgcolor="#1EB25A">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td><p>Property List</p>
-                  <select>
-                    <option value="Player 1">Player 1</option>
-                    <option value="Player 2">Player 2</option>
-                    <option value="Player 3">Player 3</option>
-                    <option value="Player 4">Player 4</option>
-                  </select>
-                    <p>Name, Rent</p></td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="h4"><span class="h4">Player Info</span></p>
-                        <select>
-                          <option value="Player 1">Player 1</option>
-                          <option value="Player 2">Player 2</option>
-                          <option value="Player 3">Player 3</option>
-                          <option value="Player 4">Player 4</option>
-                        </select>
+          </script>            
+          </td>
+            <td>
+                <!--right side starts here-->
+                <table width="200" border="1" align = "right">
+                            <tr>
+                                <p>
+                                    <input name="Leavegame" type="submit" class="button" id="Leavegame" value="Leave Game" onclick="myFunction()" />
+                                </p>
+                            </tr>
+                            <tr>
+                              <td bgcolor="#1EB25A">&nbsp;</td>
+                            </tr>
+                            <tr>
+                              <td><p>Property List</p>
+                              <select>
+                                <option value="Player 1">Player 1</option>
+                                <option value="Player 2">Player 2</option>
+                                <option value="Player 3">Player 3</option>
+                                <option value="Player 4">Player 4</option>
+                              </select>
+                                <p>Name, Rent</p></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="h4"><span class="h4">Player Info</span></p>
+                                    <select>
+                                      <option value="Player 1">Player 1</option>
+                                      <option value="Player 2">Player 2</option>
+                                      <option value="Player 3">Player 3</option>
+                                      <option value="Player 4">Player 4</option>
+                                    </select>
 
-                        <p>Bank balance</p>
-                        <p>Mortgage total</p>
-                        <p>Property total value</p>
-                        <p>Number of houses</p>
-                        <p>Number of hotels</p>
-                        <p>In jail?</p>
-                    </td>
-                </tr>
-                <tr>
-                  <td bgcolor="#CDE5CF">&nbsp;</td>
-                </tr>
-    </table>
-  
-
-<p>&nbsp;</p>
+                                    <p>Bank balance</p>
+                                    <p>Mortgage total</p>
+                                    <p>Property total value</p>
+                                    <p>Number of houses</p>
+                                    <p>Number of hotels</p>
+                                    <p>In jail?</p>
+                                </td>
+                            </tr>
+                            <tr>
+                              <td bgcolor="#CDE5CF">&nbsp;</td>
+                            </tr>
+                </table>             
+            </td> 
+          </tr>
+      </table>
+   
     </body>
 
 
