@@ -16,8 +16,8 @@ public class BankAccount
     private int bankAccountID; // maybe given by the db?
     private int bankID;
     private int playerID;
-    private int currentBalance;
-    private ArrayList<Integer> propertyList; // list of property ids
+    private int cashBalance;
+    private int networth;
 
     // empty constructor
     public BankAccount(){
@@ -42,15 +42,19 @@ public class BankAccount
         return playerID;
     }
 
-    public int getCurrentBalance(){
-        return currentBalance;
+    public int getCashBalance(){
+        return cashBalance;
     }
-
-    public void setCurrentBalance(Player player, Property property){
-        propertyList = player.getPropertyList();
-        for (Integer element : propertyList) {
-            currentBalance += property.getPurchasePrice(element);
-        }
-        
+    
+    public void addToAccountBalance(int income){
+        cashBalance += income;
+    }
+    
+    public void subtractFromAccountBalance(int amount){
+        cashBalance -= amount;
+    }
+    
+    public int getNetworth(){
+        return networth;
     }
 }

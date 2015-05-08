@@ -8,7 +8,6 @@ game. It stores all the bank accounts of all the players. It also owns the prope
 given to the player who wishes to buy a property.
  * 
  */
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,75 +16,56 @@ public class Bank
     private int bankID;
     private List <BankAccount> bankAccountList;  // list of players' bank accounts
     //private Bankruptcy bankruptcy;
-    private ArrayList<Integer> propertyList; // 40 spaces for the game board
-    private int numHouses;
-    private int numHotels;
+    private int numHouses = 32;
+    private int numHotels =12;
     private ArrayList<Mortgage> mortgageList;
-    int numSpaces = 40;
     
-    public Bank(){
-        // initialize property list to 0 for property not taken, 1 for taken
-        for(int i=0; i<numSpaces; i++)
-        {
-            propertyList.add(0);
-        }
-        
+    public Bank(){        
     }
     
-    public void getNewMortgage(Player player, Property property){
-        player.getPlayerID();
+    public void getNewMortgage(Property property){
+        mortgageList.add(property.propertyID());
     }
             
 
-    public void payOffMortgage(Player player, Property property){
-        
+    public void payOffMortgage(Property property){
+        mortgageList.remove(property.propertyID());
     }
-
-    //public boolean isPlayerBankrupt(Player player)
     
     public BankAccount getPlayerBankAccount(Player player){
-        return bankAccountList.get(player.getBankAccountID());
-    }
-
-    public ArrayList <Integer> getPropertyList (){
-        return propertyList;
+        return bankAccountList.get(player.getPlayerID());
     }
 
     public ArrayList <Mortgage> getMortgageList(){
         return mortgageList;
     }
 
-    public void buyPropertyFromBank(Player player){
-        // assign player id on the space player owns
-        player.addProperty();
+    public void sellHouseToBank(){
+        numHouses++;      
     }
 
-    public void sellHouseToBank(Player player){
-        player.
+    public void sellHotelToBank(){     
+        numHotels++;
     }
 
-    public void sellHotelToBank(Player player){
-        
+    public void subtractFromAccount(Player player, int amount){
+        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
+        int index = bankAccountList.indexOf(player.getPlayerID());
+        bankAccount.subtractFromAccountBalance(amount);
+        bankAccountList.set(index, bankAccount);
     }
 
-    public void debitAccount(Player player, int amount){
-        
+    public void addToAccount(Player player, int amount){
+        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
+        int index = bankAccountList.indexOf(player.getPlayerID());
+        bankAccount.addToAccountBalance(amount);
+        bankAccountList.set(index, bankAccount);      
     }
-
-    public void creditAccount(Player player, int amount){
-        
-    }
-
-    public void addProperty(int id){
-        propertyList.add(id);
-    }
-
-    public void removeProperty(int id){
-        propertyList.remove(id);
-    }
-
-    public boolean hasProperty(int id){
-        return propertyList.contains(id);
+    
+    
+    public boolean isPlayerBankrupt(Player player){
+        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
+        return bankAccount.getCashBalance() == 0;
     }
             
 }

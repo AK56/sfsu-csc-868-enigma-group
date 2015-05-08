@@ -20,13 +20,44 @@ public class Mortgage
     public Mortgage(){
     
     }
+    
+    public Mortgage(int mortgageID, int bankID, int playerID, int propertyID, int mortgageAmount){
+        this.mortgageID = mortgageID;
+        this.bankID = bankID;
+        this.playerID = playerID;
+        this.propertyID = propertyID;
+        this.mortgageAmount = mortgageAmount;
+    }
 
-    public void setMortgageAmount(Property property){
-        // how much is the mortgage
-        property.getPropertyID();
+    public void setMortgageAmount(int mortgageAmount){
+        this.mortgageAmount = mortgageAmount;
     }
 
     public int getMortgageAmount(){
         return mortgageAmount;
+    }
+    
+    public void setBankID(int bankID){
+        this.bankID = bankID;
+    }
+    
+    public int getBankID(){
+        return bankID;
+    }
+    
+    public void setPlayerID(int playerID){
+        this.playerID = playerID;
+    }
+
+    public int getPlayerID(){
+        return playerID;
+    }
+
+    public void setPropertyID(int propertyID){
+        this.propertyID = propertyID;
+    }
+
+    public int getPropertyID(){
+        return propertyID;
     }
 }
