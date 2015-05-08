@@ -17,7 +17,7 @@ public class BankAccount
     private int bankID;
     private int playerID;
     private int cashBalance;
-    private int networth;
+    //private int networth;
 
     // empty constructor
     public BankAccount(){
@@ -42,7 +42,7 @@ public class BankAccount
         return playerID;
     }
 
-    public int getCashBalance(){
+    public int getAccountBalance(){
         return cashBalance;
     }
     
@@ -54,7 +54,7 @@ public class BankAccount
         cashBalance -= amount;
     }
     
-    public int getNetworth(){
-        return networth;
+    public void setAccountBalance(int amount){
+        cashBalance = amount;
     }
 }

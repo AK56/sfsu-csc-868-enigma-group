@@ -49,23 +49,15 @@ public class Bank
     }
 
     public void subtractFromAccount(Player player, int amount){
-        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
-        int index = bankAccountList.indexOf(player.getPlayerID());
-        bankAccount.subtractFromAccountBalance(amount);
-        bankAccountList.set(index, bankAccount);
+        bankAccountList.get(player.getPlayerID()).subtractFromAccountBalance(amount);
     }
 
     public void addToAccount(Player player, int amount){
-        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
-        int index = bankAccountList.indexOf(player.getPlayerID());
-        bankAccount.addToAccountBalance(amount);
-        bankAccountList.set(index, bankAccount);      
-    }
-    
+        bankAccountList.get(player.getPlayerID()).addToAccountBalance(amount);  
+    } 
     
     public boolean isPlayerBankrupt(Player player){
-        BankAccount bankAccount = bankAccountList.get(player.getPlayerID());
-        return bankAccount.getCashBalance() == 0;
+        return bankAccountList.get(player.getPlayerID()).getAccountBalance() == 0;
     }
             
 }
