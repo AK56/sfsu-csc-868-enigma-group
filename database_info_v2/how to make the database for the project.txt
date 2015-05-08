@@ -1,0 +1,19 @@
+Hi All,
+
+To run the monopoly database SQL file "make_tables_with_data_v4.sql"
+--
+-- Database: `monopoly`
+--
+-- // uncomment this line if it database does not already exist by deleting the dashes
+-- CREATE DATABASE monopoly​;  
+--
+
+ 
+To get the MySQL database accessible in your project it needs a library added to that project.
+
+​​In Netbeans open your project
+right click the libraries folder
+select add library
+a popup will appear with a list of libraries
+scroll down the list and click on "MySQL JDBC Driver"
+click the add library button
