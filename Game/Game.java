@@ -7,6 +7,8 @@
  */
 package Game;
 
+import Data.Database;
+import Property.*;
 import java.util.ArrayList;
 
 /**
@@ -53,7 +55,53 @@ public class Game
         setHasTimeLimit(hasTimeLimit);
     }
     
-    void startNextTurn()
+    public String movePlayer(Player player, int newSpace)
+    {
+        if(player.getSpaceID() > newSpace || newSpace == 0)
+            bank.creditAccount(player, 200);
+        
+        Space currentSpace = this.gameBoard.getSpaces().get(player.getSpaceID());
+        
+        if(currentSpace instanceof Property && ((Property)currentSpace).getOwnerID() == bank.getBankID()) 
+        {
+            return "Unowned Property "+((Property)currentSpace).getPropertyID();
+        }
+        if (currentSpace.getClass() == RealEstate.class) 
+        {
+            int rent = ((RealEstate)currentSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((RealEstate)currentSpace).getOwnerID(), rent);
+            
+        } 
+        else if (currentSpace.getClass() == Utility.class) 
+        {
+            int rent = ((Utility)currentSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((Utility)currentSpace).getOwnerID(), rent);
+        } 
+        else if (currentSpace.getClass() == Railroad.class) 
+        {
+            int rent = ((Railroad)currentSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((Railroad)currentSpace).getOwnerID(), rent);
+        } 
+        else if (currentSpace.getClass() == ChanceSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card action
+            return "Card Chance "+cardID;
+        } 
+        else if (currentSpace.getClass() == CommunityChestSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card Action
+            return "Card CommunityChest "+cardID;
+        }
+        
+        return null;
+    }
+    
+    public void startNextTurn()
     {
         //Player rolls Dice
         //Player moves to the space = Players current space + dice value

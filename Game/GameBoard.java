@@ -5,7 +5,9 @@
  */
 package Game;
 import java.util.*;
-import Property.Property;
+import Card.*;
+import Property.*;
+import Data.*;
 /**
  *
  * @author Gurpartap Gill
@@ -76,21 +78,22 @@ public class GameBoard {
 
     }
 
-    public void actionOnCurrentSpace() {
+    public String actionOnCurrentSpace(Player player) {
         /*first check what the currentSpace of Player is, then perform other checks and actions*/
-        Space currentSpace = game.getActivePlayer().getBoardSpace();
+        Space currentSpace = this.spaces.get(player.getSpaceID());
         if (currentSpace.getClass() == RealEstate.class) {
-
-        } else if (currentSpace == Utility.class) {
-
+            return "Property RealEstate";
+        } else if (currentSpace.getClass() == Utility.class) {
+            return "Property Utility";
         } else if (currentSpace.getClass() == Railroad.class) {
-
+            return "Property Railroad";
         } else if (currentSpace.getClass() == ChanceSpace.class) {
-
+            return "Card Chance";
         } else if (currentSpace.getClass() == CommunityChestSpace.class) {
-
+            return "Card CommunityChest";
         }
-
+    
+        return "Undefined";
     }
 
     public void showHousesHotels() {
@@ -100,5 +103,15 @@ public class GameBoard {
     public void updateDatabase() {
         /*updates the database accordingly*/
     }
+
+    public ArrayList<Space> getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(ArrayList<Space> spaces) {
+        this.spaces = spaces;
+    }
+    
+    
         
 }
