@@ -4,11 +4,13 @@
  * 
  */
 package Cards;
-
+import Game.*;
+import Property.Property;
 /**
  *
  * @author Kenneth Robertson
  */
+/**
 public class RealEstateRepairCard extends Card
 {
     private int costPerHouse;
@@ -40,6 +42,7 @@ public class RealEstateRepairCard extends Card
     
         Note Three: There is currently no way to gain access to the property objects themselves, only the properties IDs 
     */
+/**
     @Override
     void playCard() throws Exception 
     {
@@ -47,7 +50,7 @@ public class RealEstateRepairCard extends Card
         int hotels = 0;
         int rawHouses = 0;
         //Get Property list from cardDrawer, this currently cant be done as far as I can tell.
-        ArrayList<Property> cardDrawersProperties = cardDrawer.getProperties(); //Not an actual method
+        ArrayList<Property> cardDrawersProperties = cardDrawer.getPropertyList(); //Not an actual method
         for(Property currentProperty : cardDrawersProperties)
         {
             if(currentProperty.getClass() == RealEstate.class)
@@ -81,3 +84,4 @@ public class RealEstateRepairCard extends Card
         this.costPerHotel = costPerHotel;
     }
 }
+**/

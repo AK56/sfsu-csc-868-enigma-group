@@ -3,7 +3,7 @@
  * it could be used for other kinds of movements based on number of spaces.
  */
 package Cards;
-
+import Game.*;
 /**
  *
  * @author Kenneth Robertson

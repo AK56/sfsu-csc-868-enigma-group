@@ -1,34 +1,53 @@
-/*
- * This is a stub.
- * 
- * 
- */
 package Game;
+
+import java.util.ArrayList;
+
+
 /**
  *
- * @author Kenneth
+ * @author John
+ * 
+ * Summary: The BankAccount class keeps track of the account balance of a particular player. Each instance of
+this class stores the id of the particular bank account, the bank id associated with the account, the
+balance, and the player associated with the balance.
  */
-public class BankAccount 
+public class BankAccount
 {
 
-    public BankAccount() {
+    private int bankAccountID; // maybe given by the db?
+    private int bankID;
+    private int playerID;
+    private int currentBalance;
+   
+    // empty constructor
+    public BankAccount(){
+        
     }
     
-    
-    public void initialize()
-    {
+    public BankAccount(int bankAccountID, int bankID, int playerID){
+        this.bankAccountID = bankAccountID;
+        this.bankID = bankID;
+        this.playerID = playerID;
     }
-    
-    public int getNetWorth()
-    {
-        return 1500;
+
+    public int getBankAccountID(){
+        return bankAccountID;
     }
-    
-    public int getCurrentBalance()
-    {
-        return 1500;
+
+    public int getBankID(){
+        return bankID;
     }
-    
-    public void setCurrentBalance()
-    {}
+
+    public int getPlayerID(){
+        return playerID;
+    }
+
+    public int getCurrentBalance(){
+        return currentBalance;
+    }
+
+    public void setCurrentBalance(int currentBalance){
+        this.currentBalance = currentBalance;
+        
+    }
 }

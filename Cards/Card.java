@@ -4,7 +4,7 @@
  * text description, cardID, player who drew the card, and if it is a chance or community chest card
  */
 package Cards;
-
+import Game.*;
 /**
  *
  * @author Kenneth Robertson

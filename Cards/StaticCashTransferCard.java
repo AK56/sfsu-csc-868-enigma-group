@@ -2,11 +2,12 @@
  * This class is for cards that transfer sums of money that are known at the start of the game.
  */
 package Cards;
-
+import Game.*;
 /**
  *
  * @author Kenneth Robertson
  */
+/***
 public class StaticCashTransferCard extends Card
 {
     private int amountTransfered;
@@ -33,6 +34,7 @@ public class StaticCashTransferCard extends Card
     
         Note Two: It's unclear from the documentation how we plan on forcing players with a negative balance to sell assets
     */
+/***
     @Override
     void playCard() throws Exception 
     {
@@ -51,3 +53,4 @@ public class StaticCashTransferCard extends Card
         this.amountTransfered = amountTransfered;
     } 
 }
+**/

@@ -51,11 +51,11 @@
                                 <%! Dice myDice = new Dice();%>
                             <p id ="h"></p>
 
-                            <p>Buy house / hotel</p>
-                            <p>Sell house / hotel</p>
-                            <p>Sell property</p>
-                            <p>Sell / trade </p>
-                            <p>Get out of Jail</p></td>
+                            <button>Buy house / hotel</button>
+                            <button>Sell house / hotel</button>
+                            <button>Sell property</button>
+                            <button>Sell / trade </button>
+                            <button>Get out of Jail</button></td>
                         </tr>
                         <tr>
                           <td bgcolor="#CDE5CF">&nbsp;</td>
@@ -210,9 +210,7 @@
                 <!--right side starts here-->
                 <table width="200" border="1" align = "right">
                             <tr>
-                                <p>
-                                    <input name="Leavegame" type="submit" class="button" id="Leavegame" value="Leave Game" onclick="myFunction()" />
-                                </p>
+      
                             </tr>
                             <tr>
                               <td bgcolor="#1EB25A">&nbsp;</td>

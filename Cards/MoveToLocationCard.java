@@ -4,7 +4,7 @@
  * if the player gets money for passing go.
  */
 package Cards;
-
+import Game.*;
 /**
  *
  * @author Kenneth Robertson
@@ -112,4 +112,7 @@ public class MoveToLocationCard extends Card
     public void setDoNotPassGo(boolean doNotPassGo) {
         this.doNotPassGo = doNotPassGo;
     }
+    
+    
+    
 }

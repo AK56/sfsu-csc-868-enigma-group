@@ -3,18 +3,20 @@
  * and use to get out of jail for free.
  */
 package Cards;
-
+import Game.*;
 /**
  *
  * @author Kenneth Robertson
  */
 public class GetOutOfJailFreeCard extends Card
 {
+    
     public GetOutOfJailFreeCard() {
     }
 
     public GetOutOfJailFreeCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType) {
         super(cardID, cardDescription, cardDrawer, cardStackType);
+        
     }
     
     public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType)
@@ -29,7 +31,8 @@ public class GetOutOfJailFreeCard extends Card
     */
     @Override
     void playCard() throws Exception {
-        cardDrawer.addGetOutOfJailFreeCard(this);
+        /*still checking on where to include the method to add getOutOfJailCard to Player
+        and to perform other operations related Jail*/
     }
     
 }

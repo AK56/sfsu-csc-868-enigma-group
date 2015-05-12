@@ -79,7 +79,7 @@ public class Utility extends Property{
         Possible more code to display the dice roll on the screen
         USE DICE ONE TO DISPLAY
         */
-        return 10 * dice.getDiceValue();
+        return 10 * dice.getDiceTotal();
     }
 /*    
    public static void main(String[] args) {

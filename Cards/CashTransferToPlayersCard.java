@@ -2,11 +2,13 @@
  * This class is for cards that transfer money to or from all the players in the game.
  */
 package Cards;
+import Game.*;
 
 /**
  *
  * @author Kenneth Robertson
  */
+/***
 public class CashTransferToPlayersCard extends Card
 {
     private boolean payToPlayers;
@@ -31,8 +33,8 @@ public class CashTransferToPlayersCard extends Card
         this.setAmountTransfered(amountTransfered);
     }
 
-    /*  Note: Need a way to get a list of all the players currently active.
-    */
+    //  Note: Need a way to get a list of all the players currently active.
+
     @Override
     void playCard() throws Exception 
     {
@@ -41,7 +43,7 @@ public class CashTransferToPlayersCard extends Card
             int totalPaid = 0;
             for(Player currentPlayer : Game.getPlayers())
             {
-                if(currentPlayer.getPlayerId() != cardDrawer.getPlayerId())
+                if(currentPlayer.getPlayerID() != cardDrawer.getPlayerID())
                 {
                     Bank.getPlayerBankAccount(currentPlayer).setCurrentBalance(
                             Bank.getPlayerBankAccount(currentPlayer).currentPlayerBankAccount.getCurrentBalance() + amountTransfered);
@@ -51,6 +53,7 @@ public class CashTransferToPlayersCard extends Card
             }
             
             BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(cardDrawer);
+            //aren't we subtracting totalPaid for the card drawer
             int newBalance = cardDrawersBankAccount.getCurrentBalance() + totalPaid;
 
             if(newBalance < 0) {} //Code needed to force player to become solvent
@@ -63,7 +66,7 @@ public class CashTransferToPlayersCard extends Card
             
             for(Player currentPlayer : Game.getPlayers())
             {
-                if(currentPlayer.getPlayerId() != cardDrawer.getPlayerId())
+                if(currentPlayer.getPlayerID() != cardDrawer.getPlayerID())
                 {
                     BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(currentPlayer);
                     int newBalance = cardDrawersBankAccount.getCurrentBalance() - amountTransfered;
@@ -79,7 +82,8 @@ public class CashTransferToPlayersCard extends Card
                             Bank.getPlayerBankAccount(cardDrawer).currentPlayerBankAccount.getCurrentBalance() + amountTransfered);
         }
     }
-
+ 
+    
     public boolean isPayToPlayers() {
         return payToPlayers;
     }
@@ -96,3 +100,4 @@ public class CashTransferToPlayersCard extends Card
         this.amountTransfered = amountTransfered;
     } 
 }
+***/

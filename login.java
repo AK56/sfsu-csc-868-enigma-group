@@ -32,8 +32,8 @@ public class login extends HttpServlet {
         PrintWriter out = response.getWriter();
         String userName = request.getParameter("username");
         String passwrd = request.getParameter("password");
-        String lobbyPage = new String("http://localhost:8080/Monopoly/lobby.jsp");
-        String regPage = new String("http://localhost:8080/Monopoly/noSuccess.html");
+        String lobbyPage = new String("lobby.jsp");
+        String regPage = new String("noSuccess.html");
         if((userName.compareTo("gill") == 0) && (passwrd.compareTo("gill") == 0)){
             /*direct the User to Lobby page, if the user is Registered*/
                 response.setStatus(response.SC_MOVED_TEMPORARILY);
