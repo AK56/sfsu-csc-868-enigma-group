@@ -19,25 +19,21 @@ public class Bank
     private int bankID;
     private List <BankAccount> bankAccountList;  // list of players' bank accounts
     //private Bankruptcy bankruptcy;
-    private int numHouses;
-    private int numHotels;
+    private int numHouses = 32;
+    private int numHotels =12;
     private ArrayList<Mortgage> mortgageList;
-    int numSpaces = 40;
     
-    public Bank(){
-        
+    public Bank(){        
     }
     
-    public void getNewMortgage(Player player, Property property){
-        player.getPlayerID();
+    public void getNewMortgage(Property property){
+        mortgageList.add(property.propertyID());
     }
             
 
-    public void payOffMortgage(Player player, Property property){
-        
+    public void payOffMortgage(Property property){
+        mortgageList.remove(property.propertyID());
     }
-
-    //public boolean isPlayerBankrupt(Player player)
     
     public BankAccount getPlayerBankAccount(Player player){
         return bankAccountList.get(player.getPlayerID());
@@ -47,30 +43,24 @@ public class Bank
         return mortgageList;
     }
 
-    public void sellHouseToBank(Player player){
-        
+    public void sellHouseToBank(){
+        numHouses++;      
     }
 
-    public void sellHotelToBank(Player player){
-        
+    public void sellHotelToBank(){     
+        numHotels++;
     }
+
+    public void subtractFromAccount(Player player, int amount){
+        bankAccountList.get(player.getPlayerID()).subtractFromAccountBalance(amount);
+    }
+
+    public void addToAccount(Player player, int amount){
+        bankAccountList.get(player.getPlayerID()).addToAccountBalance(amount);  
+    } 
     
-    public void debitAccount(int playerID, int amount){
-        
+    public boolean isPlayerBankrupt(Player player){
+        return bankAccountList.get(player.getPlayerID()).getAccountBalance() == 0;
     }
-
-    public void creditAccount(int playerID, int amount){
-        
-    }
-
-    public int getBankID() {
-        return bankID;
-    }
-
-    public void setBankID(int bankID) {
-        this.bankID = bankID;
-    }
-    
-    
             
 }

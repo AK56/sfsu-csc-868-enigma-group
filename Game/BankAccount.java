@@ -1,5 +1,4 @@
 package Game;
-
 import java.util.ArrayList;
 
 
@@ -17,8 +16,9 @@ public class BankAccount
     private int bankAccountID; // maybe given by the db?
     private int bankID;
     private int playerID;
-    private int currentBalance;
-   
+    private int cashBalance;
+    //private int networth;
+
     // empty constructor
     public BankAccount(){
         
@@ -42,12 +42,19 @@ public class BankAccount
         return playerID;
     }
 
-    public int getCurrentBalance(){
-        return currentBalance;
+    public int getAccountBalance(){
+        return cashBalance;
     }
-
-    public void setCurrentBalance(int currentBalance){
-        this.currentBalance = currentBalance;
-        
+    
+    public void addToAccountBalance(int income){
+        cashBalance += income;
+    }
+    
+    public void subtractFromAccountBalance(int amount){
+        cashBalance -= amount;
+    }
+    
+    public void setAccountBalance(int amount){
+        cashBalance = amount;
     }
 }

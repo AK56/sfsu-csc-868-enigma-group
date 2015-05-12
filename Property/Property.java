@@ -89,12 +89,6 @@ public abstract class Property extends Space {
         this.propertyID = propertyID;
     }
 
-    /*
-    public void setBaseRent(int baseRent) {
-        this.baseRent = baseRent;
-    }
-    */
-
     public void setName(String name) {
         this.name = name;
     }
@@ -109,5 +103,4 @@ public abstract class Property extends Space {
 
     /* Abstract class used to calculate rent dependent on the type of property  */
     abstract int calculateRent(/*Player Owner*/);
-
 }
