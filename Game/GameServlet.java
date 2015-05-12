@@ -5,7 +5,7 @@
  */
 package Game;
 
-import Property.Property;
+import Property.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -21,8 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/Game.GameServlet")
 public class GameServlet extends HttpServlet {
+    private int gameID;
     private ArrayList<Property> properties;
+    private ArrayList<Player> players; //If we had multiple players
     private Bank bank;
+    private ArrayList<Space> spaces;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -88,6 +91,7 @@ public class GameServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+        
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -101,23 +105,6 @@ public class GameServlet extends HttpServlet {
         /*returns the diceValue as a string to the AJAX call made by client*/
         out.write(String.valueOf(diceValue)); 
         }
-    }
-    
-    public boolean buyProperty(Player player, int propertyID)
-    {
-        for(Property current : this.properties)
-        {
-            if(current.getPropertyID() == propertyID)
-            {
-                int propertyCost = current.getPurchasePrice();
-                if(bank.getPlayerBankAccount(player).getCurrentBalance() < propertyCost)
-                    return false;
-                bank.debitAccount(player.getPlayerID(), propertyCost);
-                current.setOwnerID(player.getPlayerID());
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -143,5 +130,109 @@ public class GameServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    public String movePlayer(Player player, int newSpace)
+    {
+        if(player.getSpaceID() > newSpace || newSpace == 0)
+            bank.creditAccount(player, 200);
+        
+        Space nextSpace = this.spaces.get(newSpace);
+        
+        if(nextSpace instanceof Property && ((Property)nextSpace).getOwnerID() == bank.getBankID()) 
+        {
+            return "Unowned Property "+((Property)nextSpace).getPropertyID();
+        }
+        if (nextSpace.getClass() == RealEstate.class) 
+        {
+            int rent = ((RealEstate)nextSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((RealEstate)nextSpace).getOwnerID(), rent);
+            
+        } 
+        else if (nextSpace.getClass() == Utility.class) 
+        {
+            int rent = ((Utility)nextSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((Utility)nextSpace).getOwnerID(), rent);
+        } 
+        else if (nextSpace.getClass() == Railroad.class) 
+        {
+            int rent = ((Railroad)nextSpace).calculateRent();
+            bank.debitAccount(player, rent);
+            bank.creditAccount(((Railroad)nextSpace).getOwnerID(), rent);
+        } 
+        else if (nextSpace.getClass() == ChanceSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card action
+            return "Card Chance "+cardID;
+        } 
+        else if (nextSpace.getClass() == CommunityChestSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card Action
+            return "Card CommunityChest "+cardID;
+        }
+        
+        player.setSpaceID(newSpace);
+        
+        return null;
+    }
+    
+    public boolean buyProperty(Player player, int propertyID)
+    {
+        for(Property current : this.properties)
+        {
+            if(current.getPropertyID() == propertyID)
+            {
+                int propertyCost = current.getPurchasePrice();
+                if(bank.getPlayerBankAccount(player).getCurrentBalance() < propertyCost)
+                    return false;
+                bank.debitAccount(player.getPlayerID(), propertyCost);
+                current.setOwnerID(player.getPlayerID());
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    public ArrayList<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(ArrayList<Property> properties) {
+        this.properties = properties;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public ArrayList<Space> getSpaces() {
+        return spaces;
+    }
+
+    public void setSpaces(ArrayList<Space> spaces) {
+        this.spaces = spaces;
+    }
 }
