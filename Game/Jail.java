@@ -21,7 +21,7 @@ public class Jail extends Space{
         fine = 50;
         turnsLeft = 3;
         playersInJail = new HashMap();
-        getOutOfJailCard = new ArrayList<Player>();
+        //getOutOfJailCard = new ArrayList<Player>();
         
     }
     public int getFine(){
@@ -40,32 +40,32 @@ public class Jail extends Space{
     public boolean isInJail(int playerId){
         return playersInJail.containsKey(playerId);
     }
+    /*
     public boolean hasGetOutOfJailCard(Player player){
         //if the player has getOutOFJailCard
         return getOutOfJailCard.contains(player);
     }
     public void addGetOutOfJailCard(Player player){
-        /*if player has received a getOutOfJailCard, add the player to the list*/
-        getOutOfJailCard.add(player);
-        
+        //if player has received a getOutOfJailCard, add the player to the list
+        getOutOfJailCard.add(player);    
     }
-    
+    */
         /*three ways to get out of Jail:
         1. To use getOutOfJailCard
         2. Paying a fine
         3. Roll a die twice in the next three turns*/
-    
+    /*
     public boolean useGetOutOfJailCard(Player playerInJail){
         boolean isOut = false;
         if(getOutOfJailCard.contains(playerInJail)){
-            /*if player has getOutOfJailCard, use it and remove player from the jail*/
+            //if player has getOutOfJailCard, use it and remove player from the jail
             playersInJail.remove(playerInJail.getPlayerID());
             return getOutOfJailCard.remove(playerInJail);
             
         }
         else
             return isOut;
-    }
+    }*/
     public boolean getOutOfJailByFine(Player playerInJail){
         boolean isOut = false;
         /*if players account balance is sufficient to pay $50 fine, then debit player's account
