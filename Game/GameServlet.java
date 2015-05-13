@@ -133,21 +133,40 @@ public class GameServlet extends HttpServlet {
     
     public String movePlayer(Player player, int newSpace)
     {
+        String returnString = null;
         if(player.getSpaceID() > newSpace || newSpace == 0)
             bank.creditAccount(player, 200);
         
         Space nextSpace = this.spaces.get(newSpace);
         
+        
         if(nextSpace instanceof Property && ((Property)nextSpace).getOwnerID() == bank.getBankID()) 
         {
-            return "Unowned Property "+((Property)nextSpace).getPropertyID();
+            returnString = "Unowned Property "+((Property)nextSpace).getPropertyID();
         }
-        if (nextSpace.getClass() == RealEstate.class) 
+        else if (nextSpace.getSpaceID() == 30) //Goto jail
+        {
+            //Add in jail code
+            newSpace = 10; //Goto jail not newSpace
+        }
+        else if (nextSpace.getClass() == ChanceSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card action
+            
+            returnString = "Card Chance "+cardID;
+        } 
+        else if (nextSpace.getClass() == CommunityChestSpace.class) 
+        {
+            int cardID = -1;
+            //Perform card Action
+            returnString = "Card CommunityChest "+cardID;
+        }  
+        else if (nextSpace.getClass() == RealEstate.class) 
         {
             int rent = ((RealEstate)nextSpace).calculateRent();
             bank.debitAccount(player, rent);
-            bank.creditAccount(((RealEstate)nextSpace).getOwnerID(), rent);
-            
+            bank.creditAccount(((RealEstate)nextSpace).getOwnerID(), rent);  
         } 
         else if (nextSpace.getClass() == Utility.class) 
         {
@@ -161,22 +180,18 @@ public class GameServlet extends HttpServlet {
             bank.debitAccount(player, rent);
             bank.creditAccount(((Railroad)nextSpace).getOwnerID(), rent);
         } 
-        else if (nextSpace.getClass() == ChanceSpace.class) 
+        else if (nextSpace.getSpaceID() == 4) //Income Tax
         {
-            int cardID = -1;
-            //Perform card action
-            return "Card Chance "+cardID;
-        } 
-        else if (nextSpace.getClass() == CommunityChestSpace.class) 
+            bank.debitAccount(player, 200);
+        }
+        else if (nextSpace.getSpaceID() == 38) //Pay Luxury Tax
         {
-            int cardID = -1;
-            //Perform card Action
-            return "Card CommunityChest "+cardID;
+            bank.debitAccount(player, 100);
         }
         
         player.setSpaceID(newSpace);
         
-        return null;
+        return returnString;
     }
     
     public boolean buyProperty(Player player, int propertyID)
