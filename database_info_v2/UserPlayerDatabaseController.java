@@ -6,7 +6,6 @@ package Data;
 import Game.Player;
 import User.User;
 import java.sql.*;
-import java.util.*;
 
 
 /**
@@ -19,6 +18,12 @@ import java.util.*;
  */
 public class UserPlayerDatabaseController
 {
+    // The URL specifying the MySQL database to which this program
+    // connects using JDBC.      
+    private final String url = "jdbc:mysql://localhost:3306/monopoly";  
+    private final String username = "root";
+    private final String password = "space1987";
+    
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
     private static UserPlayerDatabaseController instance;    
@@ -50,15 +55,9 @@ public class UserPlayerDatabaseController
    
    private void getDatabaseConnection()
    {
-        // The URL specifying the MySQL database to which this program
-        // connects using JDBC.      
-        String url = "jdbc:mysql://localhost:3306/monopoly";  
-        String username = "root";
-        String password = "space1987";
-
-        // Load the driver to allow connection to the database
         try 
         {
+            // Load the driver to allow connection to the database
            Class.forName( "com.mysql.jdbc.Driver" );
            connection = DriverManager.getConnection( url, username, password);
         } 
@@ -219,6 +218,55 @@ public class UserPlayerDatabaseController
 
 
    /*****
+   // gets user from the database that corresponds to that user's unique id 
+   // If successful returns a new User object with the data values belonging 
+   // to the user, else returns a NULL User object.
+   * ****/
+   public User getUserByID(int id)
+   {       
+       String query;
+       User user = null;
+       
+        try 
+         {
+            if(connection == null)
+            {
+                getDatabaseConnection();
+            }
+             
+             query = "SELECT * FROM user " +
+                        "WHERE user_id = '" + id + "' ";
+
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery( query );
+
+             // next varifies a first row of results
+             // If there is no result row, then no such user exists
+             if(resultSet.next())
+             {
+                 user = new User();
+                 user.setFirstName(resultSet.getString("first_name"));
+                 user.setLastName(resultSet.getString("last_name"));
+                 user.setPassword(resultSet.getString("password"));
+                 user.setUsername(resultSet.getString("user_name"));
+                 user.setUserID(resultSet.getInt("user_id"));
+             }
+
+             resultSet.close();
+             statement.close();
+         }
+         catch ( SQLException sqlex ) 
+         {
+            System.err.println( "Unable to get user from database" );
+            sqlex.printStackTrace();
+         }
+       
+       return user;
+   }
+
+
+
+   /*****
    * Saves the user's new login information to the database so it can
    * be used in logins later.  
    * If the new user login information is not unique or the user id
@@ -251,7 +299,7 @@ public class UserPlayerDatabaseController
             
             if(success)
             {
-                query = "UPDATE user SET user_name=' " + newUsername + 
+                query = "UPDATE user SET user_name = '" + newUsername + 
                         "', password = '" + newPassword + "' " +
                         "WHERE user_id = '" + userID + "' "; 
                 
@@ -279,7 +327,7 @@ public class UserPlayerDatabaseController
    // If successful returns a new Player object with the data values belonging 
    // to the user, else returns a NULL Player object.
    * ****/
-   public Player addNewPlayer(int userID)
+   public Player addNewPlayer(User user)
    {
        String query;
        Player player = null;
@@ -293,13 +341,13 @@ public class UserPlayerDatabaseController
                          
              // TO BE DONE ------ USE REAL PLAYER VALUES
             query = "INSERT INTO player (user_id, token_id, game_id, space_id, spectator ) "
-                 + "VALUES ('" + userID + "', '1', '1', '1', '0') ";
+                 + "VALUES ('" + user.getUserID() + "', '1', '1', '1', '0') ";
          
             statement = connection.createStatement();
             statement.executeUpdate(query);
             
             query = "SELECT * FROM player " +
-                        "WHERE user_id = '" + userID + "' ";
+                        "WHERE user_id = '" + user.getUserID() + "' ";
 
              resultSet = statement.executeQuery( query );
              
@@ -324,52 +372,107 @@ public class UserPlayerDatabaseController
        return player;
    }
    
-   /**
-    * 
-    * @param userID
-    * @return true if successful, else false
-    */
-   public boolean deleteUser(int userID)
-   {      
+   
+    /*****
+   // gets user from the database that corresponds to that user's unique id 
+   // If successful returns a new User object with the data values belonging 
+   // to the user, else returns a NULL User object.
+   * ****/
+   public Player getPlayerByID(int id)
+   {       
        String query;
-       boolean success = true;
+       Player player = null;
        
-       try 
-        {
+        try 
+         {
             if(connection == null)
             {
                 getDatabaseConnection();
             }
-                        
-            query = "SELECT * FROM user " +
-                       "WHERE user_id = '" + userID + "' " + 
-                        "AND player_id = IS NOT NULL "; 
+             
+             query = "SELECT * FROM player " +
+                        "WHERE player_id = '" + id + "' ";
 
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery( query );
-            // next varifies a first row of results
-            // If there is no result row, then no id match was found
-            if(!resultSet.next()) success = false;
-            
-            if(success)
-            {
-                query = "DELETE FROM user " + 
-                        "WHERE user_id = '" + userID + "' ";                 
-                statement.executeUpdate(query);                
-            }
-            
-            resultSet.close();
-            statement.close();
-            success = true;
-        }
-        catch ( SQLException sqlex ) 
-        {
-           System.err.println( "Unable to get the sql result" );
-           sqlex.printStackTrace();
-        }
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery( query );
+
+             // next varifies a first row of results
+             // If there is no result row, then no such user exists
+             if(resultSet.next())
+             {
+                 player = new Player();
+                 player.setPlayerID(resultSet.getInt("player_id"));
+                 player.setUserID(resultSet.getInt("user_id"));
+                 player.setTokenID(resultSet.getInt("token_id"));
+                 player.setSpaceID(resultSet.getInt("space_id"));
+                 int i = resultSet.getInt("spectator");
+                 boolean spectator = (i == 1)? true : false;
+                 player.setSpectator(spectator);
+             }
+
+             resultSet.close();
+             statement.close();
+         }
+         catch ( SQLException sqlex ) 
+         {
+            System.err.println( "Unable to get user from database" );
+            sqlex.printStackTrace();
+         }
        
-       return success;
+       return player;
    }
+   
+  
+    /*****
+   // gets user from the database that corresponds to that user's unique id 
+   // If successful returns a new User object with the data values belonging 
+   // to the user, else returns a NULL User object.
+   * ****/
+   public Player getTokenFileName(int token_id)
+   {       
+       String query;
+       Player player = null;
+       
+        try 
+         {
+            if(connection == null)
+            {
+                getDatabaseConnection();
+            }
+             
+             query = "SELECT image_file_name FROM token " +
+                        "WHERE token_id = '" + token_id + "' ";
+
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery( query );
+
+             // next varifies a first row of results
+             // If there is no result row, then no such user exists
+             if(resultSet.next())
+             {
+                 player = new Player();
+                 player.setPlayerID(resultSet.getInt("player_id"));
+                 player.setUserID(resultSet.getInt("user_id"));
+                 player.setTokenID(resultSet.getInt("token_id"));
+                 player.setSpaceID(resultSet.getInt("space_id"));
+                 int i = resultSet.getInt("spectator");
+                 boolean spectator = (i == 1)? true : false;
+                 player.setSpectator(spectator);
+             }
+
+             resultSet.close();
+             statement.close();
+         }
+         catch ( SQLException sqlex ) 
+         {
+            System.err.println( "Unable to get user from database" );
+            sqlex.printStackTrace();
+         }
+       
+       return player;
+   }
+   
+ 
    
    
    /**
@@ -408,6 +511,55 @@ public class UserPlayerDatabaseController
                 query = "UPDATE user SET player_id = NULL"; 
                 
                 statement.executeUpdate(query); 
+            }
+            
+            resultSet.close();
+            statement.close();
+            success = true;
+        }
+        catch ( SQLException sqlex ) 
+        {
+           System.err.println( "Unable to get the sql result" );
+           sqlex.printStackTrace();
+        }
+       
+       return success;
+   }
+   
+   
+      
+   /**
+    * 
+    * @param userID
+    * @return true if successful, else false
+    */
+   public boolean deleteUser(int userID)
+   {      
+       String query;
+       boolean success = true;
+       
+       try 
+        {
+            if(connection == null)
+            {
+                getDatabaseConnection();
+            }
+                        
+            query = "SELECT * FROM user " +
+                       "WHERE user_id = '" + userID + "' " + 
+                        "AND player_id = IS NOT NULL "; 
+
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery( query );
+            // next verifies a first row of results
+            // If there is no result row, then no id match was found
+            if(!resultSet.next()) success = false;
+            
+            if(success)
+            {
+                query = "DELETE FROM user " + 
+                        "WHERE user_id = '" + userID + "' ";                 
+                statement.executeUpdate(query);                
             }
             
             resultSet.close();
