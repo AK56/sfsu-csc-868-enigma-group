@@ -50,11 +50,13 @@ public class Railroad extends Property {
     /* calculateRent
      * For every railroad a particular player owns, the base rent doubles
      */
-    public int calculateRent(int numOwned) {
+    public int calculateRent(int numOwned) {        
         int rent = baseRent;
         /* Presumably the Game class will set the concurrent number of railroads
          owned by a player.
          */
+        if (isMortgaged) return 0;
+        
         for (int i = 1; i < numOwned; i++) {
             rent *= 2;
         }

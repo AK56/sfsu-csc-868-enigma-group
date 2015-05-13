@@ -117,8 +117,10 @@ public class RealEstate extends Property {
      * Game class determines if a colored monopoly exists 
      */
     public int calculateRent(int numOwned) {
-       
+        
         int rent = rents.get(0);
+        
+        if (isMortgaged) return 0;
                 
         if (numOwned == numberForMonopoly) {            
             if(numberOfHouses == 0)

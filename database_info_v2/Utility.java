@@ -49,8 +49,9 @@ public class Utility extends Property{
     
     // call the other calculateRent instead of this one
     @Override
-    public int calculateRent(int numOwned) {        
-        return -1;
+    public int calculateRent(int numOwned) {    
+        if (isMortgaged) return 0;
+        else return -1;
     }
     
     /* calculateRent
@@ -59,6 +60,8 @@ public class Utility extends Property{
      * Else the calculated rent is 4 times the roll of the first die.
      */
     public int calculateRent(int numOwned, int diceRoll) {
+        
+        if (isMortgaged) return 0;
         
         if(numOwned == 2) //This is where the check of the renter should be used instead of calculateRentWhenEffectedByCard()
         {
