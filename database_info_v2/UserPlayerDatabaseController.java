@@ -6,6 +6,7 @@ package Data;
 import Game.Player;
 import User.User;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 /**
@@ -568,5 +569,56 @@ public class UserPlayerDatabaseController
         }
    }
    
+     
+   /*****
+   // gets user from the database that corresponds to that user's unique id 
+   // If successful returns a new User object with the data values belonging 
+   // to the user, else returns a NULL User object.
+   *****/
+   public ArrayList<Player> getPlayerListByGameID(int gameID)
+   {       
+       String query;
+       ArrayList<Player> accountList = new ArrayList<Player>();
+       
+        try 
+         {
+            if(connection == null)
+            {
+                getDatabaseConnection();
+            }
+             
+             query = "SELECT * FROM player " +
+                        "WHERE game_id = '" + gameID + "' ";
+
+             statement = connection.createStatement();
+             resultSet = statement.executeQuery( query );
+
+             // next varifies a first row of results
+             // If there is no result row, then no such user exists
+             while(resultSet.next())
+             {
+                 Player player = new Player();
+                 player.setPlayerID(resultSet.getInt("player_id"));
+                 player.setUserID(resultSet.getInt("user_id"));
+                 player.setTokenID(resultSet.getInt("token_id"));
+                 player.setSpaceID(resultSet.getInt("space_id") + 1);
+                 int i = resultSet.getInt("spectator");
+                 boolean spectator = (i == 1);
+                 player.setSpectator(spectator);
+             }
+
+             resultSet.close();
+             statement.close();
+         }
+         catch ( SQLException sqlex ) 
+         {
+            System.err.println( "Unable to get user from database" );
+            sqlex.printStackTrace();
+         }
+       finally
+       {
+           return accountList;
+       }
+   }
    
 }

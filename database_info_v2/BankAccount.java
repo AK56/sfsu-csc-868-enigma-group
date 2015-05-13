@@ -13,7 +13,7 @@ balance, and the player associated with the balance.
  */
 public class BankAccount
 {
-
+    private static final int startingBalance = 1500;
     private int bankAccountID; // maybe given by the db?
     private int bankID;
     private int playerID;
@@ -75,6 +75,10 @@ public class BankAccount
 
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
+    }
+
+    public static int getStartingBalance() {
+        return startingBalance;
     }
 
     
