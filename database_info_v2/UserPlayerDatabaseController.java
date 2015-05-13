@@ -418,9 +418,9 @@ public class UserPlayerDatabaseController
                  player.setPlayerID(resultSet.getInt("player_id"));
                  player.setUserID(resultSet.getInt("user_id"));
                  player.setTokenID(resultSet.getInt("token_id"));
-                 player.setSpaceID(resultSet.getInt("space_id"));
+                 player.setSpaceID(resultSet.getInt("space_id") + 1);
                  int i = resultSet.getInt("spectator");
-                 boolean spectator = (i == 1)? true : false;
+                 boolean spectator = (i == 1);
                  player.setSpectator(spectator);
              }
 
@@ -502,26 +502,14 @@ public class UserPlayerDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM player " +
-                       "WHERE player_id = '" + playerID + "' ";
-            
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery( query );
-            // next varifies a first row of results
-            // If there is no result row, then no id match was found
-            if(!resultSet.next()) success = false;
-            
-            if(success)
-            {
-                query = "DELETE FROM player " + 
-                        "WHERE user_id = '" + playerID + "' ";      
-                
-                statement.executeUpdate(query);  
-                
-                query = "UPDATE user SET player_id = NULL"; 
-                
-                statement.executeUpdate(query); 
-            }
+            query = "DELETE FROM player " + 
+                    "WHERE user_id = '" + playerID + "' ";      
+
+            statement.executeUpdate(query);  
+
+            query = "UPDATE user SET player_id = NULL"; 
+
+            statement.executeUpdate(query); 
             
             resultSet.close();
             statement.close();
@@ -557,22 +545,13 @@ public class UserPlayerDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM user " +
-                       "WHERE user_id = '" + userID + "' " + 
-                        "AND player_id = IS NOT NULL "; 
-
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery( query );
-            // next varifies a first row of results
-            // If there is no result row, then no id match was found
-            if(!resultSet.next()) success = false;
+            query = "DELETE FROM player " + 
+                    "WHERE user_id = '" + userID + "' ";                 
+            statement.executeUpdate(query);
             
-            if(success)
-            {
-                query = "DELETE FROM user " + 
-                        "WHERE user_id = '" + userID + "' ";                 
-                statement.executeUpdate(query);                
-            }
+            query = "DELETE FROM user " + 
+                    "WHERE user_id = '" + userID + "' ";                 
+            statement.executeUpdate(query);                
             
             resultSet.close();
             statement.close();

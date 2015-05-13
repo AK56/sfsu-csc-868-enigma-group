@@ -90,6 +90,5 @@ public class Player
         this.userID = userID;
     }
     
-	
 }
     

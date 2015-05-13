@@ -11,19 +11,20 @@ given to the player who wishes to buy a property.
 package Game;
 
 import java.util.ArrayList;
-import java.util.List;
 import Game.Player;
 
 
 public class Bank
 {
     private int bankID;
-    private List <BankAccount> bankAccountList;  // list of players' bank accounts
+    private ArrayList <BankAccount> bankAccountList;  // list of players' bank accounts
     // default value for number starter number of houses = 44
-    private int numHouses = 44;
+    private final static int starterNumberHouses = 44;
+    private int numHouses;
 
     
-    public Bank(){        
+    public Bank(){   
+        bankAccountList = new ArrayList<BankAccount>();
     }
     
     
@@ -90,11 +91,11 @@ public class Bank
         this.bankID = bankID;
     }
 
-    public List<BankAccount> getBankAccountList() {
+    public ArrayList<BankAccount> getBankAccountList() {
         return bankAccountList;
     }
 
-    public void setBankAccountList(List<BankAccount> bankAccountList) {
+    public void setBankAccountList(ArrayList<BankAccount> bankAccountList) {
         this.bankAccountList = bankAccountList;
     }
 
@@ -104,6 +105,10 @@ public class Bank
 
     public void setNumHouses(int numHouses) {
         this.numHouses = numHouses;
+    }
+
+    public static int getStarterNumberHouses() {
+        return starterNumberHouses;
     }
                
 
