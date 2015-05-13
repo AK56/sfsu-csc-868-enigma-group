@@ -13,7 +13,6 @@ package Game;
 import java.util.ArrayList;
 import java.util.List;
 import Game.Player;
-import Property.Property;
 
 
 public class Bank
@@ -77,7 +76,7 @@ public class Bank
         
         if(account != null){
             int balance = account.getCashBalance();
-            bankrupt = (balance < amountOwed) ? true : false;
+            bankrupt = (balance < amountOwed);
         }
         
         return bankrupt;
