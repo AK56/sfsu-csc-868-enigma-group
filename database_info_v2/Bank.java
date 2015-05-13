@@ -46,7 +46,13 @@ public class Bank
         addToAccount(player, amount);
     }
 
+    
+    public void buyHouseFromBank(Player player, int housePurchasePrice){
+        numHouses--;    
+        subtractFromAccount(player, housePurchasePrice);
+    }
 
+    
     public void subtractFromAccount(Player player, int amount){
         BankAccount account = getPlayerBankAccount(player);
         
