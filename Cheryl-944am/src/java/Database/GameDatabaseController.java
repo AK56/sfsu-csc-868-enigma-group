@@ -1,7 +1,7 @@
 /*
  *
  */
-package Data;
+package Database;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class GameDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security

@@ -45,7 +45,7 @@ public class Register extends HttpServlet {
         session.setAttribute("lastName", lastName);
             
         
-        String ifRegistered = new String("http://localhost:8080/WebApplication1/registrationSucess.html");
+        String ifRegistered = new String("registrationSucess.html");
         /* check if the password entries match*/
        // if((passwrd.compareTo(confirmPasswrd) == 0) && (userName != null || passwrd != null || confirmPasswrd != null
        //         || firstName != null || lastName != null)){

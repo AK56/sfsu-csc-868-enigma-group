@@ -5,13 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page language="java" import="java.lang.*" import = "User.Player"%>
-<body>
-        <%
-            Player player = (Player) session.getAttribute("player");
-            int id = player.getPlayerID();
-            
-            %>
+<%@ page language="java" import="java.lang.*" %>
+
 <!DOCTYPE html>
 
 <head>
@@ -52,11 +47,11 @@
                             <td bgcolor="#1EB25A">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td><p class="h4">Player Info</p>
-                                <p>Player: </p>
-                                <p>Game Id: </p>
-                                <p>Player Id: <p>
-                                
+                            <td><p class="h4">List of Players</p>
+                                <p>Player 1</p>
+                                <p>Player 2</p>
+                                <p>Player 3</p>
+                                <p>Player 4</p>
                                 <p>&nbsp;</p></td>
                         </tr>
                         <tr>
@@ -67,9 +62,11 @@
 
                                 <p id ="h"></p>
 
-                                <button id = "payTaxes">Pay Taxes</button><br>
-                                <button id = "getOutOfJail">Get out of Jail</button><br>
-                                
+                                <button id = "payTaxes">Pay Taxes</button>
+                                <button id = "getOutOfJail">Get out of Jail</button>
+                                <p>Buy house / hotel</p>
+                                <p>Sell house / hotel</p>
+                                <p>Sell property</p>
                             </td>
                         </tr>
                         <tr>
@@ -236,7 +233,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <p class="h4"><span class="h4">Player Stats</span></p>
+                                <p class="h4"><span class="h4">Player Info</span></p>
                                 <select>
                                     <option value="Player 1">Player 1</option>
                                     <option value="Player 2">Player 2</option>
@@ -259,7 +256,6 @@
                         </tr>
                         <tr>
                             <td>
-                                <p class="h4"><span class="h4">Game Stats</span></p>
                                 <div id = "myConsole" style="align:right;height:250px;width:250px;border:1px solid #ccc;font:12px;overflow:auto"></div>
                             </td>
                         </tr>

@@ -4,32 +4,29 @@
  */
 package Property;
 
+import Database.RailroadDatabaseController;
+
 /**
  *
  * @author Kenneth Robertson and Derek Ma
  */
 public class Railroad extends Property {
 
-    private static int baseRent = 25;
+    private static final int baseRent = 25;
+    public static RailroadDatabaseController database = Database.RailroadDatabaseController.getInstance();
     
     /* Constructors - 5 parameters */
-    public Railroad(int owner, int location, String name, int price) {
-        super(owner, location, name, price); // 5 parameters
+    public Railroad(int owner, int location, String name, int price, int game) {
+        super(owner, location, name, price, game); // 5 parameters
     }
 
     public Railroad() {
         super(); // 7 parameters
     }
 
-    /* Initialize method - 8 parameters */
-    public void initialize(int owner, int location, int base, String name, int price, boolean mortgaged) {
-        this.setOwnerID(owner);
-        this.setSpaceID(location);
-        this.setBaseRent(base);
-        this.setName(name);
-        this.setPurchasePrice(price);
-        this.setIsMortgaged(mortgaged);
-        this.setMortgageAmount(price/2);
+    /* Initialize method - 7 parameters */
+    public void initialize(int owner, int location, String name, int price, boolean mortgaged, int game) {
+        super.initialize(owner, location, name, price, mortgaged, game);
     }
 
     /* Getters */
@@ -37,12 +34,17 @@ public class Railroad extends Property {
     public static int getBaseRent() {
         return baseRent;
     }
+   
+    @Override
+    public void setOwnerID(int ownerID) {
+        this.ownerID = ownerID;
+        database.updateRailroad(this);
+    }
     
-
-    /* Setters */
-
-    public static void setBaseRent(int baseRent) {
-        Railroad.baseRent = baseRent;
+    @Override
+    public void setIsMortgaged(boolean isMortgaged) {
+        this.isMortgaged = isMortgaged;
+        database.updateRailroad(this);
     }
     
 

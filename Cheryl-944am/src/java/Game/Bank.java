@@ -10,6 +10,7 @@ given to the player who wishes to buy a property.
  */
 package Game;
 
+import Database.BankDatabaseController;
 import User.Player;
 
 import java.util.ArrayList;
@@ -23,12 +24,19 @@ public class Bank
     // default value for number starter number of houses = 44
     private final static int starterNumberHouses = 44;
     private int numHouses;
+    
+    public static BankDatabaseController database = Database.BankDatabaseController.getInstance();
 
     
     public Bank(){   
-        bankAccountList = new ArrayList<BankAccount>();
+        bankAccountList = new ArrayList<BankAccount>();        
     }
     
+    public void initialize(int id, int numHouses, ArrayList<BankAccount> accountList){
+        this.bankAccountList = accountList;
+        this.numHouses = numHouses;
+        this.bankID = id;
+    }
     
     public BankAccount getPlayerBankAccount(Player player){
         /*iterate over bankAccount list*/
@@ -46,12 +54,14 @@ public class Bank
         int amount = housePurchasePrice/2;
         numHouses++;    
         addToAccount(player, amount);
+        database.updateBankNumberHouses(bankID, numHouses);
     }
 
     
     public void buyHouseFromBank(Player player, int housePurchasePrice){
         numHouses--;    
         subtractFromAccount(player, housePurchasePrice);
+        database.updateBankNumberHouses(bankID, numHouses);
     }
 
     
@@ -107,6 +117,7 @@ public class Bank
 
     public void setNumHouses(int numHouses) {
         this.numHouses = numHouses;
+        database.updateBankNumberHouses(bankID, numHouses);
     }
 
     public static int getStarterNumberHouses() {

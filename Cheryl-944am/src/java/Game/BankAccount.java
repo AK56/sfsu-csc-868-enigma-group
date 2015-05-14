@@ -1,5 +1,6 @@
 package Game;
 
+import Database.BankDatabaseController;
 import java.util.ArrayList;
 
 
@@ -19,6 +20,8 @@ public class BankAccount
     private int playerID;
     private int cashBalance;
     //private int networth;
+    
+    public static BankDatabaseController database = Database.BankDatabaseController.getInstance();
 
     // empty constructor
     public BankAccount(){
@@ -29,12 +32,14 @@ public class BankAccount
         this.bankAccountID = bankAccountID;
         this.bankID = bankID;
         this.playerID = playerID;
+        this.cashBalance = startingBalance;
     }
 
-    public void initializer(int bankAccountID, int bankID, int playerID){
+    public void initializer(int bankAccountID, int bankID, int playerID, int balance){
         this.bankAccountID = bankAccountID;
         this.bankID = bankID;
         this.playerID = playerID;
+        this.cashBalance = balance;
     }
     
     public int getBankAccountID(){
@@ -51,10 +56,12 @@ public class BankAccount
     
     public void addToAccountBalance(int income){
         cashBalance += income;
+        database.updateCashBalance(this);
     }
     
     public void subtractFromAccountBalance(int amount){
         cashBalance -= amount;
+        database.updateCashBalance(this);
     }
 
     public int getCashBalance() {
@@ -63,6 +70,7 @@ public class BankAccount
 
     public void setCashBalance(int cashBalance) {
         this.cashBalance = cashBalance;
+        database.updateCashBalance(this);
     }
 
     public void setBankAccountID(int bankAccountID) {

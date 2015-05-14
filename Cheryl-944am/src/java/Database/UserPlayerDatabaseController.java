@@ -22,7 +22,7 @@ public class UserPlayerDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -353,7 +353,7 @@ public class UserPlayerDatabaseController
                          
              // TO BE DONE ------ USE REAL PLAYER VALUES
             query = "INSERT INTO player (user_id, token_id, game_id ) "
-                 + "VALUES ('" + user.getUserID() + "', '1', '1') ";
+                 + "VALUES ('" + user.getUserID() + "', '" + token_id + "', '" + game_id + "') ";
          
             statement = connection.createStatement();
             statement.executeUpdate(query);

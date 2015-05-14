@@ -1,10 +1,10 @@
 /*
  *
  */
-package Data;
+package Database;
 
 import Property.Property;
-import Property.Railroad;
+import Property.Utility;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,17 +17,17 @@ import java.util.ArrayList;
  * 
  * @author Cheryl
  */
-public class RailroadDatabaseController
+public class UtilityDatabaseController
 {    
     // The URL specifying the MySQL database to which this program
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
-    private static RailroadDatabaseController instance;    
+    private static UtilityDatabaseController instance;    
     // for connecting to the database
     private Connection connection;
     // for passing sql querries to the database
@@ -40,10 +40,10 @@ public class RailroadDatabaseController
     
     // static for the singleton design pattern
     // used by other classes instead of calling the constructor
-    public static RailroadDatabaseController getInstance() 
+    public static UtilityDatabaseController getInstance() 
     {
         if(instance == null) {
-         instance = new RailroadDatabaseController();
+         instance = new UtilityDatabaseController();
         }
         
         return instance;
@@ -51,7 +51,7 @@ public class RailroadDatabaseController
             
     
     // private constructor for the singleton design pattern
-   private RailroadDatabaseController() 
+   private UtilityDatabaseController() 
    {                 
    }
    
@@ -84,10 +84,10 @@ public class RailroadDatabaseController
    // If successful returns a new User object with the data values belonging 
    // to the user, else returns a NULL User object.
    * ****/
-   public Railroad getRailroadByID(int gameID, int spaceID)
+   public Utility getUtilityByID(int gameID, int spaceID)
    {       
        String query1, query2;
-       Railroad railroad = null;
+       Utility utility = null;
        
         try 
          {
@@ -96,7 +96,7 @@ public class RailroadDatabaseController
                 getDatabaseConnection();
             }
                         
-            query1 = "SELECT * FROM railroad_constants " +
+            query1 = "SELECT * FROM utility_constants " +
                     "WHERE space_id = '" + spaceID + "' "; 
             
             statement = connection.createStatement();
@@ -104,13 +104,11 @@ public class RailroadDatabaseController
             
              if(resultSet.next())
              {  
-                railroad = new Railroad();
-                railroad.setSpaceID(spaceID);
-                railroad.setName(resultSet.getString("name"));
-                railroad.setMortgageAmount(resultSet.getInt("mortgage_amount"));
-                railroad.setPurchasePrice(resultSet.getInt("purchase_price"));
+                utility = new Utility();
+                int price = resultSet.getInt("purchase_price");
+                String name = resultSet.getString("name");
                 
-                query2 = "SELECT * FROM railroad_game_data " +
+                query2 = "SELECT * FROM utility_game_data " +
                     "WHERE space_id = '" + spaceID + "', " + 
                     "AND game_id = '" + gameID + "' ";
              
@@ -119,22 +117,23 @@ public class RailroadDatabaseController
 
                 if(resultSet.next())
                 {  
-                   railroad.setOwnerID(resultSet.getInt("player_owner_id")); 
-                   railroad.setIsMortgaged(resultSet.getInt("has_mortgage") == 1);
-                }             
+                   boolean mortgage = (resultSet.getInt("has_mortgage") == 1);
+                   utility.initialize(resultSet.getInt("player_owner_id"), spaceID, name, price, mortgage, gameID);                   
+                }
+                
              }
              
              resultSet.close();
-             statement.close();
+            statement.close();
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to get railroad from database" );
+            System.err.println( "Unable to get utility from database" );
             sqlex.printStackTrace();
          }
        finally
        {
-           return railroad;
+           return utility;
        }
    }
   
@@ -148,13 +147,14 @@ public class RailroadDatabaseController
    * 
    * if successful returns true
    * ****/
-   public boolean updateRailroad(Railroad railroad, int gameID)
+   public boolean updateUtility(Utility utility)
    {      
        String query;
        boolean success = true;
-       boolean hasMortgage = railroad.getIsMortgaged();
-       int spaceID = railroad.getSpaceID();
-       int owner = railroad.getOwnerID();
+       boolean hasMortgage = utility.getIsMortgaged();
+       int spaceID = utility.getSpaceID();
+       int owner = utility.getOwnerID();
+       int gameID = utility.getGameID();
        
        try 
         {
@@ -162,7 +162,7 @@ public class RailroadDatabaseController
             {   getDatabaseConnection();
             }
             
-            query = "UPDATE railroad_game_data " +
+            query = "UPDATE utility_game_data " +
                     "SET has_mortgage = '" + hasMortgage + "', player_owner_id = '" + owner + ", " +
                     "WHERE space_id = '" + spaceID + "', " + 
                     "AND game_id = '" + gameID + "' "; 
@@ -174,7 +174,7 @@ public class RailroadDatabaseController
         }
         catch ( SQLException sqlex ) 
         {
-           System.err.println( "Unable to update railroad" );
+           System.err.println( "Unable to update utility" );
            sqlex.printStackTrace();
         }
        finally
@@ -192,7 +192,7 @@ public class RailroadDatabaseController
    // If successful returns a new Player object with the data values belonging 
    // to the user, else returns a NULL Player object.
    * ****/
-   public ArrayList<Railroad> addAllRailroadsToGame(int gameID)
+   public ArrayList<Property> addBothUtilitiesToGame(int gameID)
    {
        String query;
         int space;
@@ -200,8 +200,8 @@ public class RailroadDatabaseController
         int owner = -1;
         String name;
         int price;
-        int mortgage;
-        ArrayList<Railroad> railroadList = new ArrayList<Railroad>();
+        
+        ArrayList<Property> utilityList = new ArrayList<Property>();
                 
         try 
          {             
@@ -210,7 +210,7 @@ public class RailroadDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM railroad_constants";
+            query = "SELECT * FROM utility_constants";
             statement = connection.createStatement();
             resultSet = statement.executeQuery( query );   
             
@@ -219,22 +219,14 @@ public class RailroadDatabaseController
                 space = resultSet.getInt("space_id");
                 name = resultSet.getString("name");
                 price = resultSet.getInt("purchase_price");
-                mortgage = resultSet.getInt("mortgage_amount");
                 
-                query = "INSERT INTO railroad_game_data (space_id, game_id, name, has_mortgage) "
+                query = "INSERT INTO utility_game_data (space_id, game_id, name, has_mortgage) "
                         + "VALUES ( '" + space + "', '" + gameID + "', '" + name + "', '0' ) ";
                 
-                statement.executeUpdate(query);
-                
-                Railroad railroad = new Railroad();
-                railroad.setSpaceID(space);
-                railroad.setOwnerID(owner); 
-                railroad.setName(name);
-                railroad.setMortgageAmount(mortgage);
-                railroad.setIsMortgaged(false);
-                railroad.setPurchasePrice(price);       
-                
-                railroadList.add(railroad);                        
+                statement.executeUpdate(query);                
+                Utility utility = new Utility();
+                utility.initialize(owner, space, name, price, false, gameID);                
+                utilityList.add(utility);                        
              }   
              
              resultSet.close();
@@ -242,21 +234,23 @@ public class RailroadDatabaseController
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to add 4 new railroads" );
+            System.err.println( "Unable to add 2 new utilities" );
             sqlex.printStackTrace();
          }
         finally
         {
-            return railroadList;
+            return utilityList;
         }
        
    }
    
 
-   public int numberRailroadsOwned(int ownerID)
+   public boolean doesPlayerHaveMonopoly(int ownerID)
    {
        String query;
+       boolean monopoly = false;
        int numOwned = 0;
+       int numNeededForMonopoly = 2;
        
         try 
          {
@@ -265,7 +259,7 @@ public class RailroadDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM railroad_game_data " +
+            query = "SELECT * FROM utility_game_data " +
                     "WHERE player_owner_id = '" + ownerID + "' "; 
             
             statement = connection.createStatement();
@@ -279,16 +273,16 @@ public class RailroadDatabaseController
              resultSet.close();
             statement.close();
             
-            
+            monopoly = (numOwned == numNeededForMonopoly);
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to get railroad from database" );
+            System.err.println( "Unable to get utility from database" );
             sqlex.printStackTrace();
          }
        finally
        {
-           return numOwned;
+           return monopoly;
        }
    }
    
@@ -299,7 +293,7 @@ public class RailroadDatabaseController
     * @param spaceID
     * @return true if successful, else false
     */
-   public boolean deleteAllGameRailroads(int gameID)
+   public boolean deleteBothGameUtilites(int gameID)
    {      
        String query;
        boolean success = false;
@@ -310,7 +304,7 @@ public class RailroadDatabaseController
             {   getDatabaseConnection();
             }            
 			
-            query = "DELETE FROM railroad_game_data " + 
+            query = "DELETE FROM utility_game_data " + 
                     "WHERE game_id = '" + gameID + "' ";  
             
             statement.executeUpdate(query);            
@@ -319,7 +313,7 @@ public class RailroadDatabaseController
         }
         catch ( SQLException sqlex ) 
         {
-           System.err.println( "Unable to delete the railroads" );
+           System.err.println( "Unable to get the sql result" );
            sqlex.printStackTrace();
         }
        finally

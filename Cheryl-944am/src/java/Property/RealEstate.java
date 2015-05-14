@@ -8,6 +8,7 @@ package Property;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import Database.RealEstateDatabaseController;
 
 /**
  *
@@ -20,42 +21,41 @@ public class RealEstate extends Property {
     private int costOfAHouse;
     private int numberForMonopoly; 
     private ArrayList<Integer> rents;
+    
+    public static RealEstateDatabaseController database = Database.RealEstateDatabaseController.getInstance();
 
     /* Constructors - 11 parameters */
-    public RealEstate(int owner, int location, String name, int price, int costOfAHouse,
-            String color, int numberOfHouses, int numberForMonopoly, ArrayList<Integer> rents) 
+    public RealEstate(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,
+            String color, int numberOfHouses, int numberForMonopoly, ArrayList<Integer> rents, int gameID) 
     {
-        super(owner, location, name, price); // 7 parameters
+        super(owner, location, name, price, gameID); // 7 parameters
         this.color = color;
         this.numberOfHouses = numberOfHouses;
         this.numberForMonopoly = numberForMonopoly;
         this.costOfAHouse = costOfAHouse;
         this.rents = rents;
+        this.isMortgaged = hasMortgage;
     }
     
     public RealEstate() {
         super(); // 7 parameters
-        this.color = "";
         this.numberOfHouses = 0;
         this.rents = new ArrayList<Integer>();
     }
 
     /* Initialize method */
-    public void initialize(int owner, int location, int base, String name, int price, int costOfAHouse,
-            String color, int numberOfHouses, boolean colorSet, boolean mortgage, int needForMonopoly, ArrayList<Integer> rents) 
+    public void initialize(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,
+            String color, int numberOfHouses, int numberForMonopoly, ArrayList<Integer> rents, int gameID) 
     {
-        this.setOwnerID(owner);
-        this.setSpaceID(location);
-        this.setName(name);
-        this.setPurchasePrice(price);
+        super.initialize(owner, location, name, price, hasMortgage, gameID);
         this.setColor(color);
         this.setNumberOfHouses(numberOfHouses);
-        this.setIsMortgaged(mortgage);
-        this.setMortgageAmount(price/2);
         this.setNumberForMonopoly(numberForMonopoly);
         this.setRents(rents);
     }
 
+    
+    
     /* Getters */
     public String getColor() {
         return color;
@@ -80,12 +80,27 @@ public class RealEstate extends Property {
     
 
     /* Setters */
+    
+    @Override
+    public void setIsMortgaged(boolean isMortgaged) {
+        this.isMortgaged = isMortgaged;
+        database.updateRealEstate(this);
+    }
+    
+    @Override
+    public void setOwnerID(int ownerID) {
+        this.ownerID = ownerID;
+        database.updateRealEstate(this);
+    }
+    
+    
     public void setColor(String color) {
         this.color = color;
     }
     
     public void setNumberOfHouses(int numberOfHouses) {
         this.numberOfHouses = numberOfHouses;
+        database.updateRealEstate(this);
     }
     
     public void setNumberForMonopoly(int numberOfColorNeededForMonopoly) {

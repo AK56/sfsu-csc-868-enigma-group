@@ -38,8 +38,8 @@ public class login extends HttpServlet {
         session.setAttribute("userName", userName);
         session.setAttribute("passwrd", passwrd);
         
-        String lobbyPage = new String("http://localhost:8080/WebApplication1/lobby.jsp");
-        String regPage = new String("http://localhost:8080/WebApplication1/noSuccess.html");
+        String lobbyPage = new String("lobby.jsp");
+        String regPage = new String("noSuccess.html");
        // if((userName.compareTo("gill") == 0) && (passwrd.compareTo("gill") == 0)){
             /*direct the User to Lobby page, if the user is Registered*/
         if (UserPlayerDatabaseController.getInstance().doesUserLoginExist(userName, passwrd)){

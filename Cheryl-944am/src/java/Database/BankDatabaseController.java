@@ -23,7 +23,7 @@ public class BankDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -106,9 +106,7 @@ public class BankDatabaseController
              if(resultSet.next())
              {
                  bank = new Bank();
-                 bank.setBankID(resultSet.getInt("bank_id"));
-                 bank.setNumHouses(resultSet.getInt("number_houses"));
-                 bank.setBankAccountList(getAccountListByBankID(bankID));                 
+                 bank.initialize(resultSet.getInt("bank_id"), resultSet.getInt("number_houses"), getAccountListByBankID(bankID));              
              }
 
              resultSet.close();
@@ -155,10 +153,8 @@ public class BankDatabaseController
              if(resultSet.next())
              {
                  account = new BankAccount();
-                 account.setPlayerID(resultSet.getInt("player_id"));
-                 account.setBankID(resultSet.getInt("bank_id"));
-                 account.setBankAccountID(resultSet.getInt("bankaccount_id"));
-                 account.setCashBalance(resultSet.getInt("cash_balance"));
+                 account.initializer(resultSet.getInt("bankaccount_id"), resultSet.getInt("bank_id"), 
+                         resultSet.getInt("player_id"), resultSet.getInt("cash_balance"));
              }
 
              resultSet.close();
@@ -204,10 +200,8 @@ public class BankDatabaseController
              while(resultSet.next())
              {
                  BankAccount account = new BankAccount();
-                 account.setPlayerID(resultSet.getInt("player_id"));
-                 account.setBankID(resultSet.getInt("bank_id"));
-                 account.setBankAccountID(resultSet.getInt("bankaccount_id"));
-                 account.setCashBalance(resultSet.getInt("cash_balance"));
+                 account.initializer(resultSet.getInt("bankaccount_id"), resultSet.getInt("bank_id"), 
+                         resultSet.getInt("player_id"), resultSet.getInt("cash_balance"));
                  accountList.add(account);
              }
 
@@ -341,16 +335,15 @@ public class BankDatabaseController
              if(resultSet.next())
              {                
                 bank = new Bank();
-                bank.setBankID(resultSet.getInt("bank_id"));
-                bank.setNumHouses(resultSet.getInt("number_houses"));
+                int bankID = resultSet.getInt("bank_id");
                 
                 for (int playerID : playerIDs)
                 {
-                    BankAccount account = addNewBankAccount(bank.getBankID(), playerID);
+                    BankAccount account = addNewBankAccount(bankID, playerID);
                     accountList.add(account);
                 }
                 
-                bank.setBankAccountList(accountList);
+                bank.initialize(bankID, Bank.getStarterNumberHouses(), accountList);
              }
 
          }
@@ -406,10 +399,8 @@ public class BankDatabaseController
              if(resultSet.next())
              {
                 account = new BankAccount();
-                account.setCashBalance(BankAccount.getStartingBalance());
-                account.setPlayerID(playerID);
-                account.setBankID(bankID);
-                account.setBankAccountID(resultSet.getInt("bankaccount_id"));
+                int id = resultSet.getInt("bankaccount_id");
+                account.initializer(id, bankID, playerID, BankAccount.getStartingBalance());
              }
 
          }

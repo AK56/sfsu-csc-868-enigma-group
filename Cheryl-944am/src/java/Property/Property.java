@@ -19,15 +19,17 @@ public abstract class Property extends Space {
     protected int purchasePrice;
     protected boolean isMortgaged;
     protected int mortgageAmount;
+    protected int gameID;
 
     /* Constructors - 6 parameters */
-    public Property(int owner, int location, String name, int price) {
+    public Property(int owner, int location, String name, int price, int game) {
         super(location); // 1 parameter
         this.ownerID = owner;
         this.name = name;
         this.purchasePrice = price;
         this.isMortgaged = false;
         this.mortgageAmount = price/2;
+        this.gameID = game;
     }
 
     public Property() {
@@ -40,13 +42,14 @@ public abstract class Property extends Space {
     }
 
     /* Initialize method */
-    public void initialize(int owner, int location, String name, int price, boolean mortgage) {
-        this.setOwnerID(owner);
-        this.setSpaceID(location);
-        this.setName(name);
-        this.setPurchasePrice(price);
-        this.setIsMortgaged(mortgage);
-        this.setMortgageAmount(price/2);
+    public void initialize(int owner, int location, String name, int price, boolean mortgage, int gameID) {
+        this.ownerID = owner;
+        this.isMortgaged = mortgage;
+        this.purchasePrice = price;
+        this.mortgageAmount = price/2;
+        this.spaceID = location;
+        this.gameID = gameID;
+        this.name = name;
     }
 
     /* Getters */
@@ -69,8 +72,11 @@ public abstract class Property extends Space {
     public int getMortgageAmount() {
         return mortgageAmount;
     }
-    
-    
+
+    public int getGameID() {
+        return gameID;
+    }
+
 
     /* Setters */
     public void setOwnerID(int ownerID) {
@@ -93,6 +99,9 @@ public abstract class Property extends Space {
         this.mortgageAmount = mortgageAmount;
     }
 
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
     
     /* Abstract class used to calculate rent dependent on the type of property  */
     public abstract int calculateRent(int numOwned);

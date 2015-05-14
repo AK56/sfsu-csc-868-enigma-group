@@ -5,7 +5,9 @@
  */
 package Property;
 
-import Game.Dice;
+import Database.UtilityDatabaseController;
+
+
 
 /**
  *
@@ -13,9 +15,11 @@ import Game.Dice;
  */
 public class Utility extends Property{
     
+    public static UtilityDatabaseController database = Database.UtilityDatabaseController.getInstance();
+    
     /* Constructors - 5 parameters */
-    public Utility(int owner, int location, String name, int price) {
-        super(owner, location, name, price); //5 parameters
+    public Utility(int owner, int location, String name, int price, int game) {
+        super(owner, location, name, price, game); //5 parameters
     }
     
     
@@ -24,16 +28,21 @@ public class Utility extends Property{
     }
     
     /* Initialize method - 7 parameters */
-    public void initialize (int owner, int location, String name, int price, boolean utility, boolean mortgage) {
-        this.setOwnerID(owner);
-        this.setSpaceID(location);
-        this.setName(name);
-        this.setPurchasePrice(price);
-        this.setIsMortgaged(mortgage);
-        this.setMortgageAmount(price/2);
+    public void initialize (int owner, int location, String name, int price, boolean mortgage, int game) {
+        super.initialize(owner, location, name, price, mortgage, game);
     }
     
-
+    @Override
+    public void setOwnerID(int ownerID) {
+        this.ownerID = ownerID;
+        database.updateUtility(this);
+    }
+    
+    @Override
+    public void setIsMortgaged(boolean isMortgaged) {
+        this.isMortgaged = isMortgaged;
+        database.updateUtility(this);
+    }
     
     // call the other calculateRent instead of this one
     @Override
