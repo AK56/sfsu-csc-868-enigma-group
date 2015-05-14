@@ -135,7 +135,7 @@ public class GameServlet extends HttpServlet {
     {
         String returnString = null;
         if(player.getSpaceID() > newSpace || newSpace == 0)
-            bank.creditAccount(player, 200);
+            bank.addToAccount(player, 200);
         
         Space nextSpace = this.spaces.get(newSpace);
         
@@ -165,28 +165,28 @@ public class GameServlet extends HttpServlet {
         else if (nextSpace.getClass() == RealEstate.class) 
         {
             int rent = ((RealEstate)nextSpace).calculateRent();
-            bank.debitAccount(player, rent);
-            bank.creditAccount(((RealEstate)nextSpace).getOwnerID(), rent);  
+            bank.subtractFromAccount(player, rent);
+            bank.addToAccount(players.get(((RealEstate)nextSpace).getOwnerID()), rent);  
         } 
         else if (nextSpace.getClass() == Utility.class) 
         {
             int rent = ((Utility)nextSpace).calculateRent();
-            bank.debitAccount(player, rent);
-            bank.creditAccount(((Utility)nextSpace).getOwnerID(), rent);
+            bank.subtractFromAccount(player, rent);
+            bank.addToAccount(players.get(((Utility)nextSpace).getOwnerID()), rent);
         } 
         else if (nextSpace.getClass() == Railroad.class) 
         {
             int rent = ((Railroad)nextSpace).calculateRent();
-            bank.debitAccount(player, rent);
-            bank.creditAccount(((Railroad)nextSpace).getOwnerID(), rent);
+            bank.subtractFromAccount(player, rent);
+            bank.addToAccount(players.get(((Railroad)nextSpace).getOwnerID()), rent);
         } 
         else if (nextSpace.getSpaceID() == 4) //Income Tax
         {
-            bank.debitAccount(player, 200);
+            bank.subtractFromAccount(player, 200);
         }
         else if (nextSpace.getSpaceID() == 38) //Pay Luxury Tax
         {
-            bank.debitAccount(player, 100);
+            bank.subtractFromAccount(player, 100);
         }
         
         player.setSpaceID(newSpace);
@@ -201,9 +201,9 @@ public class GameServlet extends HttpServlet {
             if(current.getPropertyID() == propertyID)
             {
                 int propertyCost = current.getPurchasePrice();
-                if(bank.getPlayerBankAccount(player).getCurrentBalance() < propertyCost)
+                if(bank.getPlayerBankAccount(player).getAccountBalance() < propertyCost)
                     return false;
-                bank.debitAccount(player.getPlayerID(), propertyCost);
+                bank.subtractFromAccount(player, propertyCost);
                 current.setOwnerID(player.getPlayerID());
                 return true;
             }
