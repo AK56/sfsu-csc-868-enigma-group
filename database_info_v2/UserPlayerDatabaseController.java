@@ -340,7 +340,7 @@ public class UserPlayerDatabaseController
    // If successful returns a new Player object with the data values belonging 
    // to the user, else returns a NULL Player object.
    * ****/
-   public Player addNewPlayer(User user)
+   public Player addNewPlayer(User user, int token_id, int game_id)
    {
        String query;
        Player player = null;
@@ -353,8 +353,8 @@ public class UserPlayerDatabaseController
             }
                          
              // TO BE DONE ------ USE REAL PLAYER VALUES
-            query = "INSERT INTO player (user_id, token_id, game_id, space_id, spectator ) "
-                 + "VALUES ('" + user.getUserID() + "', '1', '1', '1', '0') ";
+            query = "INSERT INTO player (user_id, token_id, game_id ) "
+                 + "VALUES ('" + user.getUserID() + "', '1', '1') ";
          
             statement = connection.createStatement();
             statement.executeUpdate(query);
