@@ -12,18 +12,15 @@ import Game.Dice;
  * @author Kenneth Robertson and NeatoTest
  */
 public class Utility extends Property{
-    private boolean ownBothUtilities;
     
     /* Constructors - 5 parameters */
     public Utility(int owner, int location, String name, int price) {
         super(owner, location, name, price); //5 parameters
-        this.ownBothUtilities = false;
     }
     
     
     public Utility() {
         super();
-        this.ownBothUtilities = false;
     }
     
     /* Initialize method - 7 parameters */
@@ -32,20 +29,11 @@ public class Utility extends Property{
         this.setSpaceID(location);
         this.setName(name);
         this.setPurchasePrice(price);
-        this.setOwnBothUtilities(utility);
         this.setIsMortgaged(mortgage);
         this.setMortgageAmount(price/2);
     }
     
-    /* Getters */
-    public boolean getOwnBothUtilities() {
-        return ownBothUtilities;
-    }
 
-    /* Setters */
-    public void setOwnBothUtilities(boolean ownBothUtilities) {
-        this.ownBothUtilities = ownBothUtilities;
-    }
     
     // call the other calculateRent instead of this one
     @Override
