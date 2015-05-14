@@ -15,7 +15,7 @@ import Database.UtilityDatabaseController;
  */
 public class Utility extends Property{
     
-    private UtilityDatabaseController database = Database.UtilityDatabaseController.getInstance();
+    public static UtilityDatabaseController database = Database.UtilityDatabaseController.getInstance();
     
     /* Constructors - 5 parameters */
     public Utility(int owner, int location, String name, int price, int game) {

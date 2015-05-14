@@ -20,7 +20,8 @@ public class BankAccount
     private int playerID;
     private int cashBalance;
     //private int networth;
-    private BankDatabaseController database = Database.BankDatabaseController.getInstance();
+    
+    public static BankDatabaseController database = Database.BankDatabaseController.getInstance();
 
     // empty constructor
     public BankAccount(){

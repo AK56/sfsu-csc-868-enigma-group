@@ -21,7 +21,8 @@ public class RealEstate extends Property {
     private int costOfAHouse;
     private int numberForMonopoly; 
     private ArrayList<Integer> rents;
-    private RealEstateDatabaseController database = Database.RealEstateDatabaseController.getInstance();
+    
+    public static RealEstateDatabaseController database = Database.RealEstateDatabaseController.getInstance();
 
     /* Constructors - 11 parameters */
     public RealEstate(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,

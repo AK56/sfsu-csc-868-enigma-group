@@ -24,7 +24,8 @@ public class Bank
     // default value for number starter number of houses = 44
     private final static int starterNumberHouses = 44;
     private int numHouses;
-    private BankDatabaseController database = Database.BankDatabaseController.getInstance();
+    
+    public static BankDatabaseController database = Database.BankDatabaseController.getInstance();
 
     
     public Bank(){   

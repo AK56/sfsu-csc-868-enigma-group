@@ -13,7 +13,7 @@ import Database.RailroadDatabaseController;
 public class Railroad extends Property {
 
     private static final int baseRent = 25;
-    private RailroadDatabaseController database = Database.RailroadDatabaseController.getInstance();
+    public static RailroadDatabaseController database = Database.RailroadDatabaseController.getInstance();
     
     /* Constructors - 5 parameters */
     public Railroad(int owner, int location, String name, int price, int game) {
