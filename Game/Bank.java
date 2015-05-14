@@ -25,7 +25,7 @@ public class Bank
     
     public Bank(){        
     }
-    
+    /*
     public void getNewMortgage(Property property){
         mortgageList.add(property.propertyID());
     }
@@ -34,6 +34,7 @@ public class Bank
     public void payOffMortgage(Property property){
         mortgageList.remove(property.propertyID());
     }
+    */
     
     public BankAccount getPlayerBankAccount(Player player){
         return bankAccountList.get(player.getPlayerID());
@@ -62,5 +63,12 @@ public class Bank
     public boolean isPlayerBankrupt(Player player){
         return bankAccountList.get(player.getPlayerID()).getAccountBalance() == 0;
     }
-            
+
+    public int getBankID() {
+        return bankID;
+    }
+
+    public void setBankID(int bankID) {
+        this.bankID = bankID;
+    }            
 }
