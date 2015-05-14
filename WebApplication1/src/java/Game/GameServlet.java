@@ -45,13 +45,13 @@ public class GameServlet extends HttpServlet {
     //private static GameServlet gameInstance;
     public GameServlet() {
     }
-    public GameServlet(int gameId, Bank bank, Player activePlayer, BankDatabaseController bankData)
+    public GameServlet(int gameId, Bank bank, Player activePlayer)
                          
     {
         this.gameID = gameId;
         this.bank = bank;
         this.activePlayer = activePlayer;
-        this.bankData = bankData;
+        //this.bankData = bankData;
         
         //this.bank = bank;
         //this.gameBoard = gameBoard;

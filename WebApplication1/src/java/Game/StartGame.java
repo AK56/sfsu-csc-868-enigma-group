@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import Database.User;
 import Database.Player;
 import Database.UserPlayerDatabaseController;
-
+import Database.Bank;
+import Game.GameServlet;
 
 /**
  *
@@ -81,8 +82,10 @@ public class StartGame extends HttpServlet {
             out.println("<a href='gamePage_1.jsp'>Press to continue to game page</a>");
             out.println("</body>");
             out.println("</html>");
-            */
+            *///bank, player
               String redirect = new String("gamePage.jsp");
+            Bank bank = new Bank();
+            GameServlet gameservlet = new GameServlet(1, bank, player);
             
              response.setStatus(response.SC_MOVED_TEMPORARILY);
             response.setHeader("Location", redirect);

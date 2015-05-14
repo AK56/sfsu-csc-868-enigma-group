@@ -5,6 +5,9 @@
         <group>
             <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Game/login.java</file>
             <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Game/StartGame.java</file>
+            <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Database/Bank.java</file>
+            <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/web/gamePage.jsp</file>
+            <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Database/Player.java</file>
             <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Game/GameServlet.java</file>
             <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Game/Register.java</file>
             <file>file:/Users/robertmoon/NetBeansProjects/WebApplication1/src/java/Database/UserPlayerDatabaseController.java</file>

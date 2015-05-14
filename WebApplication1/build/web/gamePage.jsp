@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.lang.*" %>
-
+<%@ page import="Database.Player" %>
 <!DOCTYPE html>
 
     <head>
@@ -21,7 +21,12 @@
 
 
     <body>
-        
+        <%
+            Player player = (Player) session.getAttribute("player");
+            int id = player.getPlayerID();
+ 
+            %>
+            
         <!--table width="90%" border="1">
           <tr>
             <td width="22%" class="header"><img src="images/enigma.jpg" width="101" height="102" alt="Logo" /></td>
@@ -35,6 +40,7 @@
             <td width="22%" class="header"><img src="images/enigma.jpg" width="101" height="102" alt="Logo" /></td>
             <td width="54%" class="header"><img src="images/monopoly-text.jpg" width="593" height="120" alt="Monopoly Text" /></td>
             <td width="24%" class="blue" align="right"><button class="header"><a href="lobby.jsp">Leave Game</a></button></td>
+          <p><%=id%></p>
           </tr>
         </table>
         <hr>
