@@ -8,6 +8,8 @@ To run the monopoly database SQL file "make_tables_with_data_v4.sql"
 -- CREATE DATABASE monopoly​;  
 --
 
+if and error for choosing the database occures add this line:
+USE `monopoly`;
  
 To get the MySQL database accessible in your project it needs a library added to that project.
 
