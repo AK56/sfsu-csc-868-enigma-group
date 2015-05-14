@@ -43,13 +43,13 @@ public class RealEstate extends Property {
     }
 
     /* Initialize method */
-    public void initialize(int owner, int location, String name, int price, int costOfAHouse, int gameID,
-            String color, int numberOfHouses, boolean mortgage, int numForMonopoly, ArrayList<Integer> rents) 
+    public void initialize(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,
+            String color, int numberOfHouses, int numberForMonopoly, ArrayList<Integer> rents, int gameID) 
     {
-        super.initialize(owner, location, name, price, mortgage, gameID);
+        super.initialize(owner, location, name, price, hasMortgage, gameID);
         this.setColor(color);
         this.setNumberOfHouses(numberOfHouses);
-        this.setNumberForMonopoly(numForMonopoly);
+        this.setNumberForMonopoly(numberForMonopoly);
         this.setRents(rents);
     }
 
