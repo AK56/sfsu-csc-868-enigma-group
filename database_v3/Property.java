@@ -43,13 +43,13 @@ public abstract class Property extends Space {
 
     /* Initialize method */
     public void initialize(int owner, int location, String name, int price, boolean mortgage, int gameID) {
-        this.setOwnerID(owner);
-        this.setSpaceID(location);
-        this.setName(name);
-        this.setPurchasePrice(price);
-        this.setIsMortgaged(mortgage);
-        this.setMortgageAmount(price/2);
-        this.setGameID(gameID);
+        this.ownerID = owner;
+        this.isMortgaged = mortgage;
+        this.purchasePrice = price;
+        this.mortgageAmount = price/2;
+        this.spaceID = location;
+        this.gameID = gameID;
+        this.name = name;
     }
 
     /* Getters */
