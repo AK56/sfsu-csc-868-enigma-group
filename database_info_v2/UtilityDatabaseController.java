@@ -247,6 +247,48 @@ public class UtilityDatabaseController
    }
    
 
+   public boolean doesPlayerHaveMonopoly(int playerID)
+   {
+       String query;
+       boolean monopoly = false;
+       int numOwned = 0;
+       int numNeededForMonopoly = 2;
+       
+        try 
+         {
+            if(connection == null)
+            {
+                getDatabaseConnection();
+            }
+                        
+            query = "SELECT * FROM utility_game_data " +
+                    "WHERE player_owner_id = '" + playerID + "' "; 
+            
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery( query );   
+            
+             while(resultSet.next())
+             {  
+                numOwned++;
+             }
+
+             resultSet.close();
+            statement.close();
+            
+            monopoly = (numOwned == numNeededForMonopoly);
+         }
+         catch ( SQLException sqlex ) 
+         {
+            System.err.println( "Unable to get utility from database" );
+            sqlex.printStackTrace();
+         }
+       finally
+       {
+           return monopoly;
+       }
+   }
+   
+   
    
    /**
     * 
