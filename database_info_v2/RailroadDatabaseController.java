@@ -86,7 +86,7 @@ public class RailroadDatabaseController
    * ****/
    public Railroad getRailroadByID(int gameID, int spaceID)
    {       
-       String query;
+       String query1, query2;
        Railroad railroad = null;
        
         try 
@@ -96,32 +96,36 @@ public class RailroadDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM railroad_constants " +
-                    "WHERE space_id = '" + spaceID + "', " + 
-                    "AND game_id = '" + gameID + "' "; 
+            query1 = "SELECT * FROM railroad_constants " +
+                    "WHERE space_id = '" + spaceID + "' "; 
             
             statement = connection.createStatement();
-            resultSet = statement.executeQuery( query );   
+            resultSet = statement.executeQuery( query1 );   
             
              if(resultSet.next())
              {  
-                String name = resultSet.getString("name");
-                int price = resultSet.getInt("purchase_price");
-                int mortgage = resultSet.getInt("mortgage_amount");
-                int owner = resultSet.getInt("player_owner_id");
-                boolean hasMortgage = (resultSet.getInt("has_mortgage") == 1);
-                        
                 railroad = new Railroad();
                 railroad.setSpaceID(spaceID);
-                railroad.setOwnerID(owner); 
-                railroad.setName(name);
-                railroad.setMortgageAmount(mortgage);
-                railroad.setIsMortgaged(hasMortgage);
-                railroad.setPurchasePrice(price);
+                railroad.setName(resultSet.getString("name"));
+                railroad.setMortgageAmount(resultSet.getInt("mortgage_amount"));
+                railroad.setPurchasePrice(resultSet.getInt("purchase_price"));
+                
+                query2 = "SELECT * FROM railroad_game_data " +
+                    "WHERE space_id = '" + spaceID + "', " + 
+                    "AND game_id = '" + gameID + "' ";
+             
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery( query2 );   
+
+                if(resultSet.next())
+                {  
+                   railroad.setOwnerID(resultSet.getInt("player_owner_id")); 
+                   railroad.setIsMortgaged(resultSet.getInt("has_mortgage") == 1);
+                }             
              }
              
              resultSet.close();
-            statement.close();
+             statement.close();
          }
          catch ( SQLException sqlex ) 
          {
@@ -218,7 +222,7 @@ public class RailroadDatabaseController
                 mortgage = resultSet.getInt("mortgage_amount");
                 
                 query = "INSERT INTO railroad_game_data (space_id, game_id, name, has_mortgage) "
-                        + "VALUES ( '" + space + "', '" + gameID + "', '" + name + "', 'false' ) ";
+                        + "VALUES ( '" + space + "', '" + gameID + "', '" + name + "', '0' ) ";
                 
                 statement.executeUpdate(query);
                 
@@ -249,7 +253,7 @@ public class RailroadDatabaseController
    }
    
 
-   public int numberRailroadsOwned(int playerID)
+   public int numberRailroadsOwned(int ownerID)
    {
        String query;
        int numOwned = 0;
@@ -262,7 +266,7 @@ public class RailroadDatabaseController
             }
                         
             query = "SELECT * FROM railroad_game_data " +
-                    "WHERE player_owner_id = '" + playerID + "' "; 
+                    "WHERE player_owner_id = '" + ownerID + "' "; 
             
             statement = connection.createStatement();
             resultSet = statement.executeQuery( query );   

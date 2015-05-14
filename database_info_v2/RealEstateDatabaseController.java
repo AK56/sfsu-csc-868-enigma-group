@@ -4,7 +4,7 @@
 package Data;
 
 import Property.Property;
-import Property.Utility;
+import Property.RealEstate;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * 
  * @author Cheryl
  */
-public class UtilityDatabaseController
+public class RealEstateDatabaseController
 {    
     // The URL specifying the MySQL database to which this program
     // connects using JDBC.      
@@ -27,7 +27,7 @@ public class UtilityDatabaseController
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
-    private static UtilityDatabaseController instance;    
+    private static RealEstateDatabaseController instance;    
     // for connecting to the database
     private Connection connection;
     // for passing sql querries to the database
@@ -40,10 +40,10 @@ public class UtilityDatabaseController
     
     // static for the singleton design pattern
     // used by other classes instead of calling the constructor
-    public static UtilityDatabaseController getInstance() 
+    public static RealEstateDatabaseController getInstance() 
     {
         if(instance == null) {
-         instance = new UtilityDatabaseController();
+         instance = new RealEstateDatabaseController();
         }
         
         return instance;
@@ -51,7 +51,7 @@ public class UtilityDatabaseController
             
     
     // private constructor for the singleton design pattern
-   private UtilityDatabaseController() 
+   private RealEstateDatabaseController() 
    {                 
    }
    
@@ -76,7 +76,7 @@ public class UtilityDatabaseController
    }
    
    
-   /******* Property database functions for Railroads, Utilities, and Realestate *************/
+   /******* Property database functions for RealEstates, Utilities, and Realestate *************/
    
 
    /*****
@@ -84,10 +84,10 @@ public class UtilityDatabaseController
    // If successful returns a new User object with the data values belonging 
    // to the user, else returns a NULL User object.
    * ****/
-   public Utility getUtilityByID(int gameID, int spaceID)
+   public RealEstate getRealEstateByID(int gameID, int spaceID)
    {       
        String query1, query2;
-       Utility utility = null;
+       RealEstate realestate = null;
        
         try 
          {
@@ -96,46 +96,50 @@ public class UtilityDatabaseController
                 getDatabaseConnection();
             }
                         
-            query1 = "SELECT * FROM utility_constants " +
-                    "WHERE space_id = '" + spaceID + "' "; 
+            query1 = "SELECT * FROM realestate_constants " +
+                    "WHERE space_id = '" + spaceID + "', " + 
+                    "AND game_id = '" + gameID + "' "; 
             
             statement = connection.createStatement();
             resultSet = statement.executeQuery( query1 );   
             
              if(resultSet.next())
              {  
-                utility = new Utility();
-                utility.setSpaceID(spaceID); 
-                utility.setName(resultSet.getString("name"));
-                utility.setMortgageAmount(resultSet.getInt("mortgage_amount"));
-                utility.setPurchasePrice(resultSet.getInt("purchase_price"));
+                realestate = new RealEstate();
+                realestate.setSpaceID(spaceID);                
+                realestate.setName(resultSet.getString("name"));
+                realestate.setMortgageAmount(resultSet.getInt("mortgage_amount"));
+                realestate.setPurchasePrice(resultSet.getInt("purchase_price"));                
+                realestate.setColor(resultSet.getString("color_group"));
+                realestate.setCostOfAHouse(resultSet.getInt("cost_of_a_house"));
+                realestate.setNumberForMonopoly(resultSet.getInt("number_for_monopoly"));
                 
-                query2 = "SELECT * FROM utility_game_data " +
+                query2 = "SELECT * FROM realestate_game_data " +
                     "WHERE space_id = '" + spaceID + "', " + 
-                    "AND game_id = '" + gameID + "' ";
-             
+                    "AND game_id = '" + gameID + "' "; 
+            
                 statement = connection.createStatement();
-                resultSet = statement.executeQuery( query2 );   
-
+                resultSet = statement.executeQuery( query2 ); 
+            
                 if(resultSet.next())
-                {  
-                   utility.setOwnerID(resultSet.getInt("player_owner_id")); 
-                   utility.setIsMortgaged(resultSet.getInt("has_mortgage") == 1);
+                {
+                    realestate.setOwnerID(resultSet.getInt("player_owner_id")); 
+                    realestate.setIsMortgaged(resultSet.getInt("has_mortgage") == 1);
+                    realestate.setNumberOfHouses(resultSet.getInt("number_houses"));
                 }
-                
              }
              
              resultSet.close();
-            statement.close();
+             statement.close();
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to get utility from database" );
+            System.err.println( "Unable to get realestate from database" );
             sqlex.printStackTrace();
          }
        finally
        {
-           return utility;
+           return realestate;
        }
    }
   
@@ -149,13 +153,14 @@ public class UtilityDatabaseController
    * 
    * if successful returns true
    * ****/
-   public boolean updateUtility(Utility utility, int gameID)
+   public boolean updateRealEstate(RealEstate realestate, int gameID)
    {      
        String query;
        boolean success = true;
-       boolean hasMortgage = utility.getIsMortgaged();
-       int spaceID = utility.getSpaceID();
-       int owner = utility.getOwnerID();
+       boolean hasMortgage = realestate.getIsMortgaged();
+       int spaceID = realestate.getSpaceID();
+       int owner = realestate.getOwnerID();
+       int numHouses = realestate.getNumberOfHouses();
        
        try 
         {
@@ -163,8 +168,8 @@ public class UtilityDatabaseController
             {   getDatabaseConnection();
             }
             
-            query = "UPDATE utility_game_data " +
-                    "SET has_mortgage = '" + hasMortgage + "', player_owner_id = '" + owner + ", " +
+            query = "UPDATE realestate_game_data " +
+                    "SET has_mortgage = '" + hasMortgage + "', player_owner_id = '" + owner + ", " + "', number_houses = '" + numHouses + ", " +
                     "WHERE space_id = '" + spaceID + "', " + 
                     "AND game_id = '" + gameID + "' "; 
 
@@ -175,7 +180,7 @@ public class UtilityDatabaseController
         }
         catch ( SQLException sqlex ) 
         {
-           System.err.println( "Unable to update utility" );
+           System.err.println( "Unable to update realestate" );
            sqlex.printStackTrace();
         }
        finally
@@ -193,7 +198,7 @@ public class UtilityDatabaseController
    // If successful returns a new Player object with the data values belonging 
    // to the user, else returns a NULL Player object.
    * ****/
-   public ArrayList<Property> addBothUtilitiesToGame(int gameID)
+   public ArrayList<RealEstate> addAllRealEstatesToGame(int gameID)
    {
        String query;
         int space;
@@ -202,7 +207,7 @@ public class UtilityDatabaseController
         String name;
         int price;
         int mortgage;
-        ArrayList<Property> utilityList = new ArrayList<Property>();
+        ArrayList<RealEstate> realestateList = new ArrayList<RealEstate>();
                 
         try 
          {             
@@ -211,7 +216,7 @@ public class UtilityDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM utility_constants";
+            query = "SELECT * FROM realestate_constants";
             statement = connection.createStatement();
             resultSet = statement.executeQuery( query );   
             
@@ -222,20 +227,21 @@ public class UtilityDatabaseController
                 price = resultSet.getInt("purchase_price");
                 mortgage = resultSet.getInt("mortgage_amount");
                 
-                query = "INSERT INTO utility_game_data (space_id, game_id, name, has_mortgage) "
-                        + "VALUES ( '" + space + "', '" + gameID + "', '" + name + "', '0' ) ";
+                query = "INSERT INTO realestate_game_data (space_id, game_id, name, number_houses, has_mortgage) "
+                        + "VALUES ( '" + space + "', '" + gameID + "', '" + name + "', '0', '0' ) ";
                 
                 statement.executeUpdate(query);
                 
-                Utility utility = new Utility();
-                utility.setSpaceID(space);
-                utility.setOwnerID(owner); 
-                utility.setName(name);
-                utility.setMortgageAmount(mortgage);
-                utility.setIsMortgaged(false);
-                utility.setPurchasePrice(price);       
+                RealEstate realestate = new RealEstate();
+                realestate.setSpaceID(space);
+                realestate.setOwnerID(owner); 
+                realestate.setName(name);
+                realestate.setMortgageAmount(mortgage);
+                realestate.setIsMortgaged(false);
+                realestate.setPurchasePrice(price);       
                 
-                utilityList.add(utility);                        
+                realestateList.add(realestate);     
+                
              }   
              
              resultSet.close();
@@ -243,23 +249,22 @@ public class UtilityDatabaseController
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to add 2 new utilities" );
+            System.err.println( "Unable to add 4 new realestates" );
             sqlex.printStackTrace();
          }
         finally
         {
-            return utilityList;
+            return realestateList;
         }
        
    }
    
 
-   public boolean doesPlayerHaveMonopoly(int ownerID)
+   public boolean doesPlayerHaveMonopoly(int ownerID, int numberForMonopoly)
    {
        String query;
        boolean monopoly = false;
        int numOwned = 0;
-       int numNeededForMonopoly = 2;
        
         try 
          {
@@ -268,7 +273,7 @@ public class UtilityDatabaseController
                 getDatabaseConnection();
             }
                         
-            query = "SELECT * FROM utility_game_data " +
+            query = "SELECT * FROM realestate_game_data " +
                     "WHERE player_owner_id = '" + ownerID + "' "; 
             
             statement = connection.createStatement();
@@ -279,14 +284,15 @@ public class UtilityDatabaseController
                 numOwned++;
              }
 
-             resultSet.close();
-            statement.close();
+            resultSet.close();
+            statement.close();   
             
-            monopoly = (numOwned == numNeededForMonopoly);
+            monopoly = (numOwned == numberForMonopoly);
+            
          }
          catch ( SQLException sqlex ) 
          {
-            System.err.println( "Unable to get utility from database" );
+            System.err.println( "Unable to get realestate from database" );
             sqlex.printStackTrace();
          }
        finally
@@ -302,7 +308,7 @@ public class UtilityDatabaseController
     * @param spaceID
     * @return true if successful, else false
     */
-   public boolean deleteBothGameUtilites(int gameID)
+   public boolean deleteAllGameRealEstates(int gameID)
    {      
        String query;
        boolean success = false;
@@ -313,7 +319,7 @@ public class UtilityDatabaseController
             {   getDatabaseConnection();
             }            
 			
-            query = "DELETE FROM utility_game_data " + 
+            query = "DELETE FROM realestate_game_data " + 
                     "WHERE game_id = '" + gameID + "' ";  
             
             statement.executeUpdate(query);            
@@ -322,7 +328,7 @@ public class UtilityDatabaseController
         }
         catch ( SQLException sqlex ) 
         {
-           System.err.println( "Unable to get the sql result" );
+           System.err.println( "Unable to delete the realestates" );
            sqlex.printStackTrace();
         }
        finally
