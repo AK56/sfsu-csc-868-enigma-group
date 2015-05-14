@@ -148,6 +148,7 @@ public class GameServlet extends HttpServlet {
         {
             //Add in jail code
             newSpace = 10; //Goto jail not newSpace
+            returnString = "Goto Jail";
         }
         else if (nextSpace.getClass() == ChanceSpace.class) 
         {
