@@ -10,7 +10,7 @@ import Property.Property;
  *
  * @author Kenneth Robertson
  */
-/**
+
 public class RealEstateRepairCard extends Card
 {
     private int costPerHouse;
@@ -42,7 +42,7 @@ public class RealEstateRepairCard extends Card
     
         Note Three: There is currently no way to gain access to the property objects themselves, only the properties IDs 
     */
-/**
+
     @Override
     void playCard() throws Exception 
     {
@@ -84,4 +84,3 @@ public class RealEstateRepairCard extends Card
         this.costPerHotel = costPerHotel;
     }
 }
-**/
