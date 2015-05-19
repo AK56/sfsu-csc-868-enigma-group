@@ -3,6 +3,7 @@
  */
 package Cards;
 import Game.*;
+import User.Player;
 /**
  *
  * @author Kenneth Robertson
@@ -39,11 +40,11 @@ public class StaticCashTransferCard extends Card
     @Override
     void playCard() throws Exception 
     {
-        BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(cardDrawer);
-        int newBalance = cardDrawersBankAccount.getCurrentBalance() + amountTransfered;
+        BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(cardDrawer);
+        int newBalance = cardDrawersBankAccount.getCashBalance()+ amountTransfered;
         
         if(newBalance < 0) {} //Code needed to force player to become solvent
-        else cardDrawersBankAccount.setCurrentBalance(newBalance);
+        else cardDrawersBankAccount.setCashBalance(newBalance);
     }
 
     public int getAmountTransfered() {

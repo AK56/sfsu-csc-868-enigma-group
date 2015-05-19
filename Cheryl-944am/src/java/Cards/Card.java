@@ -5,6 +5,7 @@
  */
 package Cards;
 import Game.*;
+import User.Player;
 /**
  *
  * @author Kenneth Robertson

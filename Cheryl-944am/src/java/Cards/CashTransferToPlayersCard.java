@@ -3,6 +3,7 @@
  */
 package Cards;
 import Game.*;
+import User.Player;
 
 /**
  *
@@ -53,10 +54,10 @@ public class CashTransferToPlayersCard extends Card
             }
             
             BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(cardDrawer);
-            int newBalance = cardDrawersBankAccount.getCurrentBalance() - totalPaid;
+            int newBalance = cardDrawersBankAccount.getCashBalance() - totalPaid;
 
             if(newBalance < 0) {} //Code needed to force player to become solvent
-            else gameServlet.getBank().subtractFromAccount(totalPaid);
+            else gameServlet.getBank().subtractFromAccount(cardDrawer, totalPaid);
         }
         
         else
@@ -68,10 +69,10 @@ public class CashTransferToPlayersCard extends Card
                 if(currentPlayer.getPlayerID() != cardDrawer.getPlayerID())
                 {
                     BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(currentPlayer);
-                    int newBalance = cardDrawersBankAccount.getCurrentBalance() - amountTransfered;
+                    int newBalance = cardDrawersBankAccount.getCashBalance() - amountTransfered;
 
                     if(newBalance < 0) {} //Code needed to force player to become solvent
-                    else cardDrawersBankAccount.setCurrentBalance(newBalance);
+                    else cardDrawersBankAccount.setCashBalance(newBalance);
                     
                     totalReceived += amountTransfered;
                 }

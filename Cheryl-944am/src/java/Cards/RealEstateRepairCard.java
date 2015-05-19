@@ -5,7 +5,9 @@
  */
 package Cards;
 import Game.*;
-import Property.Property;
+import Property.*;
+import User.Player;
+import java.util.ArrayList;
 /**
  *
  * @author Kenneth Robertson
@@ -20,10 +22,11 @@ public class RealEstateRepairCard extends Card
     }
 
     public RealEstateRepairCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel) {
-        super(cardID, cardDescription, cardDrawer, cardStackType. gameServlet);
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.costPerHouse = costPerHouse;
         this.costPerHotel = costPerHotel;
     }
+    
 
     public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel)
     {
@@ -54,7 +57,7 @@ public class RealEstateRepairCard extends Card
         ArrayList<Property> cardDrawersProperties = gameServlet.getProperties(); //Not an actual method
         for(Property currentProperty : cardDrawersProperties)
         {
-            if(currentProperty.getOwnerID() == cardDrawer && currentProperty.getClass() == RealEstate.class)
+            if(currentProperty.getOwnerID() == cardDrawer.getPlayerID() && currentProperty.getClass() == RealEstate.class)
             {
                 rawHouses = ((RealEstate)currentProperty).getNumberOfHouses();
                 
@@ -62,11 +65,11 @@ public class RealEstateRepairCard extends Card
                 else houses += rawHouses;
             }
         }
-        BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(cardDrawer);
-        int newBalance = cardDrawersBankAccount.getCurrentBalance() - (costPerHouse*houses + costPerHotel*hotels);
+        BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(cardDrawer);
+        int newBalance = cardDrawersBankAccount.getCashBalance() - (costPerHouse*houses + costPerHotel*hotels);
         
         if(newBalance < 0) {} //Code needed to force player to become solvent
-        cardDrawersBankAccount.setCurrentBalance(newBalance);
+        cardDrawersBankAccount.setCashBalance(newBalance);
     }
 
     public int getCostPerHouse() {

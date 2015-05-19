@@ -4,6 +4,7 @@
  */
 package Cards;
 import Game.*;
+import User.Player;
 /**
  *
  * @author Kenneth Robertson
@@ -27,7 +28,7 @@ public class MoveToSpaceCard extends Card
         this.setCardDrawer(cardDrawer);
         this.setCardStackType(cardStackType);
         this.setSpaceChange(spaceChange);
-        this.setGameServlet(gameServlet)
+        this.setGameServlet(gameServlet);
     }
 
     /*  Note: I need to be able to change the cardDrawers location on the board.
