@@ -1,11 +1,9 @@
-/*
- * This class is for cards that transfer sums of money that are known at the start of the game.
- */
 package Cards;
 import Game.*;
 import User.Player;
 /**
- *
+ * This class is for cards that transfer sums of money that are known at the start of the game.
+ * 
  * @author Kenneth Robertson
  */
 
