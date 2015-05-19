@@ -1,8 +1,8 @@
 /* 
- * This is the JavaScript file for the Monopoly Web. It is prsenst the view of the Game and updates Game Page
- * contents such as Player's token movement on the Game Board once the dice is rolled. It updates the Game Board
- * space id and performs action accordingly.
- * @author: Gurpartap Gill
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ * AUTHOR: Gurpartap Gill
  */
 
 /*global variables and can be accessed anywhere in the script*/

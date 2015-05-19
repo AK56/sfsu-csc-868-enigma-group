@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Game;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,16 +16,12 @@ import java.util.ArrayList;
 import User.User;
 import User.Player;
 import Database.UserPlayerDatabaseController;
-
+import Game.Bank;
+import Game.GameServlet;
 
 /**
  *
  * @author Robert Moon
- * This class is a Servlet class that gets executed once the User clicks on 'Start new Game' on lobby Page.
- * The request is then handled by this class and records the current User and creates a new Player object
- * for the current session. The User is pretty much retrieved from the database using the login 
- * username/password parameters. Once the User is retrieved, then a new Player is created with the same 
- * player_id as user_id in the database. 
  */
 @WebServlet(urlPatterns = {"/StartGame"})
 public class StartGame extends HttpServlet {
@@ -50,7 +45,9 @@ public class StartGame extends HttpServlet {
             String passwrd = (String) session.getAttribute("passwrd");
             //UserPlayerDatabaseController db = Database.UserPlayerDatabaseController.getInstance();
             User user = new User();
-            
+            //System.out.println(username);
+            //System.out.println(passwrd);
+
             user = Database.UserPlayerDatabaseController.getInstance().getUserByLogin(username, passwrd);//user is null!!!
             
             if (user == null)
@@ -60,7 +57,9 @@ public class StartGame extends HttpServlet {
             ArrayList<Player> playerList = new ArrayList(4);
             
             Player player = new Player();
-        
+            //System.out.println(user.getFirstName());
+            //int temp = user.getUserID;
+            
             player = Database.UserPlayerDatabaseController.getInstance().addNewPlayer(user,9,1);//player is null!!!
             
             if (player == null)
@@ -70,7 +69,20 @@ public class StartGame extends HttpServlet {
             playerList.add(player);
             
             session.setAttribute("player", player);
+            //session.setAttribute("PlayerList", playerList);
             
+            /*
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet StartGame</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet StartGame at " + request.getContextPath() + "</h1>");
+            out.println("<a href='gamePage_1.jsp'>Press to continue to game page</a>");
+            out.println("</body>");
+            out.println("</html>");
+            *///bank, player
               String redirect = new String("gamePage.jsp");
             Bank bank = new Bank();
             GameServlet gameservlet = new GameServlet(1, bank, player);

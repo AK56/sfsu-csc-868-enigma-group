@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 /**
  *
- * @author John, edited by Cheryl
+ * @author John Santos, edited by Cheryl
  * 
  * Summary: The Player class contains information about the player’s status in the game. Each player will have
  * player_id and token_id. Each player will be assigned a turn order in the beginning of the game.

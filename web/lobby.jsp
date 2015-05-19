@@ -1,7 +1,7 @@
 <%-- 
     Document   : lobby
     Created on : Apr 22, 2015, 8:17:02 PM
-    Author     : JattMac
+    Author     : Robert Moon & John Santos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

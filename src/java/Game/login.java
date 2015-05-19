@@ -15,8 +15,6 @@ import javax.servlet.http.HttpSession;
 /**
  *
  * @author Gurpartap Gill
- * The login class is a Java Servlet that checks if the username and password being entered
- * specifies a valid entry in the database for a particular User.
  */
 public class login extends HttpServlet {
     
@@ -40,9 +38,9 @@ public class login extends HttpServlet {
         session.setAttribute("userName", userName);
         session.setAttribute("passwrd", passwrd);
         
-        String lobbyPage = new String("lobby.jsp");
-        String regPage = new String("noSuccess.html");
-      
+        String lobbyPage = new String("http://localhost:8080/WebApplication1/lobby.jsp");
+        String regPage = new String("http://localhost:8080/WebApplication1/noSuccess.html");
+       // if((userName.compareTo("gill") == 0) && (passwrd.compareTo("gill") == 0)){
             /*direct the User to Lobby page, if the user is Registered*/
         if (UserPlayerDatabaseController.getInstance().doesUserLoginExist(userName, passwrd)){
                 response.setStatus(response.SC_MOVED_TEMPORARILY);
@@ -53,10 +51,29 @@ public class login extends HttpServlet {
             response.setStatus(response.SC_MOVED_TEMPORARILY);
                 response.setHeader("Location", regPage);
         }
+        /*try {
+            /* TODO output your page here. You may use following sample code. 
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet login</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            
+            out.println("<h1>Login Not Successfull. <br> You are being directed to Registeration Page.</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            
+                
+        }
         
+        finally {
+            out.close();
+        }
+    } */ 
     }
     
-     
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

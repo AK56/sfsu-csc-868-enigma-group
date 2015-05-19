@@ -3,7 +3,7 @@
  * Some of these cards have special modifers like changes in the rate owed and
  * if the player gets money for passing go.
  */
-package Cards;
+package Card;
 import Game.*;
 import User.Player;
 /**
@@ -16,12 +16,28 @@ public class MoveToLocationCard extends Card
     private boolean hasRentModifier;
     private boolean doNotPassGo;
 
+    /**
+     * Default constructor
+     */
     public MoveToLocationCard() 
     {
         doNotPassGo = false;
         hasRentModifier = false;
     }
 
+    /**
+     * Constructors - 8 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param spaceTypeToMoveTo String that describes the kind of location the player will be sent to
+     * @param hasRentModifier   boolean stores whether the player will need to pay a modified rent when he/she lands on space
+     * @param doNotPassGo       boolean stores whether the player can collect go money as they move to the new space
+     * 
+     */
     public MoveToLocationCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo) {
         super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.spaceTypeToMoveTo = spaceTypeToMoveTo;
@@ -30,7 +46,19 @@ public class MoveToLocationCard extends Card
     }
 
     
-    
+    /**
+     * Initializer - 8 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param spaceTypeToMoveTo String that describes the kind of location the player will be sent to
+     * @param hasRentModifier   boolean stores whether the player will need to pay a modified rent when he/she lands on space
+     * @param doNotPassGo       boolean stores whether the player can collect go money as they move to the new space
+     * 
+     */
     public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo)
     {
         this.setCardID(cardID);
@@ -43,10 +71,9 @@ public class MoveToLocationCard extends Card
         this.setGameServlet(gameServlet);
     }
 
-    /*  Note: I need to be able to change the cardDrawers location on the board.
-        Currently player holds a tokenID and the Token class holds the actual location,
-        but the only way to get that Token object is throught the GameBoard.
-    */
+    //  Note: I need to be able to change the cardDrawers location on the board.
+    //    Currently player holds a tokenID and the Token class holds the actual location,
+    //    but the only way to get that Token object is throught the GameBoard.
     @Override
     void playCard() throws Exception
     {
@@ -91,30 +118,45 @@ public class MoveToLocationCard extends Card
             throw new Exception("Exception: no board location \""+spaceTypeToMoveTo+"\"");
     }
 
+    /**
+     * @return  returns string holding the kind of location the player will be sent to
+     */
     public String getSpaceTypeToMoveTo() {
         return spaceTypeToMoveTo;
     }
 
+    /**
+     * @param spaceTypeToMoveTo  stores string holding the kind of location the player will be sent to
+     */
     public void setSpaceTypeToMoveTo(String spaceTypeToMoveTo) {
         this.spaceTypeToMoveTo = spaceTypeToMoveTo;
     }
 
+    /**
+     * @return  returns boolean telling whether the player will need to pay a modified rent when he/she lands on space
+     */
     public boolean isHasRentModifier() {
         return hasRentModifier;
     }
 
+    /**
+     * @param hasRentModifier  returns boolean telling whether the player will need to pay a modified rent when he/she lands on space
+     */
     public void setHasRentModifier(boolean hasRentModifier) {
         this.hasRentModifier = hasRentModifier;
     }
 
+    /**
+     * @return  returns boolean telling whether the player can collect go money as they move to the new space
+     */
     public boolean isDoNotPassGo() {
         return doNotPassGo;
     }
 
+    /**
+     * @param doNotPassGo  returns boolean telling whether the player can collect go money as they move to the new space
+     */
     public void setDoNotPassGo(boolean doNotPassGo) {
         this.doNotPassGo = doNotPassGo;
     }
-    
-    
-    
 }

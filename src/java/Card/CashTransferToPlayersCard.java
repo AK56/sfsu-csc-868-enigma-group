@@ -1,29 +1,53 @@
-/*
- * This class is for cards that transfer money to or from all the players in the game.
- */
-package Cards;
+package Card;
 import Game.*;
 import User.Player;
 
 /**
- *
+ * This class is for cards that transfer money to or from all the players in the game.
+ * 
  * @author Kenneth Robertson
  */
-
 public class CashTransferToPlayersCard extends Card
 {
     private boolean payToPlayers;
     private int amountTransfered;
 
+    /**
+     * Default constructor
+     */
     public CashTransferToPlayersCard() {
     }
 
+    /**
+     * Constructors - 7 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param payToPlayers      boolean the if true means that the card drawer must pay to players instead of getting paid from players
+     * @param amountTransfered  int that stores the amount to be transfered from player(s) to player(s)
+     * 
+     */
     public CashTransferToPlayersCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, boolean payToPlayers, int amountTransfered) {
         super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.payToPlayers = payToPlayers;
         this.amountTransfered = amountTransfered;
     }
     
+    /**
+     * Initializer - 7 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param payToPlayers      boolean the if true means that the card drawer must pay to players instead of getting paid from players
+     * @param amountTransfered  int that stores the amount to be transfered from player(s) to player(s)
+     * 
+     */
     public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, boolean payToPlayers, GameServlet gameServlet, int amountTransfered)
     {
         this.setCardID(cardID);
@@ -35,8 +59,7 @@ public class CashTransferToPlayersCard extends Card
         this.setGameServlet(gameServlet);
     }
 
-    //  Note: Need a way to get a list of all the players currently active.
-
+    //Overridden method
     @Override
     void playCard() throws Exception 
     {
@@ -82,19 +105,30 @@ public class CashTransferToPlayersCard extends Card
         }
     }
  
-    
+    /**
+     * @return  boolean that tells if the card drawer must pay to players instead of getting paid from players
+     */
     public boolean isPayToPlayers() {
         return payToPlayers;
     }
 
+    /**
+     * @param payToPlayers  sets the boolean that tells if the card drawer must pay to players instead of getting paid from players
+     */
     public void setPayToPlayers(boolean payToPlayers) {
         this.payToPlayers = payToPlayers;
     }
 
+    /**
+     * @return  int that holds the amount to be transfered from player(s) to player(s)
+     */
     public int getAmountTransfered() {
         return amountTransfered;
     }
 
+    /**
+     * @param amountTransfered  sets the int that holds the amount to be transfered from player(s) to player(s)
+     */
     public void setAmountTransfered(int amountTransfered) {
         this.amountTransfered = amountTransfered;
     } 

@@ -7,12 +7,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.lang.*" import = "User.Player"%>
 <body>
-    <%
-        Player player = (Player) session.getAttribute("player");
-        int id = player.getPlayerID();
-
-    %>
-    <!DOCTYPE html>
+        <%
+            Player player = (Player) session.getAttribute("player");
+            int id = player.getPlayerID();
+            
+            %>
+<!DOCTYPE html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,6 +27,13 @@
 
 <body>
 
+    <!--table width="90%" border="1">
+      <tr>
+        <td width="22%" class="header"><img src="images/enigma.jpg" width="101" height="102" alt="Logo" /></td>
+        <td width="54%" class="header"><img src="images/monopoly-text.jpg" width="593" height="120" alt="Monopoly Text" /></td>
+        <td width="24%" class="blue"><button class="header"><a href="lobby.jsp">Leave Game</a></button></td>
+      </tr>
+    </table-->
     <div align="center">
         <table width="90%" border="0">
             <tr>
@@ -49,7 +56,7 @@
                                 <p>Player: </p>
                                 <p>Game Id: </p>
                                 <p>Player Id: <p>
-
+                                
                                 <p>&nbsp;</p></td>
                         </tr>
                         <tr>
@@ -62,7 +69,7 @@
 
                                 <button id = "payTaxes">Pay Taxes</button><br>
                                 <button id = "getOutOfJail">Get out of Jail</button><br>
-
+                                
                             </td>
                         </tr>
                         <tr>
@@ -88,6 +95,15 @@
 
                             $("#dice").click(function () {
 
+                                /*first check if the player is not in Jail*/
+                                /*$.get('Game.GameServlet', {"param": "isInJail"},
+                                 function(resp){
+                                 setIsInJail(resp);
+                                 })
+                                 .fail(function() { // on failure of the GET request
+                                 alert("Request failed to check if player in Jail.");
+                                 });*/
+
                                 if (getIsInJail().localeCompare("Yes") === 0) {
                                     alert("You are in Jail. Pay fine to get Out and Play");
                                 }
@@ -101,7 +117,7 @@
                                             alert("ROLL SOME CASH NOW TO IRS.\n PAY YOUR TAXES!");
                                             subtractBalance(50);
                                             $("#myConsole").append("Taxes paid: $50<br>");
-                                            document.getElementById("accountBalance").value = "$ " + getBalance().toString();
+                                            document.getElementById("accountBalance").value = "$ " +getBalance().toString();
                                             /*$.get('Game.GameServlet',{"param": "payTax", "taxAmount": "50"}, function(resp){
                                              document.getElementById("myConsole").append = resp;
                                              
@@ -110,17 +126,17 @@
                                              alert("Not able to Pay Taxes!");
                                              });*/
                                         }
-                                        else if (returnSpaceId() == 0) {
+                                        else if(returnSpaceId() == 0){
                                             addBalance(500);
                                             $("#myConsole").append("GO SPACE :)Account is credited<br>");
-                                            document.getElementById("accountBalance").value = "$ " + getBalance().toString();
-
+                                            document.getElementById("accountBalance").value = "$ " +getBalance().toString();
+                                            
                                         }
-                                        else if (returnSpaceId() == 10) {
+                                        else if(returnSpaceId() == 10){
                                             $("#myConsole").append("Visiting Jail.<br>");
                                         }
-
-                                        else if (returnSpaceId() == 20) {
+                                        
+                                        else if(returnSpaceId() == 20){
                                             $("#myConsole").append("Free Parking! Just Chillaaaaxx<br>");
                                         }
                                         else if (returnSpaceId() == 30) {
@@ -128,34 +144,34 @@
                                             alert("OOPS, You are on your way to Jail!");
                                             moveToJail(); //moves Player Token to Jail Space
                                             setIsInJail("Yes");
-                                            setSpaceId(10);
+                                            setSpaceId(10);    
                                             document.getElementById("isInJail").value = "Yes";
                                             $("#myConsole").append("You are in Jail Now.<br>");
                                         }
                                         /*for chance/community cards*/
                                         else if (returnSpaceId() === 2) {
-
+                                            
                                         }
                                         else if (returnSpaceId() === 7) {
-
+                                            
                                         }
                                         else if (returnSpaceId() === 17) {
-
+                                            
                                         }
                                         else if (returnSpaceId() === 22) {
-
+                                            
                                         }
                                         else if (returnSpaceId() === 33) {
-
+                                            
                                         }
                                         else if (returnSpaceId() === 36) {
-
+                                            
                                         }
                                         else {
 
                                             //$("#myConsole").append(returnSpaceId() + "<br>");
 
-                                            if (confirm("You landed on Property: " + returnSpaceId() + "\nWould you like to buy ?") === true) {
+                                            if (confirm("You landed on Property: "+returnSpaceId()+"\nWould you like to buy ?") === true) {
 
                                                 $.get('Game.GameServlet',
                                                         {"param": "buyProperty", "spaceId": returnSpaceId().toString()}, function (resp) {
@@ -163,12 +179,12 @@
                                                         //$("#myConsole").append(resp+"<br>");
                                                         $("#myConsole").append("You bought a property: " + returnSpaceId() + "<br>");
                                                         /*if((returnSpaceId() === 5 || returnSpaceId() === 15 || returnSpaceId() === 25 || returnSpaceId() === 35 ||
-                                                         ) && getRailroad() < 4){
-                                                         updateRailroad(1);
-                                                         
-                                                         document.getElementById("railroad").value = getRailroad().toString();
-                                                         }*/
-
+                                                                ) && getRailroad() < 4){
+                                                            updateRailroad(1);
+                                                                    
+                                                            document.getElementById("railroad").value = getRailroad().toString();
+                                                        }*/
+                                                            
                                                     }
                                                     else {
                                                         alert("Unable to buy Property");
@@ -269,6 +285,51 @@
     </div>
 </body>
 
+<!--table width="200" border="1" align = "right">
+            <tr>
+                <p>
+                    <input name="Leavegame" type="submit" class="button" id="Leavegame" value="Leave Game" onclick="myFunction()" />
+                </p>
+            </tr>
+            <tr>
+              <td bgcolor="#1EB25A">&nbsp;</td>
+            </tr>
+            <tr>
+              <td><p>Property List</p>
+              <select>
+                <option value="Player 1">Player 1</option>
+                <option value="Player 2">Player 2</option>
+                <option value="Player 3">Player 3</option>
+                <option value="Player 4">Player 4</option>
+<!--/select>
+  <p>Name, Rent</p></td>
+</tr>
+<tr>
+  <td>
+      <p class="h4"><span class="h4">Player Info</span></p>
+      <select>
+        <option value="Player 1">Player 1</option>
+        <option value="Player 2">Player 2</option>
+        <option value="Player 3">Player 3</option>
+        <option value="Player 4">Player 4</option>
+      </select>
+
+      <p>Bank balance</p>
+      <p>Mortgage total</p>
+      <p>Property total value</p>
+      <p>Number of houses</p>
+      <p>Number of hotels</p>
+      <p>In jail?</p>
+  </td>
+</tr>
+<tr>
+<td bgcolor="#CDE5CF">&nbsp;</td>
+</tr>
+</table>
+
+
+<p>&nbsp;</p>
+</body-->
 
 
 

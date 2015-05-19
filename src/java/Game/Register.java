@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Game;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,10 +15,6 @@ import Database.UserPlayerDatabaseController;
 /**
  *
  * @author Gurpartap Gill
- * This is Java Servlet class that handles new User Registeration requests. 
- * User fills out the form providing username, password, firstName and lastName. 
- * The HTTP request carries this information to this class, which can creates a new User entry 
- * in the User table in Database.
  */
 public class Register extends HttpServlet {
 
@@ -50,8 +45,10 @@ public class Register extends HttpServlet {
         session.setAttribute("lastName", lastName);
             
         
-        String ifRegistered = new String("registrationSucess.html");
-        
+        String ifRegistered = new String("http://localhost:8080/WebApplication1/registrationSucess.html");
+        /* check if the password entries match*/
+       // if((passwrd.compareTo(confirmPasswrd) == 0) && (userName != null || passwrd != null || confirmPasswrd != null
+       //         || firstName != null || lastName != null)){
         if (Database.UserPlayerDatabaseController.getInstance().registerNewUser(firstName, lastName,userName, passwrd))
         {
             /*after the parameter check is done, add the above values into database and redirect the User

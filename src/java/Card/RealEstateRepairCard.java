@@ -1,15 +1,12 @@
-/*
- * This class is for the cards that require the player who receives it to pay a variable amount 
- * based on the number of houses and hotels that player owns.
- * 
- */
-package Cards;
+package Card;
 import Game.*;
 import Property.*;
 import User.Player;
 import java.util.ArrayList;
 /**
- *
+ * This class is for the cards that require the player who receives it to pay a variable amount 
+ * based on the number of houses and hotels that player owns.
+ * 
  * @author Kenneth Robertson
  */
 
@@ -21,6 +18,18 @@ public class RealEstateRepairCard extends Card
     public RealEstateRepairCard() {
     }
 
+    /**
+     * Constructors - 7 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param costPerHouse      int stores the amount the card drawer will have to pay per house
+     * @param costPerHotel      int stores the amount the card drawer will have to pay per hotel(5 houses on a property)
+     * 
+     */
     public RealEstateRepairCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel) {
         super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.costPerHouse = costPerHouse;
@@ -28,6 +37,18 @@ public class RealEstateRepairCard extends Card
     }
     
 
+    /**
+     * Initializer - 7 parameters
+     *
+     * @param cardID            int stores the card identifier
+     * @param cardDescription	String stores the text of the card as in board game
+     * @param cardDrawer	Player stores the player who drew the card
+     * @param cardStackType	String stores the stack type (ie Chance or Community Chest)
+     * @param gameServlet	GameServlet gives access to all other game data
+     * @param costPerHouse      int stores the amount the card drawer will have to pay per house
+     * @param costPerHotel      int stores the amount the card drawer will have to pay per hotel(5 houses on a property)
+     * 
+     */
     public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel)
     {
         this.setCardID(cardID);
@@ -39,14 +60,7 @@ public class RealEstateRepairCard extends Card
         this.setGameServlet(gameServlet);
     }
 
-    /*  Note One: Again I need access to the bankAccount of the player who received the card,
-        and it is unclear how this is to be accomplished.    
-    
-        Note Two: It's unclear from the documentation how we plan on forcing players with a negative balance to sell assets
-    
-        Note Three: There is currently no way to gain access to the property objects themselves, only the properties IDs 
-    */
-
+    //Overriden method
     @Override
     void playCard() throws Exception 
     {
@@ -72,18 +86,30 @@ public class RealEstateRepairCard extends Card
         cardDrawersBankAccount.setCashBalance(newBalance);
     }
 
+    /**
+     * @return  int stores the amount the card drawer will have to pay per house
+     */
     public int getCostPerHouse() {
         return costPerHouse;
     }
 
+    /**
+     * @param costPerHouse  sets the int that holds the amount the card drawer will have to pay per house
+     */
     public void setCostPerHouse(int costPerHouse) {
         this.costPerHouse = costPerHouse;
     }
 
+    /**
+     * @return  int stores the amount the card drawer will have to pay per hotel
+     */
     public int getCostPerHotel() {
         return costPerHotel;
     }
 
+    /**
+     * @param costPerHotel  sets the int that holds the amount the card drawer will have to pay per hotel
+     */
     public void setCostPerHotel(int costPerHotel) {
         this.costPerHotel = costPerHotel;
     }

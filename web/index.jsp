@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : Apr 22, 2015, 7:34:44 PM
-    Author     : JattMac
+    Author     : Gurpartap Gill & John Santos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

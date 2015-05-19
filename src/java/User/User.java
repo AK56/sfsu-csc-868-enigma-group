@@ -2,7 +2,7 @@ package User;
 
 /**
  *
- * @author John
+ * @author John Santos
  * 
  * Summary: The User class allows different actions for a User. A User is someone who can browse the
 website, register, login, logout, get login username and password from the database, and 
