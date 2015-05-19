@@ -24,7 +24,6 @@ public abstract class Property extends Space {
      *
      * @param owner	int stores the playerID that owns the property
      * @param location	int stores the space on the board where the property is located
-     * 
      * @param name	String that holds the name of the property
      * @param price	int stores the banks price for the property
      * @param game	int stores the gameID for when multiple games are running at once
@@ -57,7 +56,6 @@ public abstract class Property extends Space {
      *
      * @param owner	int stores the playerID that owns the property
      * @param location	int stores the space on the board where the property is located
-     * 
      * @param name	String that holds the name of the property
      * @param price	int stores the banks price for the property
      * @param game	int stores the gameID for when multiple games are running at once
