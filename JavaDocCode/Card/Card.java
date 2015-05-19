@@ -43,7 +43,7 @@ public abstract class Card
     }
 
     /**
-     * initializer - 5 parameters
+     * Initializer - 5 parameters
      *
      * @param cardID            int stores the card identifier
      * @param cardDescription	String stores the text of the card as in board game
