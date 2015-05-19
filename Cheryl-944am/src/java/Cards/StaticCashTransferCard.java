@@ -15,18 +15,19 @@ public class StaticCashTransferCard extends Card
     public StaticCashTransferCard() {
     }
 
-    public StaticCashTransferCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, int amountTransfered) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public StaticCashTransferCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int amountTransfered) {
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.amountTransfered = amountTransfered;
     }
     
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, int amountTransfered)
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int amountTransfered)
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
         this.setCardDrawer(cardDrawer);
         this.setCardStackType(cardStackType);
         this.setAmountTransfered(amountTransfered);
+        this.setGameServlet(gameServlet);
     }    
 
     /*  Note One: I need access to the bankAccount of the player who received the card,
@@ -42,7 +43,7 @@ public class StaticCashTransferCard extends Card
         int newBalance = cardDrawersBankAccount.getCurrentBalance() + amountTransfered;
         
         if(newBalance < 0) {} //Code needed to force player to become solvent
-        cardDrawersBankAccount.setCurrentBalance(newBalance);
+        else cardDrawersBankAccount.setCurrentBalance(newBalance);
     }
 
     public int getAmountTransfered() {

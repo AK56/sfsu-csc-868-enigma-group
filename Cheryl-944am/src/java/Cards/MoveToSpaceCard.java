@@ -15,18 +15,19 @@ public class MoveToSpaceCard extends Card
     public MoveToSpaceCard() {
     }
 
-    public MoveToSpaceCard(String cardDescription, Player cardDrawer, String cardStackType,int spaceChange, int cardID) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public MoveToSpaceCard(String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int spaceChange, int cardID) {
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.spaceChange = spaceChange;
     }
 
-    public void initialize(String cardDescription, Player cardDrawer, String cardStackType,int spaceChange, int cardID) 
+    public void initialize(String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet,int spaceChange, int cardID) 
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
         this.setCardDrawer(cardDrawer);
         this.setCardStackType(cardStackType);
         this.setSpaceChange(spaceChange);
+        this.setGameServlet(gameServlet)
     }
 
     /*  Note: I need to be able to change the cardDrawers location on the board.

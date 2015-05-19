@@ -14,17 +14,18 @@ public class GetOutOfJailFreeCard extends Card
     public GetOutOfJailFreeCard() {
     }
 
-    public GetOutOfJailFreeCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public GetOutOfJailFreeCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet) {
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         
     }
     
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType)
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet)
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
         this.setCardDrawer(cardDrawer);
         this.setCardStackType(cardStackType);
+        this.setGameServlet(gameServlet);
     }
 
     /*  Note: Need a way to store this card in the player class for later use.

@@ -39,7 +39,10 @@ public abstract class Property extends Space {
         this.mortgageAmount = price / 2;
         this.gameID = game;
     }
-
+    
+    /**
+     * Default constructor
+     */
     public Property() {
         super(); // 1 parameter
         this.ownerID = 0;

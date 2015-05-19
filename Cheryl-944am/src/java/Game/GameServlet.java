@@ -5,6 +5,7 @@
  */
 package Game;
 import User.Player;
+import Property.*;
 import Database.*;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -33,8 +34,8 @@ public class GameServlet extends HttpServlet {
      */
     private int gameID;
     private Bank bank;
-    //private ArrayList <Player> players; 
-    //private ArrayList<Property> properties;
+    private ArrayList<Player> players; 
+    private ArrayList<Property> properties;
     boolean isInJail = false;
     int playerId = 0;
     BankDatabaseController bankData = null;
@@ -170,4 +171,62 @@ public class GameServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
+    }
+
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    public boolean isIsInJail() {
+        return isInJail;
+    }
+
+    public void setIsInJail(boolean isInJail) {
+        this.isInJail = isInJail;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
+    }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public void setActivePlayer(Player activePlayer) {
+        this.activePlayer = activePlayer;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    public ArrayList<Property> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(ArrayList<Property> properties) {
+        this.properties = properties;
+    }
+
+    
+    
 }

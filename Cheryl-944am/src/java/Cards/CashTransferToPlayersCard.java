@@ -17,13 +17,13 @@ public class CashTransferToPlayersCard extends Card
     public CashTransferToPlayersCard() {
     }
 
-    public CashTransferToPlayersCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, boolean payToPlayers, int amountTransfered) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public CashTransferToPlayersCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, boolean payToPlayers, int amountTransfered) {
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.payToPlayers = payToPlayers;
         this.amountTransfered = amountTransfered;
     }
     
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, boolean payToPlayers, int amountTransfered)
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, boolean payToPlayers, GameServlet gameServlet, int amountTransfered)
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
@@ -31,6 +31,7 @@ public class CashTransferToPlayersCard extends Card
         this.setCardStackType(cardStackType);
         this.setPayToPlayers(payToPlayers);
         this.setAmountTransfered(amountTransfered);
+        this.setGameServlet(gameServlet);
     }
 
     //  Note: Need a way to get a list of all the players currently active.
@@ -41,45 +42,42 @@ public class CashTransferToPlayersCard extends Card
         if(payToPlayers)
         {
             int totalPaid = 0;
-            for(Player currentPlayer : Game.getPlayers())
+            for(Player currentPlayer : gameServlet.getPlayers())
             {
                 if(currentPlayer.getPlayerID() != cardDrawer.getPlayerID())
                 {
-                    Bank.getPlayerBankAccount(currentPlayer).setCurrentBalance(
-                            Bank.getPlayerBankAccount(currentPlayer).currentPlayerBankAccount.getCurrentBalance() + amountTransfered);
+                    gameServlet.getBank().addToAccount(currentPlayer, amountTransfered);
                     
                     totalPaid += amountTransfered;
                 }
             }
             
-            BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(cardDrawer);
-            //aren't we subtracting totalPaid for the card drawer
-            int newBalance = cardDrawersBankAccount.getCurrentBalance() + totalPaid;
+            BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(cardDrawer);
+            int newBalance = cardDrawersBankAccount.getCurrentBalance() - totalPaid;
 
             if(newBalance < 0) {} //Code needed to force player to become solvent
-            cardDrawersBankAccount.setCurrentBalance(newBalance);
+            else gameServlet.getBank().subtractFromAccount(totalPaid);
         }
         
         else
         {
             int totalReceived = 0;
             
-            for(Player currentPlayer : Game.getPlayers())
+            for(Player currentPlayer : gameServlet.getPlayers())
             {
                 if(currentPlayer.getPlayerID() != cardDrawer.getPlayerID())
                 {
-                    BankAccount cardDrawersBankAccount = Bank.getPlayerBankAccount(currentPlayer);
+                    BankAccount cardDrawersBankAccount = gameServlet.getBank().getPlayerBankAccount(currentPlayer);
                     int newBalance = cardDrawersBankAccount.getCurrentBalance() - amountTransfered;
 
                     if(newBalance < 0) {} //Code needed to force player to become solvent
-                    cardDrawersBankAccount.setCurrentBalance(newBalance);
+                    else cardDrawersBankAccount.setCurrentBalance(newBalance);
                     
                     totalReceived += amountTransfered;
                 }
             }
             
-            Bank.getPlayerBankAccount(cardDrawer).setCurrentBalance(
-                            Bank.getPlayerBankAccount(cardDrawer).currentPlayerBankAccount.getCurrentBalance() + amountTransfered);
+            gameServlet.getBank().addToAccount(cardDrawer, amountTransfered);
         }
     }
  

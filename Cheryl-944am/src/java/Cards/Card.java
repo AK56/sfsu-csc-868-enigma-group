@@ -15,24 +15,28 @@ public abstract class Card
     protected String cardDescription; //Text on Card
     protected Player cardDrawer; //Player who drew the card
     protected String cardStackType; //Chance or Community Chest
+    protected GameServlet gameServlet;
 
     public Card() {
     }
 
-    public Card(int cardID, String cardDescription, Player cardDrawer, String cardStackType) 
+    public Card(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet) 
     {
         this.cardID = cardID;
         this.cardDescription = cardDescription;
         this.cardDrawer = cardDrawer;
         this.cardStackType = cardStackType;
+        this.gameServlet = gameServlet;
     }
 
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType) 
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet) 
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
         this.setCardDrawer(cardDrawer);
         this.setCardStackType(cardStackType);
+        this.setGameServlet(gameServlet);
+        
     }
 
     abstract void playCard() throws Exception;
@@ -68,6 +72,15 @@ public abstract class Card
     public void setCardStackType(String cardStackType) {
         this.cardStackType = cardStackType;
     }
+
+    public GameServlet getGameServlet() {
+        return gameServlet;
+    }
+
+    public void setGameServlet(GameServlet gameServlet) {
+        this.gameServlet = gameServlet;
+    }
+    
     
     
 }

@@ -21,8 +21,8 @@ public class MoveToLocationCard extends Card
         hasRentModifier = false;
     }
 
-    public MoveToLocationCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public MoveToLocationCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo) {
+        super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         this.spaceTypeToMoveTo = spaceTypeToMoveTo;
         this.hasRentModifier = hasRentModifier;
         this.doNotPassGo = doNotPassGo;
@@ -30,7 +30,7 @@ public class MoveToLocationCard extends Card
 
     
     
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo)
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, String spaceTypeToMoveTo, boolean hasRentModifier, boolean doNotPassGo)
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
@@ -39,6 +39,7 @@ public class MoveToLocationCard extends Card
         this.setSpaceTypeToMoveTo(spaceTypeToMoveTo);
         this.setHasRentModifier(hasRentModifier);
         this.setDoNotPassGo(doNotPassGo);
+        this.setGameServlet(gameServlet);
     }
 
     /*  Note: I need to be able to change the cardDrawers location on the board.

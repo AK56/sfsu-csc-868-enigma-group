@@ -19,13 +19,13 @@ public class RealEstateRepairCard extends Card
     public RealEstateRepairCard() {
     }
 
-    public RealEstateRepairCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, int costPerHouse, int costPerHotel) {
-        super(cardID, cardDescription, cardDrawer, cardStackType);
+    public RealEstateRepairCard(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel) {
+        super(cardID, cardDescription, cardDrawer, cardStackType. gameServlet);
         this.costPerHouse = costPerHouse;
         this.costPerHotel = costPerHotel;
     }
 
-    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, int costPerHouse, int costPerHotel)
+    public void initialize(int cardID, String cardDescription, Player cardDrawer, String cardStackType, GameServlet gameServlet, int costPerHouse, int costPerHotel)
     {
         this.setCardID(cardID);
         this.setCardDescription(cardDescription);
@@ -33,6 +33,7 @@ public class RealEstateRepairCard extends Card
         this.setCardStackType(cardStackType);
         this.setCostPerHouse(costPerHouse);
         this.setCostPerHotel(costPerHotel);
+        this.setGameServlet(gameServlet);
     }
 
     /*  Note One: Again I need access to the bankAccount of the player who received the card,
@@ -50,10 +51,10 @@ public class RealEstateRepairCard extends Card
         int hotels = 0;
         int rawHouses = 0;
         //Get Property list from cardDrawer, this currently cant be done as far as I can tell.
-        ArrayList<Property> cardDrawersProperties = cardDrawer.getPropertyList(); //Not an actual method
+        ArrayList<Property> cardDrawersProperties = gameServlet.getProperties(); //Not an actual method
         for(Property currentProperty : cardDrawersProperties)
         {
-            if(currentProperty.getClass() == RealEstate.class)
+            if(currentProperty.getOwnerID() == cardDrawer && currentProperty.getClass() == RealEstate.class)
             {
                 rawHouses = ((RealEstate)currentProperty).getNumberOfHouses();
                 
