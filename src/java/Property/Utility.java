@@ -43,7 +43,7 @@ public class Utility extends Property{
      * @param location	int stores the space on the board where the property is located
      * @param name	String that holds the name of the property
      * @param price	int stores the banks price for the property
-     * @param mortgaged boolean stores whether the railroad is mortgaged
+     * @param mortgage  boolean stores whether the railroad is mortgaged
      * @param game	int stores the gameID for when multiple games are running at once
      * 
      */

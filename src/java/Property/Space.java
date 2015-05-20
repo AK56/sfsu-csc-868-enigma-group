@@ -1,4 +1,4 @@
-package Game;
+package Property;
 
 /**
  * The Space Class keeps track of a space for the game board.  Each space has a

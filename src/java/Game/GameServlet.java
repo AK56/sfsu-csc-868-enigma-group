@@ -25,15 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/Game.GameServlet")
 public class GameServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     private int gameID;
     private Bank bank;
     private ArrayList<Player> players; 
@@ -61,9 +53,17 @@ public class GameServlet extends HttpServlet {
         this.gameID = gameId;
         this.bank = bank;
         this.activePlayer = activePlayer;
-    }
+    }    
    
-    
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -161,23 +161,23 @@ public class GameServlet extends HttpServlet {
     public int getGameID() {
         return gameID;
     }
-    /*** @param gameId sets gameId of current Game in session**/
+    /*** @param gameID sets gameId of current Game in session **/
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
-    /*** @return returns the bank for the Game**/
+    /*** @return returns the bank for the Game **/
     public Bank getBank() {
         return bank;
     }
-    /*** @param Bank sets the bank for the current**/
+    /*** @param bank sets the bank for the current **/
     public void setBank(Bank bank) {
         this.bank = bank;
     }
-    /*** @return checks if the currentPlayer is in Jail or Not**/
+    /*** @return checks if the currentPlayer is in Jail or Not **/
     public boolean isIsInJail() {
         return isInJail;
     }
-    /*** @param isInjail sets the currentPlayer inJail status **/
+    /*** @param isInJail sets the currentPlayer inJail status **/
     public void setIsInJail(boolean isInJail) {
         this.isInJail = isInJail;
     }

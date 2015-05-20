@@ -1,6 +1,5 @@
 package Property;
 
-import Game.Space;
 
 /**
  * The Property Class is an abstract class that inherits from Space This class
@@ -58,7 +57,8 @@ public abstract class Property extends Space {
      * @param location	int stores the space on the board where the property is located
      * @param name	String that holds the name of the property
      * @param price	int stores the banks price for the property
-     * @param game	int stores the gameID for when multiple games are running at once
+     * @param mortgage  boolean does the property have a mortgage on it
+     * @param gameID	int stores the gameID for when multiple games are running at once
      */
     public void initialize(int owner, int location, String name, int price, boolean mortgage, int gameID) {
         this.ownerID = owner;

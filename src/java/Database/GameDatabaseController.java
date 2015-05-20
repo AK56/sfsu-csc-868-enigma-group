@@ -7,13 +7,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-/**
- * This class is a wrapper for the SQL queries to the database for the User and 
- * Player objects.  It also provides the additional logic functionality needed.  
- * For example it ensures that unique login information has been provided
- * before saving new user registration to the database. 
+/***
+ * This class is a wrapper for the SQL queries to the database for a new game. 
+ * It saves the new id to the database so all database items needed by the game can be associated 
+ * with a particular game instance in the relational database when a new game is started.
+ * This enables the information for more than one game to be in the various database 
+ * tables simultaneously.
  * 
- * @author Cheryl
+ * @author Cheryl Nielsen
  */
 public class GameDatabaseController
 {    
@@ -21,7 +22,7 @@ public class GameDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -33,10 +34,13 @@ public class GameDatabaseController
     // the resulting data produced by a sql querry
     private ResultSet resultSet;    
     
-    /*********** constructor stuff *******************/
-    
-    // static for the singleton design pattern
-    // used by other classes instead of calling the constructor
+
+    /***
+     * Static function for the singleton design pattern, this is 
+     * used by other classes instead of calling the constructor.
+     * 
+     * @return GameDatabaseController the existing instance, or a new object if no instance currently exists
+     */
     public static GameDatabaseController getInstance() 
     {
         if(instance == null) {
@@ -47,12 +51,17 @@ public class GameDatabaseController
     }
             
     
-    // private constructor for the singleton design pattern
+    /*****
+     * Private constructor for the singleton design pattern.
+     */
    private GameDatabaseController() 
    {                 
    }
    
    
+    /***
+    * This loads the database driver for MySQL and opens a connection to the database.
+    */
    private void getDatabaseConnection()
    {        
         try 
@@ -71,15 +80,16 @@ public class GameDatabaseController
         }
         
    }
+
    
    
-   /************* Game database functions *****************/
-   
-   
-   /*****
-   * just a stub for now
-   * puts a new game id into the database and returns the game id
-   * ****/
+   /***
+    * This saves a new Game to the database.
+    * If successful it returns the database unique id key of the new Game.
+    * If not successful it returns -1, which is an invalid id number.
+    * 
+    * @return int the new Game id 
+    */
    public int addNewGame()
    {
        String query;
@@ -121,7 +131,5 @@ public class GameDatabaseController
        
    }
    
- 
-
    
 }

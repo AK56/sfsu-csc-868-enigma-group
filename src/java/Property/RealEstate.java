@@ -33,10 +33,10 @@ public class RealEstate extends Property {
      * @param costOfAHouse      int stores the cost to a player to buy a house on the property
      * @param hasMortgage       boolean stores the mortgage status of the real estate
      * @param color             String that stores the color of the real estate
-     * @param numberOfhouses    int stores the number of houses on the property
+     * @param numberOfHouses    int stores the number of houses on the property
      * @param numberForMonopoly int stores the number of the property color needed to have a real estate monopoly
-     * @param rents             ArrayList<Integer> stores the rent list for different numbers of houses
-     * @param game              int stores the gameID for when multiple games are running at once
+     * @param rents             ArrayList of Integer stores the rent list for different numbers of houses
+     * @param gameID            int stores the gameID for when multiple games are running at once
      * 
      */
     public RealEstate(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,
@@ -72,8 +72,8 @@ public class RealEstate extends Property {
      * @param color             String that stores the color of the real estate
      * @param numberOfHouses    int stores the number of houses on the property
      * @param numberForMonopoly int stores the number of the property color needed to have a real estate monopoly
-     * @param rents             ArrayList<Integer> stores the rent list for different numbers of houses
-     * @param game              int stores the gameID for when multiple games are running at once
+     * @param rents             ArrayList of Integer stores the rent list for different numbers of houses
+     * @param gameID              int stores the gameID for when multiple games are running at once
      * 
      */
     public void initialize(int owner, int location, String name, int price, int costOfAHouse, boolean hasMortgage,

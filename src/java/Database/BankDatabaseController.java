@@ -9,13 +9,13 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-/**
- * This class is a wrapper for the SQL queries to the database for the User and 
- * Player objects.  It also provides the additional logic functionality needed.  
- * For example it ensures that unique login information has been provided
- * before saving new user registration to the database. 
+/***
+ * This class is a wrapper for the SQL queries to the database for the Bank and 
+ * BankAccount objects. It also creates objects of these classes and save the new
+ * object information to the database when a new Game is started.  These objects 
+ * are fundamentally linked, because only the Bank owns and has access to the BankAccounts.
  * 
- * @author Cheryl
+ * @author Cheryl Nielsen
  */
 public class BankDatabaseController
 {    
@@ -23,7 +23,7 @@ public class BankDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -35,10 +35,13 @@ public class BankDatabaseController
     // the resulting data produced by a sql querry
     private ResultSet resultSet;    
     
-    /*********** constructor stuff *******************/
-    
-    // static for the singleton design pattern
-    // used by other classes instead of calling the constructor
+
+    /***
+     * Static function for the singleton design pattern, this is 
+     * used by other classes instead of calling the constructor.
+     * 
+     * @return BankDatabaseController the existing instance, or a new object if no instance currently exists
+     */
     public static BankDatabaseController getInstance() 
     {
         if(instance == null) {
@@ -49,12 +52,17 @@ public class BankDatabaseController
     }
             
     
-    // private constructor for the singleton design pattern
+    /*****
+     * Private constructor for the singleton design pattern.
+     */
    private BankDatabaseController() 
    {                 
    }
    
    
+   /***
+    * This loads the database driver for MySQL and opens a connection to the database.
+    */
    private void getDatabaseConnection()
    {        
         try 
@@ -73,16 +81,16 @@ public class BankDatabaseController
         }
         
    }
-   
-   
-   /************* Bank and BankAccount database functions *****************/
-   
 
-   /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+
+   /***
+   * This gets the Bank from the database that corresponds to the unique id key.
+   * If successful it returns a new Bank object with the data values belonging 
+   * to that Bank, otherwise it returns a NULL Bank object.
+   * 
+    * @param bankID the id of the bank
+    * @return Bank the new object or null
+    */
    public Bank getBankByID(int bankID)
    {       
        String query;
@@ -125,11 +133,14 @@ public class BankDatabaseController
 
 
       
-    /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+   /***
+   * This gets the BankAccount from the database that corresponds to the unique id key.
+   * If successful it returns a new BankAccount object with the data values belonging 
+   * to that BankAccount, otherwise it returns a NULL BankAccount object.
+   * 
+    * @param accountID the id of the account
+    * @return BankAccount the new object or null
+    */
    public BankAccount getAccountByID(int accountID)
    {       
        String query;
@@ -172,11 +183,15 @@ public class BankDatabaseController
    }
    
    
-   /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   *****/
+
+   /***
+   * This gets the entire set of BankAccounts from the database that corresponds
+   * to the unique id key of a particular Bank.
+   * If not successful it returns a NULL ArrayList.
+   * 
+    * @param bankID the id of the bank
+    * @return ArrayList of BankAccounts
+    */
    public ArrayList<BankAccount> getAccountListByBankID(int bankID)
    {       
        String query;
@@ -220,13 +235,13 @@ public class BankDatabaseController
    }
    
    
-   /*****
-   * Saves the user's new login information to the database so it can
-   * be used in logins later.  
-   * If the new user login information is not unique or the user id
-   * is not in the database, then the save will fail and return false.
+   /***** 
+   * This updates the database information for the number of houses belonging to 
+   * the Bank with the given unique id key. 
    * 
-   * if successful returns true
+   * @param bankID the unique id key of the Bank in the database
+   * @param numberOfHouses the new number of houses owned by that Bank
+   * @return boolean if successful returns true, otherwise it returns false
    * ****/
    public boolean updateBankNumberHouses(int bankID, int numberOfHouses)
    {      
@@ -261,13 +276,13 @@ public class BankDatabaseController
    
    
 
-   /*****
-   * Saves the user's new login information to the database so it can
-   * be used in logins later.  
-   * If the new user login information is not unique or the user id
-   * is not in the database, then the save will fail and return false.
+   /***** 
+   * This updates the database information for cash balance of the given BankAccount.
+   * Precondition: The new cash balance to be saved to the database must already have been 
+   * updated in the given BankAccount object, and exist in the database.
    * 
-   * if successful returns true
+   * @param account the BankAccount to update in the database
+   * @return boolean if successful returns true, otherwise it returns false
    * ****/
    public boolean updateCashBalance(BankAccount account)
    {      
@@ -300,14 +315,14 @@ public class BankDatabaseController
        }
    }
    
-   
-   /*****
-   // Saves the new player information to the database so it be used in a game.
-   // The database then assigns the new player an id, token, space 1, and active status.
-   // 
-   // If successful returns a new Player object with the data values belonging 
-   // to the user, else returns a NULL Player object.
-   * ****/
+
+   /***
+    * This creates a new Bank object and saves it to the database.
+    * If successful it returns a new Bank object, otherwise it returns a NULL Bank object.
+    * 
+    * @param playerIDs all the players that need to have new BankAccounts in the new Bank.
+    * @return Bank the new object or null
+    */
    public Bank addNewBank(int[] playerIDs)
    {
        String query;
@@ -360,13 +375,14 @@ public class BankDatabaseController
    }
    
      
-   /*****
-   // Saves the new player information to the database so it be used in a game.
-   // The database then assigns the new player an id, token, space 1, and active status.
-   // 
-   // If successful returns a new Player object with the data values belonging 
-   // to the user, else returns a NULL Player object.
-   * ****/
+   /***
+    * This creates a new BankAccount object and saves it to the database.
+    * If successful it returns a new BankAccount object, otherwise it returns a NULL BankAccount object.
+    * 
+    * @param playerID the Player that has the new BankAccount
+    * @param bankID the Bank that owns the new BankAccount
+    * @return BankAccount the new object or null
+    */
    public BankAccount addNewBankAccount(int bankID, int playerID)
    {
        String query;
@@ -416,13 +432,12 @@ public class BankDatabaseController
        
    }
    
-   
 
    
-   /**
-    * 
-    * @param bankID
-    * @return true if successful, else false
+   /***
+    * Deletes the Bank with the given unique id key from the database.
+    * @param bankID the id of the Bank
+    * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBank(int bankID)
    {      
@@ -460,10 +475,10 @@ public class BankDatabaseController
    }
    
    
-   /**
-    * 
-    * @param accountID
-    * @return true if successful, else false
+   /***
+    * Deletes the BankAccount with the given unique id key from the database.
+    * @param accountID the id of the bank account
+    * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBankAccount(int accountID)
    {      

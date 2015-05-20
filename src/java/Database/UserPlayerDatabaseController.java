@@ -12,9 +12,11 @@ import java.util.ArrayList;
  * This class is a wrapper for the SQL queries to the database for the User and 
  * Player objects.  It also provides the additional logic functionality needed.  
  * For example it ensures that unique login information has been provided
- * before saving new user registration to the database. 
+ * before saving new user registration to the database. It also creates objects of these 
+ * classes and save the new object information to the database.  A new Player is 
+ * created for a User when a new game is started.
  * 
- * @author Cheryl
+ * @author Cheryl Nielsen
  */
 public class UserPlayerDatabaseController
 {
@@ -22,7 +24,7 @@ public class UserPlayerDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -34,10 +36,13 @@ public class UserPlayerDatabaseController
     // the resulting data produced by a sql querry
     private ResultSet resultSet;    
     
-    /*********** constructor stuff *******************/
     
-    // static for the singleton design pattern
-    // used by other classes instead of calling the constructor
+    /***
+     * Static function for the singleton design pattern, this is 
+     * used by other classes instead of calling the constructor.
+     * 
+     * @return UtilityDatabaseController the existing instance, or a new object if no instance currently exists
+     */
     public static UserPlayerDatabaseController getInstance() 
     {
         if(instance == null) {
@@ -46,13 +51,19 @@ public class UserPlayerDatabaseController
         
         return instance;
     }
-            
-    // private constructor for the singleton design pattern
+         
+    
+    /*****
+     * Private constructor for the singleton design pattern.
+     */
    private UserPlayerDatabaseController() 
    {          
    }
    
    
+    /***
+    * This loads the database driver for MySQL and opens a connection to the database.
+    */   
    private void getDatabaseConnection()
    {
         try 
@@ -73,17 +84,16 @@ public class UserPlayerDatabaseController
    }
    
    
-   
-   /*************** User and Player database functions for the  **************/
-   /******* registration and login of Users and Player creation **************/
-   
+
 
    /*****
-   * looks for a match to the login information in the database
+   * Looks for a match to the login information in the database
    * by testing for a match to the combination of the username and password
    * 
-   * if match found returns true, if not returns false
-   * ****/
+   * @param username login 
+   * @param password login
+   * @return boolean if match found returns true, if not returns false
+   *****/
    public boolean doesUserLoginExist(String username, String password)
    {       
        boolean hasMatch = false;
@@ -124,12 +134,22 @@ public class UserPlayerDatabaseController
    
    
    /*****
-   // Saves the new user registration information to the database so it can
-   // be used in logins later.  The database then assigns the user a user id.
-   // 
-   // if successful returns true
-   // if cannot save user returns false
-   * ****/
+   * Saves the new user registration information to the database so it can
+   * be used in logins later.  The database then assigns the user a user id.
+   * If the combination of login username and password are already in the database
+   * the registration will not succeed, the value of false is returned, and 
+   * the new user is not saved to the database.
+   * 
+   * if successful returns true
+   * if cannot save user returns false
+   * 
+   * @param firstname real name
+   * @param lastname real name
+   * @param username for login
+   * @param password for login
+   * @return boolean
+   * 
+   *****/
    public boolean registerNewUser(String firstname, String lastname, String username, String password)
    {	
        // if a match was found the user cannot be saved because they must have
@@ -170,12 +190,17 @@ public class UserPlayerDatabaseController
    
    
    /*****
-   // gets user from the database that corresponds to that users
-   // unique login information as username and password
-   // 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+   * Gets the user from the database that corresponds to that users
+   * unique login information as username and password.
+   * 
+   * If successful returns a new User object with the data values belonging 
+   * to the user, else returns a NULL User object.
+   * 
+   * @param username login 
+   * @param password login 
+   * @return User the new User object
+   * 
+   *****/
    public User getUserByLogin(String username, String password)
    {       
        String query;
@@ -224,10 +249,13 @@ public class UserPlayerDatabaseController
 
 
    /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+   * Gets the User from the database that corresponds to that User's unique id key.
+   * If successful returns a new User object with the data values belonging 
+   * to the user, else returns a NULL User object.
+   * 
+   * @param id the user id
+   * @return User
+   *****/
    public User getUserByID(int id)
    {       
        String query;
@@ -276,13 +304,16 @@ public class UserPlayerDatabaseController
 
 
    /*****
-   * Saves the user's new login information to the database so it can
+   * Saves the User's new login information to the database so it can
    * be used in logins later.  
-   * If the new user login information is not unique or the user id
+   * If the new User login information is not unique or the user id
    * is not in the database, then the save will fail and return false.
    * 
-   * if successful returns true
-   * ****/
+   * @param userID the user id in the database
+   * @param newUsername new login
+   * @param newPassword new login
+   * @return boolean if successful returns true, else returns false
+   *****/
    public boolean updateUserLogin(int userID, String newUsername, String newPassword)
    {      
        String query;
@@ -333,12 +364,17 @@ public class UserPlayerDatabaseController
    
    
    /*****
-   // Saves the new player information to the database so it be used in a game.
-   // The database then assigns the new player an id, token, space 1, and active status.
-   // 
-   // If successful returns a new Player object with the data values belonging 
-   // to the user, else returns a NULL Player object.
-   * ****/
+   * Saves the new player information to the database so it be used in a game.
+   * The database then assigns the new player an id, token, space 1, and active status.
+   * 
+   * If successful returns a new Player object and gives the User the, else returns a NULL Player object.
+   * 
+   * @param user the user id 
+   * @param token_id the token id 
+   * @param game_id the game id in the database
+   * @return Player
+   * 
+   *****/
    public Player addNewPlayer(User user, int token_id, int game_id)
    {
        String query;
@@ -351,7 +387,6 @@ public class UserPlayerDatabaseController
                 getDatabaseConnection();
             }
                          
-             // TO BE DONE ------ USE REAL PLAYER VALUES
             query = "INSERT INTO player (user_id, token_id, game_id ) "
                  + "VALUES ('" + user.getUserID() + "', '" + token_id + "', '" + game_id + "') ";
          
@@ -366,12 +401,19 @@ public class UserPlayerDatabaseController
              // if player was successfully created in the database
              if(resultSet.next())
              {
+                 int id = resultSet.getInt("player_id");
                 player = new Player();
-                player.setTokenID(1);
+                player.setTokenID(token_id);
                 player.setSpectator(false);
                 player.setSpaceID(1);
-                player.setPlayerID(1);
-                player.setUserID(resultSet.getInt("player_id"));
+                player.setPlayerID(id);
+                player.setUserID(user.getUserID());                
+                
+                query = "UPDATE user SET player_id = '" + id + "' " +
+                        "WHERE user_id = '" + user.getUserID() + "' ";
+                
+                statement.executeUpdate(query);
+                user.setPlayerID(player.getPlayerID());
              }
 
          }
@@ -384,14 +426,18 @@ public class UserPlayerDatabaseController
         {
           return player;
         }
-   }
+   }  
+   
    
    
     /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+    * Gets the User from the database that corresponds to that user's unique id key.
+    * If successful returns a new User object with the data values belonging 
+    * to the user, else returns a NULL User object.
+    * 
+    * @param id the player id in the database
+    * @return Player
+    ****/
    public Player getPlayerByID(int id)
    {       
        String query;
@@ -440,11 +486,13 @@ public class UserPlayerDatabaseController
    }
    
   
-    /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+   /*****
+   * Gets the image file name from the database that corresponds to that token's unique id key
+   * If successful returns name of the image file on the web server. 
+   * 
+   * @param token_id the token id in the database
+   * @return String file name
+   ****/
    public String getTokenFileName(int token_id)
    {       
        String query;
@@ -486,8 +534,8 @@ public class UserPlayerDatabaseController
    
    
    /**
-    * 
-    * @param playerID
+    * Deletes the Player from the database that belong to the given game unique key id
+    * @param playerID the id of the player in the database
     * @return true if successful, else false
     */
    public boolean deletePlayer(int playerID)
@@ -500,16 +548,17 @@ public class UserPlayerDatabaseController
             if(connection == null)
             {
                 getDatabaseConnection();
-            }
-                        
-            query = "DELETE FROM player " + 
-                    "WHERE user_id = '" + playerID + "' ";      
+            }  
 
-            statement.executeUpdate(query);  
-
-            query = "UPDATE user SET player_id = NULL"; 
-
+            query = "UPDATE user SET player_id = NULL " +
+                    "WHERE player_id = '" + playerID + "' "; 
+            
             statement.executeUpdate(query); 
+            
+            query = "DELETE FROM player " + 
+                    "WHERE player_id = '" + playerID + "' ";     
+
+            statement.executeUpdate(query);
             
             resultSet.close();
             statement.close();
@@ -529,8 +578,8 @@ public class UserPlayerDatabaseController
    
       
    /**
-    * 
-    * @param userID
+    * Deletes the User from the database that belong to the given game unique key id
+    * @param userID the id of the user in the database
     * @return true if successful, else false
     */
    public boolean deleteUser(int userID)
@@ -545,6 +594,9 @@ public class UserPlayerDatabaseController
                 getDatabaseConnection();
             }
                         
+            query = "UPDATE user SET player_id = NULL"; 
+            statement.executeUpdate(query);
+            
             query = "DELETE FROM player " + 
                     "WHERE user_id = '" + userID + "' ";                 
             statement.executeUpdate(query);
@@ -570,9 +622,11 @@ public class UserPlayerDatabaseController
    
      
    /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
+   * Gets a list of Players from the database that corresponds to the game unique id key
+   * If successful returns the Player list, else returns a NULL ArrayList object.
+   * 
+   * @param gameID the id of the game in the database
+   * @return ArrayList of Players
    *****/
    public ArrayList<Player> getPlayerListByGameID(int gameID)
    {       

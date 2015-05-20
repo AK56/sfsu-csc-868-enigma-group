@@ -90,7 +90,7 @@ public abstract class Card
     }
 
     /**
-     * @oaram cardDescription   sets the card description
+     * @param cardDescription   sets the card description
      */
     public void setCardDescription(String cardDescription) {
         this.cardDescription = cardDescription;
@@ -104,7 +104,7 @@ public abstract class Card
     }
 
     /**
-     * @oaram cardDrawer   sets the player who drew the card
+     * @param cardDrawer   sets the player who drew the card
      */
     public void setCardDrawer(Player cardDrawer) {
         this.cardDrawer = cardDrawer;
@@ -118,7 +118,7 @@ public abstract class Card
     }
 
     /**
-     * @oaram cardStackType   sets the stack type the card came from (ie Chance)
+     * @param cardStackType   sets the stack type the card came from (ie Chance)
      */
     public void setCardStackType(String cardStackType) {
         this.cardStackType = cardStackType;
@@ -132,7 +132,7 @@ public abstract class Card
     }
 
     /**
-     * @oaram gameServlet   sets GameServlet that holds all necessary game data.
+     * @param gameServlet   sets GameServlet that holds all necessary game data.
      */
     public void setGameServlet(GameServlet gameServlet) {
         this.gameServlet = gameServlet;

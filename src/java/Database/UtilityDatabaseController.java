@@ -9,13 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-/**
- * This class is a wrapper for the SQL queries to the database for the User and 
- * Player objects.  It also provides the additional logic functionality needed.  
- * For example it ensures that unique login information has been provided
- * before saving new user registration to the database. 
+/***
+ * This class is a wrapper for the SQL queries to the database for the Utility
+ * objects. It also creates objects of these classes and save the new
+ * object information to the database when a new Game is started.
  * 
- * @author Cheryl
+ * @author Cheryl Nielsen
  */
 public class UtilityDatabaseController
 {    
@@ -23,7 +22,7 @@ public class UtilityDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -36,10 +35,12 @@ public class UtilityDatabaseController
     private ResultSet resultSet;    
     
     
-    /*********** constructor stuff *******************/
-    
-    // static for the singleton design pattern
-    // used by other classes instead of calling the constructor
+    /***
+     * Static function for the singleton design pattern, this is 
+     * used by other classes instead of calling the constructor.
+     * 
+     * @return UtilityDatabaseController the existing instance, or a new object if no instance currently exists
+     */
     public static UtilityDatabaseController getInstance() 
     {
         if(instance == null) {
@@ -49,13 +50,18 @@ public class UtilityDatabaseController
         return instance;
     }
             
-    
-    // private constructor for the singleton design pattern
+
+    /*****
+     * Private constructor for the singleton design pattern.
+     */
    private UtilityDatabaseController() 
    {                 
    }
    
    
+    /***
+    * This loads the database driver for MySQL and opens a connection to the database.
+    */
    private void getDatabaseConnection()
    {        
         try 
@@ -75,15 +81,17 @@ public class UtilityDatabaseController
         
    }
    
-   
-   /******* Property database functions for Railroads, Utilities, and Realestate *************/
-   
 
-   /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+
+   /***
+   * This gets the Utility from the database that corresponds to the unique id key combination.
+   * If successful it returns a new Utility object with the data values belonging 
+   * to that Utility, otherwise it returns a NULL Utility object.
+   * 
+    * @param gameID the particular game this Utility belongs to 
+    * @param spaceID the space on the game board where this Utility is located
+    * @return Utility 
+    */
    public Utility getUtilityByID(int gameID, int spaceID)
    {       
        String query1, query2;
@@ -139,13 +147,13 @@ public class UtilityDatabaseController
   
    
    
-   /*****
-   * Saves the user's new login information to the database so it can
-   * be used in logins later.  
-   * If the new user login information is not unique or the user id
-   * is not in the database, then the save will fail and return false.
+   /***** 
+   * This updates the database information for the given Utility.
+   * Precondition: The Utility object to be saved to the database must already 
+   * have been updated as needed, and exist in the database.
    * 
-   * if successful returns true
+   * @param utility the Utility to update in the database
+   * @return boolean if successful returns true, otherwise it returns false
    * ****/
    public boolean updateUtility(Utility utility)
    {      
@@ -185,13 +193,14 @@ public class UtilityDatabaseController
    
    
    
-   /*****
-   // Saves the new player information to the database so it be used in a game.
-   // The database then assigns the new player an id, token, space 1, and active status.
-   // 
-   // If successful returns a new Player object with the data values belonging 
-   // to the user, else returns a NULL Player object.
-   * ****/
+   /***
+    * This creates a new set of Utility objects associated with the unique id key of a particular
+    * game, saves them to the database, and returns them in an ArrayList.
+    * If not successful it returns a NULL ArrayList.
+    * 
+    * @param gameID the id of the game in the database
+    * @return ArrayList of Utility Properties
+    */
    public ArrayList<Property> addBothUtilitiesToGame(int gameID)
    {
        String query;
@@ -245,6 +254,14 @@ public class UtilityDatabaseController
    }
    
 
+   
+    /***
+    * This is used to determine how many Utility are owned by the player with the given unique id key.
+    * This is needed to calculate the rent for a Utility.  There are only 2 Utility on the game board.
+    * 
+    * @param ownerID the player's id
+    * @return boolean are both of the Utility owned by that player
+    */
    public boolean doesPlayerHaveMonopoly(int ownerID)
    {
        String query;
@@ -288,10 +305,10 @@ public class UtilityDatabaseController
    
    
    
-   /**
-    * 
-    * @param spaceID
-    * @return true if successful, else false
+   /***
+    * Deletes both of the Utility from the database that belong to the given game unique key id.
+    * @param gameID the id of the game in the database
+    * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBothGameUtilites(int gameID)
    {      

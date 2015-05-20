@@ -126,7 +126,7 @@ public class Bank
     public int getBankID() {
         return bankID;
     }
-    /*** @param bankId sets the bankId**/
+    /*** @param bankID sets the bankId**/
     public void setBankID(int bankID) {
         this.bankID = bankID;
     }
@@ -134,7 +134,7 @@ public class Bank
     public ArrayList<BankAccount> getBankAccountList() {
         return bankAccountList;
     }
-    /*** @param sets bankAccount list**/
+    /*** @param bankAccountList bankAccount list**/
     public void setBankAccountList(ArrayList<BankAccount> bankAccountList) {
         this.bankAccountList = bankAccountList;
     }

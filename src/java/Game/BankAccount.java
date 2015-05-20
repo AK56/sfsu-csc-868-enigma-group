@@ -48,38 +48,38 @@ public class BankAccount
         this.playerID = playerID;
         this.cashBalance = balance;
     }
-    /***@return returns the bankAccount id**/
+    /***@return int returns the bankAccount id **/
     public int getBankAccountID(){
         return bankAccountID;
     }
-    /*** @return returns the bankId**/
+    /*** @return int returns the bankId **/
     public int getBankID(){
         return bankID;
     }
-    /*** @return returns the playerId **/
+    /*** @return int returns the playerId **/
     public int getPlayerID(){
         return playerID;
     }
-    /*** @param income credits Player's account balance**/
+    /*** @param income credits Player's account balance **/
     public void addToAccountBalance(int income){
         cashBalance += income;
         database.updateCashBalance(this);
     }
-    /*** @param income debits Player's account balance**/
+    /*** @param amount debits Player's account balance **/
     public void subtractFromAccountBalance(int amount){
         cashBalance -= amount;
         database.updateCashBalance(this);
     }
-    /*** @return returns cash in Player's account**/
+    /*** @return int returns cash in Player's account **/
     public int getCashBalance() {
         return cashBalance;
     }
-    /*** @param cashBalance updates cashBalance of player**/
+    /*** @param cashBalance updates cashBalance of player **/
     public void setCashBalance(int cashBalance) {
         this.cashBalance = cashBalance;
         database.updateCashBalance(this);
     }
-    /*** @param bankAccountId sets the bankAccount id**/
+    /*** @param bankAccountID sets the bankAccount id **/
     public void setBankAccountID(int bankAccountID) {
         this.bankAccountID = bankAccountID;
     }

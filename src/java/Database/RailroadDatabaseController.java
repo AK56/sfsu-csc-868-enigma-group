@@ -9,13 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
-/**
- * This class is a wrapper for the SQL queries to the database for the User and 
- * Player objects.  It also provides the additional logic functionality needed.  
- * For example it ensures that unique login information has been provided
- * before saving new user registration to the database. 
+/***
+ * This class is a wrapper for the SQL queries to the database for the Railroad
+ * objects. It also creates objects of these classes and save the new
+ * object information to the database when a new Game is started.
  * 
- * @author Cheryl
+ * @author Cheryl Nielsen
  */
 public class RailroadDatabaseController
 {    
@@ -23,7 +22,7 @@ public class RailroadDatabaseController
     // connects using JDBC.      
     private final String url = "jdbc:mysql://localhost:3306/monopoly";  
     private final String username = "root";
-    private final String password = "punjabi23";
+    private final String password = "space1987";
     
     // for the singleton design patter to ensure that only one class has access 
     // to the database for data integrity and security
@@ -35,11 +34,13 @@ public class RailroadDatabaseController
     // the resulting data produced by a sql querry
     private ResultSet resultSet;    
     
-    
-    /*********** constructor stuff *******************/
-    
-    // static for the singleton design pattern
-    // used by other classes instead of calling the constructor
+
+    /***
+     * Static function for the singleton design pattern, this is 
+     * used by other classes instead of calling the constructor.
+     * 
+     * @return RailroadDatabaseController the existing instance, or a new object if no instance currently exists
+     */
     public static RailroadDatabaseController getInstance() 
     {
         if(instance == null) {
@@ -50,12 +51,17 @@ public class RailroadDatabaseController
     }
             
     
-    // private constructor for the singleton design pattern
+    /*****
+     * Private constructor for the singleton design pattern.
+     */
    private RailroadDatabaseController() 
    {                 
    }
    
    
+    /***
+    * This loads the database driver for MySQL and opens a connection to the database.
+    */
    private void getDatabaseConnection()
    {        
         try 
@@ -76,14 +82,16 @@ public class RailroadDatabaseController
    }
    
    
-   /******* Property database functions for Railroads, Utilities, and Realestate *************/
-   
 
-   /*****
-   // gets user from the database that corresponds to that user's unique id 
-   // If successful returns a new User object with the data values belonging 
-   // to the user, else returns a NULL User object.
-   * ****/
+   /***
+   * This gets the Railroad from the database that corresponds to the unique id key combination.
+   * If successful it returns a new Railroad object with the data values belonging 
+   * to that Railroad, otherwise it returns a NULL Railroad object.
+   * 
+    * @param gameID the particular game this Railroad belongs to 
+    * @param spaceID the space on the game board where this Railroad is located
+    * @return Railroad 
+    */
    public Railroad getRailroadByID(int gameID, int spaceID)
    {       
        String query1, query2;
@@ -140,13 +148,13 @@ public class RailroadDatabaseController
   
    
    
-   /*****
-   * Saves the user's new login information to the database so it can
-   * be used in logins later.  
-   * If the new user login information is not unique or the user id
-   * is not in the database, then the save will fail and return false.
+   /***** 
+   * This updates the database information for the given Railroad.
+   * Precondition: The Railroad object to be saved to the database must already 
+   * have been updated as needed, and exist in the database.
    * 
-   * if successful returns true
+   * @param railroad the Railroad to update in the database
+   * @return boolean if successful returns true, otherwise it returns false
    * ****/
    public boolean updateRailroad(Railroad railroad)
    {      
@@ -186,14 +194,15 @@ public class RailroadDatabaseController
    
    
    
-   /*****
-   // Saves the new player information to the database so it be used in a game.
-   // The database then assigns the new player an id, token, space 1, and active status.
-   // 
-   // If successful returns a new Player object with the data values belonging 
-   // to the user, else returns a NULL Player object.
-   * ****/
-   public ArrayList<Railroad> addAllRailroadsToGame(int gameID)
+   /***
+    * This creates a new set of Railroad objects associated with the unique id key of a particular
+    * game, saves them to the database, and returns them in an ArrayList.
+    * If not successful it returns a NULL ArrayList.
+    * 
+    * @param gameID the game id
+    * @return ArrayList of Railroad Properties
+    */
+   public ArrayList<Property> addAllRailroadsToGame(int gameID)
    {
        String query;
         int space;
@@ -201,7 +210,7 @@ public class RailroadDatabaseController
         int owner = -1;
         String name;
         int price;
-        ArrayList<Railroad> railroadList = new ArrayList<Railroad>();
+        ArrayList<Property> railroadList = new ArrayList<Property>();
                 
         try 
          {             
@@ -245,6 +254,13 @@ public class RailroadDatabaseController
    }
    
 
+   /***
+    * This is used to determine how many Railroads are owned by the player with the given unique id key.
+    * This is needed to calculate the rent for a Railroad.
+    * 
+    * @param ownerID the player's id
+    * @return int the number of Railroads owned by that player
+    */
    public int numberRailroadsOwned(int ownerID)
    {
        String query;
@@ -286,10 +302,10 @@ public class RailroadDatabaseController
    
    
    
-   /**
-    * 
-    * @param spaceID
-    * @return true if successful, else false
+   /***
+    * Deletes the set of all Railroads from the database that belong to the given game unique key id
+    * @param gameID the bank id
+    * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteAllGameRailroads(int gameID)
    {      
