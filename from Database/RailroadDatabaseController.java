@@ -199,7 +199,7 @@ public class RailroadDatabaseController
     * game, saves them to the database, and returns them in an ArrayList.
     * If not successful it returns a NULL ArrayList.
     * 
-    * @param gameID
+    * @param gameID the game id
     * @return ArrayList of Railroad Properties
     */
    public ArrayList<Property> addAllRailroadsToGame(int gameID)
@@ -304,7 +304,7 @@ public class RailroadDatabaseController
    
    /***
     * Deletes the set of all Railroads from the database that belong to the given game unique key id
-    * @param bankID
+    * @param gameID the bank id
     * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteAllGameRailroads(int gameID)

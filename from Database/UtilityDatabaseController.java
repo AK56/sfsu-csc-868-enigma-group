@@ -198,7 +198,7 @@ public class UtilityDatabaseController
     * game, saves them to the database, and returns them in an ArrayList.
     * If not successful it returns a NULL ArrayList.
     * 
-    * @param gameID
+    * @param gameID the id of the game in the database
     * @return ArrayList of Utility Properties
     */
    public ArrayList<Property> addBothUtilitiesToGame(int gameID)
@@ -307,7 +307,7 @@ public class UtilityDatabaseController
    
    /***
     * Deletes both of the Utility from the database that belong to the given game unique key id.
-    * @param gameID
+    * @param gameID the id of the game in the database
     * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBothGameUtilites(int gameID)

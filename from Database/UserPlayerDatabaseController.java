@@ -90,8 +90,8 @@ public class UserPlayerDatabaseController
    * Looks for a match to the login information in the database
    * by testing for a match to the combination of the username and password
    * 
-   * @param username 
-   * @param password
+   * @param username login 
+   * @param password login
    * @return boolean if match found returns true, if not returns false
    *****/
    public boolean doesUserLoginExist(String username, String password)
@@ -253,7 +253,7 @@ public class UserPlayerDatabaseController
    * If successful returns a new User object with the data values belonging 
    * to the user, else returns a NULL User object.
    * 
-   * @param id 
+   * @param id the user id
    * @return User
    *****/
    public User getUserByID(int id)
@@ -309,9 +309,9 @@ public class UserPlayerDatabaseController
    * If the new User login information is not unique or the user id
    * is not in the database, then the save will fail and return false.
    * 
-   * @param userID
-   * @param newUsername
-   * @param newPassword
+   * @param userID the user id in the database
+   * @param newUsername new login
+   * @param newPassword new login
    * @return boolean if successful returns true, else returns false
    *****/
    public boolean updateUserLogin(int userID, String newUsername, String newPassword)
@@ -369,9 +369,9 @@ public class UserPlayerDatabaseController
    * 
    * If successful returns a new Player object and gives the User the, else returns a NULL Player object.
    * 
-   * @param user
-   * @param token_id
-   * @param game_id
+   * @param user the user id 
+   * @param token_id the token id 
+   * @param game_id the game id in the database
    * @return Player
    * 
    *****/
@@ -435,7 +435,7 @@ public class UserPlayerDatabaseController
     * If successful returns a new User object with the data values belonging 
     * to the user, else returns a NULL User object.
     * 
-    * @param id
+    * @param id the player id in the database
     * @return Player
     ****/
    public Player getPlayerByID(int id)
@@ -490,7 +490,7 @@ public class UserPlayerDatabaseController
    * Gets the image file name from the database that corresponds to that token's unique id key
    * If successful returns name of the image file on the web server. 
    * 
-   * @param token_id
+   * @param token_id the token id in the database
    * @return String file name
    ****/
    public String getTokenFileName(int token_id)
@@ -535,7 +535,7 @@ public class UserPlayerDatabaseController
    
    /**
     * Deletes the Player from the database that belong to the given game unique key id
-    * @param playerID
+    * @param playerID the id of the player in the database
     * @return true if successful, else false
     */
    public boolean deletePlayer(int playerID)
@@ -579,7 +579,7 @@ public class UserPlayerDatabaseController
       
    /**
     * Deletes the User from the database that belong to the given game unique key id
-    * @param userID
+    * @param userID the id of the user in the database
     * @return true if successful, else false
     */
    public boolean deleteUser(int userID)
@@ -625,7 +625,7 @@ public class UserPlayerDatabaseController
    * Gets a list of Players from the database that corresponds to the game unique id key
    * If successful returns the Player list, else returns a NULL ArrayList object.
    * 
-   * @param gameID
+   * @param gameID the id of the game in the database
    * @return ArrayList of Players
    *****/
    public ArrayList<Player> getPlayerListByGameID(int gameID)

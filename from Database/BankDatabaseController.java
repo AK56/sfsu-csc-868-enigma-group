@@ -88,8 +88,8 @@ public class BankDatabaseController
    * If successful it returns a new Bank object with the data values belonging 
    * to that Bank, otherwise it returns a NULL Bank object.
    * 
-    * @param bankID
-    * @return Bank 
+    * @param bankID the id of the bank
+    * @return Bank the new object or null
     */
    public Bank getBankByID(int bankID)
    {       
@@ -138,8 +138,8 @@ public class BankDatabaseController
    * If successful it returns a new BankAccount object with the data values belonging 
    * to that BankAccount, otherwise it returns a NULL BankAccount object.
    * 
-    * @param accountID
-    * @return BankAccount
+    * @param accountID the id of the account
+    * @return BankAccount the new object or null
     */
    public BankAccount getAccountByID(int accountID)
    {       
@@ -189,7 +189,7 @@ public class BankDatabaseController
    * to the unique id key of a particular Bank.
    * If not successful it returns a NULL ArrayList.
    * 
-    * @param bankID
+    * @param bankID the id of the bank
     * @return ArrayList of BankAccounts
     */
    public ArrayList<BankAccount> getAccountListByBankID(int bankID)
@@ -321,7 +321,7 @@ public class BankDatabaseController
     * If successful it returns a new Bank object, otherwise it returns a NULL Bank object.
     * 
     * @param playerIDs all the players that need to have new BankAccounts in the new Bank.
-    * @return Bank 
+    * @return Bank the new object or null
     */
    public Bank addNewBank(int[] playerIDs)
    {
@@ -381,7 +381,7 @@ public class BankDatabaseController
     * 
     * @param playerID the Player that has the new BankAccount
     * @param bankID the Bank that owns the new BankAccount
-    * @return BankAccount 
+    * @return BankAccount the new object or null
     */
    public BankAccount addNewBankAccount(int bankID, int playerID)
    {
@@ -436,7 +436,7 @@ public class BankDatabaseController
    
    /***
     * Deletes the Bank with the given unique id key from the database.
-    * @param bankID
+    * @param bankID the id of the Bank
     * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBank(int bankID)
@@ -477,7 +477,7 @@ public class BankDatabaseController
    
    /***
     * Deletes the BankAccount with the given unique id key from the database.
-    * @param accountID
+    * @param accountID the id of the bank account
     * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteBankAccount(int accountID)

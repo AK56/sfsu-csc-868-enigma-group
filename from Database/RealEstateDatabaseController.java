@@ -162,7 +162,7 @@ public class RealEstateDatabaseController
     * This creates an ArrayList of rents for a given RealEstate unique id key spaceID from the database.
     * If not successful it returns a NULL ArrayList.
     * 
-    * @param spaceID
+    * @param spaceID the space location on the game board
     * @return ArrayList of Integer rents
     */  
    public ArrayList<Integer> getRents(int spaceID)
@@ -261,7 +261,7 @@ public class RealEstateDatabaseController
     * game, saves them to the database, and returns them in an ArrayList.
     * If not successful it returns a NULL ArrayList.
     * 
-    * @param gameID
+    * @param gameID the game id
     * @return ArrayList of RealEstate Properties
     */
    public ArrayList<Property> addAllRealEstatesToGame(int gameID)
@@ -335,6 +335,8 @@ public class RealEstateDatabaseController
     * This is needed to calculate the rent for a RealEstate.  
     * 
     * @param ownerID the player's id
+    * @param numberForMonopoly the number of real estate properties needed in that color to be a monopoly
+    * @param color the color set being checked for a monopoly with that player owner
     * @return boolean are both of the Utility owned by that player
     */
    public boolean doesPlayerHaveMonopoly(int ownerID, int numberForMonopoly, String color)
@@ -383,7 +385,7 @@ public class RealEstateDatabaseController
    
    /***
     * Deletes all of the RealEstate from the database that belong to the given game unique key id
-    * @param gameID
+    * @param gameID the game id in the database
     * @return boolean returns true if successful, or false if not successful
     */
    public boolean deleteAllGameRealEstates(int gameID)
