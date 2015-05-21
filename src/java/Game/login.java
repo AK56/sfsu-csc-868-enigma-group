@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Game;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Database.UserPlayerDatabaseController;
 import javax.servlet.http.HttpSession;
-/**
- *
+/***
+ * This holds the actions for the login of previously registered user of the web site, and
+ * the communication of that information between the server and the client.
+ * 
  * @author Gurpartap Gill
- */
+ **/
 public class login extends HttpServlet {
     
     /**
@@ -38,8 +41,8 @@ public class login extends HttpServlet {
         session.setAttribute("userName", userName);
         session.setAttribute("passwrd", passwrd);
         
-        String lobbyPage = new String("http://localhost:8080/WebApplication1/lobby.jsp");
-        String regPage = new String("http://localhost:8080/WebApplication1/noSuccess.html");
+        String lobbyPage = new String("lobby.jsp");
+        String regPage = new String("noSuccess.html");
        // if((userName.compareTo("gill") == 0) && (passwrd.compareTo("gill") == 0)){
             /*direct the User to Lobby page, if the user is Registered*/
         if (UserPlayerDatabaseController.getInstance().doesUserLoginExist(userName, passwrd)){

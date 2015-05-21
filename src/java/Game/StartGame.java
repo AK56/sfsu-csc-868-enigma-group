@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+package Game;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,7 +22,10 @@ import Game.Bank;
 import Game.GameServlet;
 
 /**
- *
+ * This holds the actions for starting a new game on the web site, setting up the
+ * new game players for the users, and the communication of that information 
+ * between the server and the client.
+ * 
  * @author Robert Moon
  */
 @WebServlet(urlPatterns = {"/StartGame"})

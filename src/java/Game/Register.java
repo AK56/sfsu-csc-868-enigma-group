@@ -1,8 +1,10 @@
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+package Game;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,10 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import Database.UserPlayerDatabaseController;
-/**
- *
+/***
+ * This holds the actions for the registration of a new user of the web site, and
+ * the communication of that information between the server and the client.
+ * 
  * @author Gurpartap Gill
- */
+ **/
 public class Register extends HttpServlet {
 
     /**
@@ -45,7 +49,7 @@ public class Register extends HttpServlet {
         session.setAttribute("lastName", lastName);
             
         
-        String ifRegistered = new String("http://localhost:8080/WebApplication1/registrationSucess.html");
+        String ifRegistered = new String("registrationSucess.html");
         /* check if the password entries match*/
        // if((passwrd.compareTo(confirmPasswrd) == 0) && (userName != null || passwrd != null || confirmPasswrd != null
        //         || firstName != null || lastName != null)){

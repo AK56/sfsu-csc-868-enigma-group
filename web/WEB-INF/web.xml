@@ -2,11 +2,11 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>login</servlet-class>
+        <servlet-class>Game.login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Register</servlet-name>
-        <servlet-class>Register</servlet-class>
+        <servlet-class>Game.Register</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GameServlet</servlet-name>

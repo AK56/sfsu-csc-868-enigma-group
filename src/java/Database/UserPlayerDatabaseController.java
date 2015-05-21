@@ -424,8 +424,9 @@ public class UserPlayerDatabaseController
          }
         finally 
         {
-          return player;
+          //return player;
         }
+        return player;
    }  
    
    

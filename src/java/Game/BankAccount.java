@@ -4,13 +4,12 @@ import Database.BankDatabaseController;
 import java.util.ArrayList;
 
 
-/**
- *
- * @author John
+/*** 
+ * The BankAccount class keeps track of the account balance of a particular player. Each instance of
+ * this class stores the id of the particular bank account, the bank id associated with the account, the
+ * balance, and the player associated with the balance.
  * 
- * Summary: The BankAccount class keeps track of the account balance of a particular player. Each instance of
-this class stores the id of the particular bank account, the bank id associated with the account, the
-balance, and the player associated with the balance.
+ * @author John Santos
  */
 public class BankAccount
 {

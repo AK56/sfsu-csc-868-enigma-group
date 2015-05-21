@@ -16,12 +16,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
+/***
  *
+ * This is the main Servlet class that handles Player actions and requests. This 
+ * class interacts directly and mostly with Game page class and perform many 
+ * actions like RollDice, BuyProperty etc.
  * @author Gurpartap Gill
- * This is the main Servlet class that handles Player actions and requests. This class interacts directly 
- * and mostly with Game page class and perform many actions like RollDice, BuyProperty etc.
- */
+ * 
+ **/
 @WebServlet("/Game.GameServlet")
 public class GameServlet extends HttpServlet {
 
@@ -157,59 +159,114 @@ public class GameServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    /*** @return returns the gameId of current Game in session **/
+    
+    /*** 
+     * returns the gameId of current Game in session
+     * @return returns the gameId of current Game in session 
+     **/
     public int getGameID() {
         return gameID;
     }
-    /*** @param gameID sets gameId of current Game in session **/
+    
+    /*** 
+     * sets gameId of current Game in session
+     * @param gameID sets gameId of current Game in session 
+     **/
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
-    /*** @return returns the bank for the Game **/
+    
+    /***
+     * returns the bank for the Game
+     * @return returns the bank for the Game 
+     **/
     public Bank getBank() {
         return bank;
     }
-    /*** @param bank sets the bank for the current **/
+    
+    /***
+     * sets the bank for the current
+     * @param bank sets the bank for the current 
+     **/
     public void setBank(Bank bank) {
         this.bank = bank;
     }
-    /*** @return checks if the currentPlayer is in Jail or Not **/
+    
+    /***
+     * checks if the currentPlayer is in Jail or Not 
+     * @return checks if the currentPlayer is in Jail or Not 
+     **/
     public boolean isIsInJail() {
         return isInJail;
     }
-    /*** @param isInJail sets the currentPlayer inJail status **/
+    
+    /***
+     * sets the currentPlayer inJail status
+     * @param isInJail sets the currentPlayer inJail status 
+     **/
     public void setIsInJail(boolean isInJail) {
         this.isInJail = isInJail;
     }
-    /*** @return returns the playerId of current Player**/
+    
+    /***
+     * returns the playerId of current Player
+     * @return returns the playerId of current Player
+     **/
     public int getPlayerId() {
         return playerId;
     }
-    /*** @param playerId sets the current playerId**/
+    
+    /***
+     * sets the current playerId
+     * @param playerId sets the current playerId
+     **/
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
     }
-    /*** @return returns the activePlayer or player in turn**/
+    
+    /***
+     * returns the activePlayer or player in turn
+     * @return returns the activePlayer or player in turn
+     **/
     public Player getActivePlayer() {
         return activePlayer;
     }
-    /*** @param activePlayer sets the activePlayer**/
+    
+    /***
+     * sets the activePlayer
+     * @param activePlayer sets the activePlayer
+     **/
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
     }
-    /*** @return returns the list of players**/
+    
+    /***
+     * returns the list of players
+     * @return returns the list of players
+     **/
     public ArrayList<Player> getPlayers() {
         return players;
     }
-    /*** @param players sets the list of players**/
+    /***
+     * sets the list of players
+     * @param players sets the list of players
+     **/
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
-    /*** @return  returns list of properties**/
+    
+    /***
+     * returns list of properties
+     * @return  returns list of properties
+     **/
     public ArrayList<Property> getProperties() {
         return properties;
     }
-    /*** @param properties sets the list of properties**/
+    
+    /***
+     * sets the list of properties
+     * @param properties sets the list of properties
+     **/
     public void setProperties(ArrayList<Property> properties) {
         this.properties = properties;
     }

@@ -1,13 +1,14 @@
 /*
- * This class is for cards that force the player to move to a specific location.
- * Some of these cards have special modifers like changes in the rate owed and
- * if the player gets money for passing go.
+ * 
  */
 package Card;
 import Game.*;
 import User.Player;
 /**
- *
+ * This class is for cards that force the player to move to a specific location.
+ * Some of these cards have special modifiers like changes in the rate owed and
+ * if the player gets money for passing go.
+ * 
  * @author Kenneth Robertson
  */
 public class MoveToLocationCard extends Card
