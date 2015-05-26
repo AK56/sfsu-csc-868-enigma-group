@@ -21,7 +21,6 @@ perform a database import on your MySQL server. Here is an example using Workben
 -Click on 'New...' and choose name you like
 
 -At the bottom, select 'Dump Structure and Data'
-
 -Click on Start Import
 
 #Connect DB with IDE
