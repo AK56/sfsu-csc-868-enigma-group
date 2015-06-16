@@ -7,7 +7,6 @@ import User.*;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /**
  * This class is a wrapper for the SQL queries to the database for the User and 
  * Player objects.  It also provides the additional logic functionality needed.  
