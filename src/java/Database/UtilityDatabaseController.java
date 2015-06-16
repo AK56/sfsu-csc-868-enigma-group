@@ -8,7 +8,6 @@ import Property.Utility;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /***
  * This class is a wrapper for the SQL queries to the database for the Utility
  * objects. It also creates objects of these classes and save the new
