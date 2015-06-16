@@ -6,7 +6,6 @@ package Database;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /***
  * This class is a wrapper for the SQL queries to the database for a new game. 
  * It saves the new id to the database so all database items needed by the game can be associated 
