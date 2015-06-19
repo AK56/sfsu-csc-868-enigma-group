@@ -6,7 +6,6 @@ import User.Player;
 
 import java.util.ArrayList;
 
-
 /**
  * The bank owns all the properties, so whenever a player wants to buy or mortgage a property, he
  * needs to call the bank class. The bank gives starter money to all the players in the beginning of the
