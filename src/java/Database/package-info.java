@@ -12,6 +12,5 @@
 * the new object is first created and saved to the database.  Special functions 
 * specifically for the handling of login search and retrieval of users are also 
 * included for ease of use in the UserPlayerDatabaseController.
-* 
  */
 package Database;
