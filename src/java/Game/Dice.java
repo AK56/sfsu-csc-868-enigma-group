@@ -4,7 +4,6 @@
 package Game;
 
 import java.util.Random;
-
 /**
  * This class takes the responsibility to roll the dice and return the total dice value of the dice rolled.
  * 
