@@ -6,4 +6,5 @@
  * game information specific to playing a game such as game board location and 
  * game assets.
  */
+ 
 package User;
