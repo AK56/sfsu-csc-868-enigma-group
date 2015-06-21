@@ -1,5 +1,4 @@
 package User;
-
 /**
  * 
  * The User class allows different actions for a User. A User is someone who can browse the
