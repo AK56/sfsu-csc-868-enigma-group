@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Game;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
