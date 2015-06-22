@@ -1,7 +1,6 @@
 package Card;
 import Game.*;
 import User.Player;
-
 /**
  * This class is for cards that transfer money to or from all the players in the game.
  * 
