@@ -29,7 +29,6 @@ public class GetOutOfJailFreeCard extends Card
         super(cardID, cardDescription, cardDrawer, cardStackType, gameServlet);
         
     }
-    
     /**
      * initializer - 5 parameters
      *
