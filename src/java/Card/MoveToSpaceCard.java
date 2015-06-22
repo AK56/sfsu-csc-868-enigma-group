@@ -63,7 +63,6 @@ public class MoveToSpaceCard extends Card
     {
         //Set cardDrawer to its current space + spaceChange
     }
-
     /**
      * @return  int holding the number of the spaces and directions the card drawer will be moved
      */
