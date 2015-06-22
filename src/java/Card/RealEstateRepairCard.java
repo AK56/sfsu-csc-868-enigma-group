@@ -9,7 +9,6 @@ import java.util.ArrayList;
  * 
  * @author Kenneth Robertson
  */
-
 public class RealEstateRepairCard extends Card
 {
     private int costPerHouse;
