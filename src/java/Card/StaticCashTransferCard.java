@@ -6,7 +6,6 @@ import User.Player;
  * 
  * @author Kenneth Robertson
  */
-
 public class StaticCashTransferCard extends Card
 {
     private int amountTransfered;
