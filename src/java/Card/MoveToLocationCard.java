@@ -1,6 +1,3 @@
-/*
- * 
- */
 package Card;
 import Game.*;
 import User.Player;
