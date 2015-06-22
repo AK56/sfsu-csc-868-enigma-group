@@ -1,7 +1,6 @@
 package Card;
 import Game.*;
 import User.Player;
-
 /**
  * This is the abstract base class for all the other card classes.
  * It contains the information needed by all card objects including:
