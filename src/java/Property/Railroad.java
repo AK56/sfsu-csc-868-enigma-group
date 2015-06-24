@@ -1,7 +1,6 @@
 package Property;
 
 import Database.RailroadDatabaseController;
-
 /**
  * The Railroad class extends Property, inheriting all parameters from it.
  * This class specifically calculates the rent for railroad properties.
