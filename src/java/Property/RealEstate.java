@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import Database.RealEstateDatabaseController;
 
-
 /**
  * The RealEstate class extends Property, inheriting all parameters from it.
  * This class specifically keeps track of colored properties that is used
