@@ -2,8 +2,6 @@ package Property;
 
 import Database.UtilityDatabaseController;
 
-
-
 /**
  * The utility class inherits from the Property class and is used to store
  * properties like the Electric Company which have rents based on dice rolls.
