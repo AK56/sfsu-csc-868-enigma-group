@@ -1,6 +1,5 @@
 package Property;
 
-
 /**
  * The Property Class is an abstract class that inherits from Space This class
  * keeps track of all properties for a property. An abstract method
