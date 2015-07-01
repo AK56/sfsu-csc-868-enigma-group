@@ -5,6 +5,7 @@
  * AUTHOR: Gurpartap Gill
  */
 
+
 /*global variables and can be accessed anywhere in the script*/
                   var spaceId = 0;
                   var isInJail = "No";
