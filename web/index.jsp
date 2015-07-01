@@ -12,6 +12,7 @@
         <link href="monopoly.css" rel="stylesheet">
         <title>Welcome To Monopoly</title>
     </head>
+    
     <body>
         
         <div align="center">
