@@ -26,14 +26,6 @@
 
 
 <body>
-
-    <!--table width="90%" border="1">
-      <tr>
-        <td width="22%" class="header"><img src="images/enigma.jpg" width="101" height="102" alt="Logo" /></td>
-        <td width="54%" class="header"><img src="images/monopoly-text.jpg" width="593" height="120" alt="Monopoly Text" /></td>
-        <td width="24%" class="blue"><button class="header"><a href="lobby.jsp">Leave Game</a></button></td>
-      </tr>
-    </table-->
     <div align="center">
         <table width="90%" border="0">
             <tr>
@@ -85,12 +77,13 @@
                     <script src ="monopoly.js"></script>
                     <script>
                         /*here is our jQuery hnadling much of the HTML DOM & JavaScript functionality
-                         * once the HTML doc is uploaded, then it checks for button wir=th id =dice. Once this button
+                         * once the HTML doc is uploaded, then it checks for button with id = dice. Once this button
                          * gets clicked, an AJAX call is made using simple GET beacuse here we are only getting the data 
                          * from the server. 
-                         * To get(), we supply the Servlet URL, some parameters that GameServelet checks in order to roll
-                         * the dice. Then the ;ast arg function(resp) is the callback function that holds the data returned
-                         * by server, in this case the GameServlet  */
+                         * To get(), we supply the Servlet URL(location of the servlet to be called), some parameters that 
+                         * GameServelet checks in order to roll the dice. Then the last arg is function(resp), is the callback 
+                         * function that holds the data returned by server, in this case dice value by GameServlet  */
+                         
                         $(document).ready(function () {
 
                             $("#dice").click(function () {
@@ -109,8 +102,9 @@
                                 }
                                 else {
                                     $.get('Game.GameServlet', {"param": "rollDice"}, function (resp) {
-
-                                        movePlayer(parseInt(resp)); // convert the diceTotal to int and pass on to movePlayer() to move token
+                                        /* convert the diceTotal to int and pass on to movePlayer() to move token 
+                                          to that many spaces from current space*/
+                                        movePlayer(parseInt(resp)); 
                                         updateSpaceId(); // updates spaceId
                                         $("#myConsole").append("You rolled " + resp + " diceValue.<br>");
                                         if (returnSpaceId() == 4 || returnSpaceId() == 38) {
