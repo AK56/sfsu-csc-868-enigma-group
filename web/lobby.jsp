@@ -2,6 +2,10 @@
     Document   : lobby
     Created on : Apr 22, 2015, 8:17:02 PM
     Author     : Robert Moon & John Santos
+    
+    Once a user/player signs in to the site, he/she is redirected to this page. From here on the player can start 
+    a new game. The future work on this page is under construction; like a returning player can resume his/her game session.
+    Once a new game is started, the player will taken to the Game Page.
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
